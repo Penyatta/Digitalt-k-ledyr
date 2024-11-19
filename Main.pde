@@ -10,6 +10,7 @@ void setup(){
   fullScreen();
   strokeWeight(3);
   flemming = new Dyr();
+  flemming.x = width/8;
 }
 void draw(){
   background(100, 50, 50);

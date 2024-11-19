@@ -9,11 +9,6 @@ class Dyr{
   float smooth = width/40;
   float angle = -PI/6;
   
-  float eyeX = x+sX*0.45;
-  float eyeY = y+sY*0.2;
-  float eyeSX = sX/8;
-  float eyeSY = sY/3;
-  float pupilSize = eyeSX/2;
   float pupilXL = 0;
   float pupilYL = 0;
   float pupilXR = 0;
@@ -26,6 +21,11 @@ class Dyr{
     rect(x-tan(angle)*y, y, sX, sY, smooth);
     popMatrix();
     arc(x+sX/6, y+sY*0.7, sX/8, sX/8, PI/8, PI+PI/8);
+    float eyeX = x+sX*0.45;
+    float eyeY = y+sY*0.2;
+    float eyeSX = sX/8;
+    float eyeSY = sY/3;
+    float pupilSize = eyeSX/2;
     float pL = eyeX-sX*0.15;
     float pR = eyeX+sX*0.15;
     float dL = atan((mouseY-eyeY)/(mouseX-pL));
