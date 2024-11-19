@@ -74,10 +74,24 @@ class Dyr{
     pupilYL = lerp(pupilYL, pYL, 0.2);
     pupilXR = lerp(pupilXR, pXR, 0.2);
     pupilYR = lerp(pupilYR, pYR, 0.2);
+    if(isNan(pupilXL)){
+      pupilXL = mouseX-pL;
+    }
+    if(isNan(pupilYL)){
+      pupilYL = mouseY-eyeY;
+    }
+    if(isNan(pupilXR)){
+      pupilXR = mouseX-pR;
+    }
+    if(isNan(pupilYR)){
+      pupilYR = mouseY-eyeY;
+    }
     fill(255);
     ellipse(pL, eyeY, eyeSX, eyeSY);
     ellipse(pR, eyeY, eyeSX, eyeSY);
     fill(0);
+    text(pupilXL, 100, 100);
+    text(pupilYL, 100, 200);
     noStroke();
     circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
     circle(pupilXR+pR, pupilYR+eyeY, pupilSize);

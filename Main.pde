@@ -1,5 +1,11 @@
 Dyr flemming;
 
+float NaN = 0.0/0.0;
+
+boolean isNan(float val){
+  return val != val;
+}
+
 void setup(){
   fullScreen();
   strokeWeight(3);
