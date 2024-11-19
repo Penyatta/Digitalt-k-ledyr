@@ -82,7 +82,5 @@ class Dyr{
     circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
     circle(pupilXR+pR, pupilYR+eyeY, pupilSize);
     stroke(0);
-    line(pL, eyeY, mouseX, mouseY);
-    line(pR, eyeY, mouseX, mouseY);
   }
 }
