@@ -14,7 +14,18 @@ class Dyr{
   float pupilXR = 0;
   float pupilYR = 0;
   
+  boolean blink = false;
+  float blinkTimer = 0;
+  float blinkModifier = 1;
+  
+  float timer;
+  
   void tegnDyr(){
+    timer = millis();
+    if(timer >= blinkTimer){
+      blink = false;
+      blinkModifier = lerp(blinkModifier, 1, 0.6);
+    }
     pushMatrix();
     shearX(angle);
     fill(0, 200, 255);
@@ -24,14 +35,17 @@ class Dyr{
     float eyeX = x+sX*0.45;
     float eyeY = y+sY*0.2;
     float eyeSX = sX/8;
-    float eyeSY = sY/3;
+    float eyeSY = sY/3*blinkModifier;
     float pupilSize = eyeSX/2;
     float pL = eyeX-sX*0.15;
     float pR = eyeX+sX*0.15;
     float dL = atan((mouseY-eyeY)/(mouseX-pL));
     float dR = atan((mouseY-eyeY)/(mouseX-pR));
     float mX = eyeSX/2-pupilSize/2;
-    float mY = eyeSY/2-pupilSize/2;
+    float mY = 0;
+    if(eyeSY > pupilSize){
+      mY = eyeSY/2-pupilSize/2;
+    }
     if(mouseX-pL < 0){
       dL+=PI;
     }
@@ -90,11 +104,18 @@ class Dyr{
     ellipse(pL, eyeY, eyeSX, eyeSY);
     ellipse(pR, eyeY, eyeSX, eyeSY);
     fill(0);
-    text(pupilXL, 100, 100);
-    text(pupilYL, 100, 200);
+    text(blinkModifier, 100, 100);
     noStroke();
-    circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
-    circle(pupilXR+pR, pupilYR+eyeY, pupilSize);
+    if(blink == true){
+      blinkModifier = lerp(blinkModifier, 0, 0.6);
+    }
+    ellipse(pupilXL*blinkModifier+pL, pupilYL*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
+    ellipse(pupilXR+pR, pupilYR+eyeY, pupilSize, pupilSize*blinkModifier);
     stroke(0);
+  }
+  
+  void blink(float time){
+    blink = true;
+    blinkTimer = millis()+time;
   }
 }
