@@ -90,8 +90,6 @@ class Dyr{
     ellipse(pL, eyeY, eyeSX, eyeSY);
     ellipse(pR, eyeY, eyeSX, eyeSY);
     fill(0);
-    text(pupilXL, 100, 100);
-    text(pupilYL, 100, 200);
     noStroke();
     circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
     circle(pupilXR+pR, pupilYR+eyeY, pupilSize);
