@@ -14,6 +14,14 @@ class Dyr{
   float pupilXR = 0;
   float pupilYR = 0;
   
+  float mundPosX=x+sX/6;
+  float mundPosY=y+sY/6;
+  float hastTunge=0.3;
+  float tungeX=x+sX/6;
+  float tungeY=y+sY/6;
+  boolean tungeIBrug=false;
+  boolean tungeUd=true;
+  
   void tegnDyr(){
     pushMatrix();
     shearX(angle);
@@ -93,6 +101,18 @@ class Dyr{
     noStroke();
     circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
     circle(pupilXR+pR, pupilYR+eyeY, pupilSize);
+    if(tungeIBrug){
+    stroke(209,144,142);
+    strokeWeight(60);
+    strokeCap(ROUND);
+    line(mundPosX, mundPosY,tungeX,tungeY);
     stroke(0);
+    strokeWeight(3);
+    strokeCap(SQUARE);
+    }
   }
+}
+
+void tunge(){
+  
 }

@@ -14,6 +14,7 @@ void setup() {
   //flemming.x = width/8;
 }
 void draw() {
+  stroke(0);
   background(100, 50, 50);
   fill(100);
   rect(-10, height*0.8, width+21, height*0.2);
@@ -27,15 +28,16 @@ void draw() {
   prevY=mouseY;
 }
 MadPartikel mad;
-void mousePressed () {
-  if (MadIHånden) {
-    MadILuften=true;
-    MadIHånden=false;
-    mad.GivSlip();
-  }
-  int ellipseDecider=(((mouseX-width/13*11)^2)/((width/9)^2))+((mouseY-height/20*16)^2)/((height/8)^2);
-  if (ellipseDecider<=1&& !MadIHånden) {
-    mad = new MadPartikel();
-    MadIHånden=true;
-  }
+void mousePressed() {
+    if (MadIHånden) {
+        MadIHånden = false; // No longer in hand
+        MadPartikler.get(MadPartikler.size()-1).GivSlip(); // Release the food particle
+    } else {
+        double ellipseDecider = ((Math.pow(mouseX - width / 13 * 11, 2) / Math.pow(width / 9, 2)) + 
+                                   (Math.pow(mouseY - height / 20 * 16, 2) / Math.pow(height / 8, 2)));
+        if (ellipseDecider <= 1) {
+            MadPartikler.add(new MadPartikel());
+            MadIHånden = true; // Pick up the particle
+        }
+    }
 }

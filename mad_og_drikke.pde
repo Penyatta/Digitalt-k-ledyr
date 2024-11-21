@@ -3,6 +3,7 @@ boolean MadIHånden=false;
 boolean MadILuften=false;
 float prevX;
 float prevY;
+ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 
 class MadPartikel {
   float Størrelse=height/40;
@@ -13,15 +14,16 @@ class MadPartikel {
   float hastX=1;
   float hastY=1;
   boolean IHånden=true;
+  boolean Stille=false;
   float bouncyness=0.7;
-  float vindmodstand=0.995;
-  float gravity=0.1;
+  float vindmodstand=0.9999;
+  float gravity=0.8;
   float friktion=0.9;
   void TegnMad() {
     if (IHånden) {
       posX=mouseX;
       posY=mouseY;
-    } else {
+    } else if(!Stille){
       if (posX<=Størrelse/2 || posX>=(width-Størrelse/2)) {
         hastX=hastX*(-bouncyness);
         hastY=hastY*(friktion);
@@ -31,10 +33,10 @@ class MadPartikel {
           posX=width-1-Størrelse/2;
         }
       }
-      if (posY<Størrelse/2) {
+      if (posY>height-Størrelse/2) {
         hastY=hastY*(-bouncyness);
         hastX=hastX*(friktion);
-        posY=1+Størrelse/2;
+        posY=height-Størrelse/2;
       }
       hastX=hastX*vindmodstand;
       hastY=hastY*vindmodstand;
@@ -42,12 +44,15 @@ class MadPartikel {
       posX=posX+hastX;
       posY=posY+hastY;
     }
+    if(hastX==0 && hastY==0 && posX>height-Størrelse/2){
+       Stille=true; 
+      }
     strokeWeight(0);
     fill(154,102,63);
     circle(posX, posY, Størrelse);
     strokeWeight(3);
-    distanceX=prevX-mouseX;
-    distanceY=prevY-mouseY;
+    distanceX=mouseX-prevX;
+    distanceY=mouseY-prevY;
   }
   void GivSlip() {
     if(IHånden){
@@ -61,7 +66,7 @@ class MadPartikel {
 
 void tegnMadDrikke() {
   image(Madskål, width/7*5, height/5*3, width/4, height/2);
-  if (MadIHånden || MadILuften) {
-    mad.TegnMad();
+  for(MadPartikel i : MadPartikler){
+    i.TegnMad();
   }
 }
