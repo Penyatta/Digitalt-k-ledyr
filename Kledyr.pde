@@ -133,6 +133,7 @@ class Dyr{
     stroke(0);
     float dY = h/(hyp);
     float dX = sqrt(1-pow(dY, 2));
+    println(dX);
     line(brynVinkel*(eyeSX/2)-dX*brynLængde+pL, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2)/eyeSX*2, 2)))+eyeY-dY*brynLængde, brynVinkel*(eyeSX/2)+dX*brynLængde+pL, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2)*2))+eyeY+dY*brynLængde);
     line(-(brynVinkel*(eyeSX/2)-dX*brynLængde)+pR, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2)/eyeSX*2, 2)))+eyeY-dY*brynLængde, -(brynVinkel*(eyeSX/2)+dX*brynLængde)+pR, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2)*2))+eyeY+dY*brynLængde);
   }
