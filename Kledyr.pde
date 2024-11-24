@@ -20,18 +20,13 @@ class Dyr{
   
   float timer;
   
+  String humør = "glad";
+  float mundVinkel = 0;
+  float brynVinkel = 0;
+  float brynLængde = sX/30;
+  float brynDistance = sX/60;
+  
   void tegnDyr(){
-    timer = millis();
-    if(timer >= blinkTimer){
-      blink = false;
-      blinkModifier = lerp(blinkModifier, 1, 0.6);
-    }
-    pushMatrix();
-    shearX(angle);
-    fill(0, 200, 255);
-    rect(x-tan(angle)*y, y, sX, sY, smooth);
-    popMatrix();
-    arc(x+sX/6, y+sY*0.7, sX/8, sX/8, PI/8, PI+PI/8);
     float eyeX = x+sX*0.45;
     float eyeY = y+sY*0.2;
     float eyeSX = sX/8;
@@ -43,6 +38,32 @@ class Dyr{
     float dR = atan((mouseY-eyeY)/(mouseX-pR));
     float mX = eyeSX/2-pupilSize/2;
     float mY = 0;
+    float h = ((2*brynVinkel*(eyeSX/2)*eyeSY)/(pow(eyeSX, 2)*sqrt(1-4*pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2))));
+    float hyp = sqrt(pow(h, 2)+1);
+    println();
+    timer = millis();
+    if(timer >= blinkTimer){
+      blink = false;
+      blinkModifier = lerp(blinkModifier, 1, 0.6);
+    }
+    pushMatrix();
+    shearX(angle);
+    fill(0, 200, 255);
+    rect(x-tan(angle)*y, y, sX, sY, smooth);
+    popMatrix();
+    if(humør == "glad"){
+      mundVinkel = lerp(mundVinkel, PI/8, 0.2);
+      brynVinkel = lerp(brynVinkel, 0, 0.2);
+    }
+    if(humør == "trist"){
+      mundVinkel = lerp(mundVinkel, PI+PI/8, 0.2);
+      brynVinkel = lerp(brynVinkel, -0.5, 0.2);
+    }
+    if(humør == "sur"){
+      mundVinkel = lerp(mundVinkel, PI, 0.2);
+      brynVinkel = lerp(brynVinkel, 0.5, 0.2);
+    }
+    arc(x+sX/6, y+sY*0.7, sX/8, sX/8, mundVinkel, PI+mundVinkel);
     if(eyeSY > pupilSize){
       mY = eyeSY/2-pupilSize/2;
     }
@@ -104,7 +125,6 @@ class Dyr{
     ellipse(pL, eyeY, eyeSX, eyeSY);
     ellipse(pR, eyeY, eyeSX, eyeSY);
     fill(0);
-    text(blinkModifier, 100, 100);
     noStroke();
     if(blink == true){
       blinkModifier = lerp(blinkModifier, 0, 0.6);
@@ -112,10 +132,26 @@ class Dyr{
     ellipse(pupilXL*blinkModifier+pL, pupilYL*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
     ellipse(pupilXR+pR, pupilYR+eyeY, pupilSize, pupilSize*blinkModifier);
     stroke(0);
+    float dY = h/(hyp);
+    float dX = sqrt(1-pow(dY, 2));
+    float brynX = brynVinkel*((eyeSX+brynDistance*blinkModifier)/2);
+    float brynY = -(eyeSY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSX+brynDistance*blinkModifier)*2, 2));
+    println(dX);
+    line(brynX+pL-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+pL+dX*brynLængde, brynY+eyeY+dY*brynLængde);
+    line(-brynX+pR-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+pR+dX*brynLængde, brynY+eyeY-dY*brynLængde);
   }
   
   void blink(float time){
     blink = true;
     blinkTimer = millis()+time;
+  }
+  void blivGlad(){
+    humør = "glad";
+  }
+  void blivTrist(){
+    humør = "trist";
+  }
+  void blivSur(){
+    humør = "sur";
   }
 }
