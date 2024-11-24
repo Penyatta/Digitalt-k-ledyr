@@ -29,3 +29,15 @@ void mousePressed(){
     flemming.blink(500);
   }
 }
+
+void keyPressed(){
+  if(key == 's'){
+    flemming.humør = "sur";
+  }
+  if(key == 'g'){
+    flemming.humør = "glad";
+  }
+  if(key == 't'){
+    flemming.humør = "trist";
+  }
+}
