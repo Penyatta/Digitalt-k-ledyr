@@ -1,19 +1,19 @@
-class Dyr{
+class Dyr {
   String navn;
   String mood;
-  
+
   float x = width*0.4;
   float y = height*0.6;
   float sX = width/4;
   float sY = height/4;
   float smooth = width/40;
   float angle = -PI/6;
-  
+
   float pupilXL = 0;
   float pupilYL = 0;
   float pupilXR = 0;
   float pupilYR = 0;
-  
+
   float mundPosX=x+sX/6;
   float mundPosY=y+sY/6;
   float hastTunge=0.3;
@@ -21,8 +21,8 @@ class Dyr{
   float tungeY=y+sY/6;
   boolean tungeIBrug=false;
   boolean tungeUd=true;
-  
-  void tegnDyr(){
+
+  void tegnDyr() {
     pushMatrix();
     shearX(angle);
     fill(0, 200, 255);
@@ -40,41 +40,41 @@ class Dyr{
     float dR = atan((mouseY-eyeY)/(mouseX-pR));
     float mX = eyeSX/2-pupilSize/2;
     float mY = eyeSY/2-pupilSize/2;
-    if(mouseX-pL < 0){
+    if (mouseX-pL < 0) {
       dL+=PI;
     }
-    if(mouseX-pL >= 0 && mouseY-eyeY < 0){
+    if (mouseX-pL >= 0 && mouseY-eyeY < 0) {
       dL+=2*PI;
     }
-    if(mouseX-pR < 0){
+    if (mouseX-pR < 0) {
       dR+=PI;
     }
-    if(mouseX-pR >= 0 && mouseY-eyeY < 0){
+    if (mouseX-pR >= 0 && mouseY-eyeY < 0) {
       dR+=2*PI;
     }
     float pXL = (mX*mY)/sqrt(pow(mY, 2)+pow(mX, 2)*pow(tan(dL), 2));
-    if(mouseX-pL < 0){
+    if (mouseX-pL < 0) {
       pXL = -pXL;
     }
     float pXR = (mX*mY)/sqrt(pow(mY, 2)+pow(mX, 2)*pow(tan(dR), 2));
-    if(mouseX-pR < 0){
+    if (mouseX-pR < 0) {
       pXR = -pXR;
     }
     float pYR = tan(dR)*pXR;
     float pYL = tan(dL)*pXL;
-    if(degrees(dL) < 90.1 && degrees(dL) > 89.9){
+    if (degrees(dL) < 90.1 && degrees(dL) > 89.9) {
       pYL = mY;
     }
-    if(degrees(dR) < 90.1 && degrees(dR) > 89.9){
+    if (degrees(dR) < 90.1 && degrees(dR) > 89.9) {
       pYR = mY;
     }
     float rL = sqrt(pow(pXL, 2)+pow(pYL, 2));
     float rR = sqrt(pow(pXR, 2)+pow(pYR, 2));
-    if(sqrt(pow(mouseX-pL, 2)+pow(mouseY-eyeY, 2)) < rL){
+    if (sqrt(pow(mouseX-pL, 2)+pow(mouseY-eyeY, 2)) < rL) {
       pXL = mouseX-pL;
       pYL = mouseY-eyeY;
     }
-    if(sqrt(pow(mouseX-pR, 2)+pow(mouseY-eyeY, 2)) < rR){
+    if (sqrt(pow(mouseX-pR, 2)+pow(mouseY-eyeY, 2)) < rR) {
       pXR = mouseX-pR;
       pYR = mouseY-eyeY;
     }
@@ -82,16 +82,16 @@ class Dyr{
     pupilYL = lerp(pupilYL, pYL, 0.2);
     pupilXR = lerp(pupilXR, pXR, 0.2);
     pupilYR = lerp(pupilYR, pYR, 0.2);
-    if(isNan(pupilXL)){
+    if (isNan(pupilXL)) {
       pupilXL = mouseX-pL;
     }
-    if(isNan(pupilYL)){
+    if (isNan(pupilYL)) {
       pupilYL = mouseY-eyeY;
     }
-    if(isNan(pupilXR)){
+    if (isNan(pupilXR)) {
       pupilXR = mouseX-pR;
     }
-    if(isNan(pupilYR)){
+    if (isNan(pupilYR)) {
       pupilYR = mouseY-eyeY;
     }
     fill(255);
@@ -101,18 +101,24 @@ class Dyr{
     noStroke();
     circle(pupilXL+pL, pupilYL+eyeY, pupilSize);
     circle(pupilXR+pR, pupilYR+eyeY, pupilSize);
-    if(tungeIBrug){
-    stroke(209,144,142);
-    strokeWeight(60);
-    strokeCap(ROUND);
-    line(mundPosX, mundPosY,tungeX,tungeY);
-    stroke(0);
-    strokeWeight(3);
-    strokeCap(SQUARE);
+    if (tungeIBrug) {
+      stroke(209, 144, 142);
+      strokeWeight(60);
+      strokeCap(ROUND);
+      line(mundPosX, mundPosY, tungeX, tungeY);
+      stroke(0);
+      strokeWeight(3);
+      strokeCap(SQUARE);
     }
   }
 }
 
-void tunge(){
-  
+void tunge() {
+  if (!flemming.tungeIBrug) {
+    for (MadPartikel i : MadPartikler) {
+      if(i.Stille){
+        nuværendeMad=i;
+      }
+    }
+  }
 }

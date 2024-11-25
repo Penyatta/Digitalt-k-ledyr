@@ -4,6 +4,7 @@ boolean MadILuften=false;
 float prevX;
 float prevY;
 ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
+int nuværendeMad;
 
 class MadPartikel {
   float Størrelse=height/40;
