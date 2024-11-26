@@ -3,6 +3,9 @@ Dyr flemming;
 float blinkTime = random(1, 60);
 float blinkTimer = 0;
 
+float camX = 0;
+float camY = 0;
+
 boolean isNan(float val) {
   return val != val;
 }
