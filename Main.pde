@@ -21,7 +21,7 @@ void draw() {
   stroke(0);
   background(100, 50, 50);
   fill(100);
-  rect(-10, height*0.8, width+21, height*0.2);
+  rect(-10-camX, height*0.8-camY, width+21, height*0.2);
   flemming.tegnDyr();
   if(millis()-blinkTimer >= blinkTime*1000){
     flemming.blink(500);
@@ -31,11 +31,12 @@ void draw() {
   tegnMadDrikke();
   tunge();
   fill(0);
-  text(mouseX, 100, 100);
-  text(mouseY, 100, 200);
+  //text(mouseX, 100, 100);
+  //text(mouseY, 100, 200);
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   prevX=mouseX;
   prevY=mouseY;
+  camX = lerp(camX, width, 0.001);
 }
 
 void mousePressed(){

@@ -22,8 +22,8 @@ class MadPartikel {
   float friktion=0.9;
   void TegnMad() {
     if (IHånden) {
-      posX=mouseX;
-      posY=mouseY;
+      posX=mouseX+camX;
+      posY=mouseY+camY;
     } else if(!Stille){
       if (posX<=Størrelse/2 || posX>=(width-Størrelse/2)) {
         hastX=hastX*(-bouncyness);
@@ -50,7 +50,7 @@ class MadPartikel {
     }
     strokeWeight(0);
     fill(154,102,63);
-    circle(posX, posY, Størrelse);
+    circle(posX-camX, posY-camY, Størrelse);
     strokeWeight(3);
     distanceX=mouseX-prevX;
     distanceY=mouseY-prevY;
@@ -66,7 +66,7 @@ class MadPartikel {
 
 
 void tegnMadDrikke() {
-  image(Madskål, width/7*5, height/5*3, width/4, height/2);
+  image(Madskål, width/7*5-camX, height/5*3-camY, width/4, height/2);
   for(MadPartikel i : MadPartikler){
     i.TegnMad();
   }
