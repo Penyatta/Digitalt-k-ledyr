@@ -24,6 +24,7 @@ class Dyr{
   float mundVinkel = 0;
   float brynVinkel = 0;
   float brynLængde = sX/30;
+  float brynDistance = sX/60;
   
   void tegnDyr(){
     float eyeX = x+sX*0.45;
@@ -133,9 +134,11 @@ class Dyr{
     stroke(0);
     float dY = h/(hyp);
     float dX = sqrt(1-pow(dY, 2));
+    float brynX = brynVinkel*((eyeSX+brynDistance*blinkModifier)/2);
+    float brynY = -(eyeSY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSX+brynDistance*blinkModifier)*2, 2));
     println(dX);
-    line(brynVinkel*(eyeSX/2)-dX*brynLængde+pL, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2)/eyeSX*2, 2)))+eyeY-dY*brynLængde, brynVinkel*(eyeSX/2)+dX*brynLængde+pL, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2)*2))+eyeY+dY*brynLængde);
-    line(-(brynVinkel*(eyeSX/2)-dX*brynLængde)+pR, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2)/eyeSX*2, 2)))+eyeY-dY*brynLængde, -(brynVinkel*(eyeSX/2)+dX*brynLængde)+pR, -(eyeSY/2*sqrt(1-pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2)*2))+eyeY+dY*brynLængde);
+    line(brynX+pL-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+pL+dX*brynLængde, brynY+eyeY+dY*brynLængde);
+    line(-brynX+pR-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+pR+dX*brynLængde, brynY+eyeY-dY*brynLængde);
   }
   
   void blink(float time){
