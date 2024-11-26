@@ -25,8 +25,6 @@ class Dyr {
   float brynVinkel = 0;
   float brynLængde = sX/30;
   float brynDistance = sX/60;
-  
-  void tegnDyr(){
 
   float mundPosX=x+sX/6;
   float mundPosY=y+sY*0.7;

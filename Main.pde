@@ -25,6 +25,14 @@ void draw() {
     blinkTimer = millis();
     blinkTime = random(1, 60);
   }
+  tegnMadDrikke();
+  tunge();
+  fill(0);
+  text(mouseX, 100, 100);
+  text(mouseY, 100, 200);
+  //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
+  prevX=mouseX;
+  prevY=mouseY;
 }
 
 void mousePressed(){
@@ -54,12 +62,4 @@ void keyPressed(){
   if(key == 't'){
     flemming.humør = "trist";
   }
-  tegnMadDrikke();
-  tunge();
-  fill(0);
-  text(mouseX, 100, 100);
-  text(mouseY, 100, 200);
-  //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
-  prevX=mouseX;
-  prevY=mouseY;
 }
