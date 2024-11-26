@@ -20,6 +20,7 @@ void draw() {
   rect(-10, height*0.8, width+21, height*0.2);
   flemming.tegnDyr();
   tegnMadDrikke();
+  tunge();
   fill(0);
   text(mouseX, 100, 100);
   text(mouseY, 100, 200);

@@ -39,15 +39,15 @@ class MadPartikel {
         hastX=hastX*(friktion);
         posY=height-Størrelse/2;
       }
+      if(abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>height-Størrelse){
+       Stille=true; 
+      }
       hastX=hastX*vindmodstand;
       hastY=hastY*vindmodstand;
       hastY=hastY+gravity;
       posX=posX+hastX;
       posY=posY+hastY;
     }
-    if(hastX==0 && hastY==0 && posX>height-Størrelse/2){
-       Stille=true; 
-      }
     strokeWeight(0);
     fill(154,102,63);
     circle(posX, posY, Størrelse);
