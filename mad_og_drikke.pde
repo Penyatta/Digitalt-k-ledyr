@@ -7,7 +7,7 @@ ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 int nuværendeMad;
 
 class MadPartikel {
-  float Størrelse=height/40;
+  float Størrelse=height/random(30,50);
   float posX=mouseX;
   float posY=mouseY;
   float distanceX;
@@ -20,6 +20,7 @@ class MadPartikel {
   float vindmodstand=0.9999;
   float gravity=0.8;
   float friktion=0.9;
+  float ground=random(height*0.9,height);
   void TegnMad() {
     if (IHånden) {
       posX=mouseX+camX;
@@ -34,12 +35,12 @@ class MadPartikel {
           posX=width-1-Størrelse/2;
         }
       }
-      if (posY>height-Størrelse/2) {
+      if (posY>ground-Størrelse/2) {
         hastY=hastY*(-bouncyness);
         hastX=hastX*(friktion);
-        posY=height-Størrelse/2;
+        posY=ground-Størrelse/2;
       }
-      if(abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>height-Størrelse){
+      if(abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>ground-Størrelse){
        Stille=true; 
       }
       hastX=hastX*vindmodstand;
