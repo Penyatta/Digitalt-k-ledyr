@@ -13,13 +13,13 @@ class Dyr {
   float pupilYL = 0;
   float pupilXR = 0;
   float pupilYR = 0;
-  
+
   boolean blink = false;
   float blinkTimer = 0;
   float blinkModifier = 1;
-  
+
   float timer;
-  
+
   String humør = "glad";
   float mundVinkel = 0;
   float brynVinkel = 0;
@@ -57,27 +57,30 @@ class Dyr {
     rect(x-tan(angle)*(y-camY)-camX, y-camY, sX, sY, smooth);
     popMatrix();
     timer = millis();
-    if(timer >= blinkTimer){
+    if (timer >= blinkTimer) {
       blink = false;
       blinkModifier = lerp(blinkModifier, 1, 0.6);
     }
-    if(humør == "glad"){
+    if (humør == "glad") {
       mundVinkel = lerp(mundVinkel, PI/8, 0.2);
       brynVinkel = lerp(brynVinkel, 0, 0.2);
     }
-    if(humør == "trist"){
+    if (humør == "trist") {
       mundVinkel = lerp(mundVinkel, PI+PI/8, 0.2);
       brynVinkel = lerp(brynVinkel, -0.5, 0.2);
     }
-    if(humør == "sur"){
+    if (humør == "sur") {
       mundVinkel = lerp(mundVinkel, PI, 0.2);
       brynVinkel = lerp(brynVinkel, 0.5, 0.2);
     }
+    if(tungeIBrug){
+      fill(0);
+    }
     arc(x+sX/6-camX, y+sY*0.7-camY, sX/8, sX/8, mundVinkel, PI+mundVinkel);
-    if(eyeSY > pupilSize){
+    if (eyeSY > pupilSize) {
       mY = eyeSY/2-pupilSize/2;
     }
-    if(mouseX-pL < 0){
+    if (mouseX-pL < 0) {
       dL+=PI;
     }
     if (mouseX-pL >= 0 && mouseY-eyeY < 0) {
@@ -136,7 +139,7 @@ class Dyr {
     ellipse(pR, eyeY, eyeSX, eyeSY);
     fill(0);
     noStroke();
-    if(blink == true){
+    if (blink == true) {
       blinkModifier = lerp(blinkModifier, 0, 0.6);
     }
     ellipse(pupilXL*blinkModifier+pL, pupilYL*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
@@ -146,31 +149,30 @@ class Dyr {
     float dX = sqrt(1-pow(dY, 2));
     float brynX = brynVinkel*((eyeSX+brynDistance*blinkModifier)/2);
     float brynY = -(eyeSY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSX+brynDistance*blinkModifier)*2, 2));
-    println(dX);
     line(brynX+pL-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+pL+dX*brynLængde, brynY+eyeY+dY*brynLængde);
     line(-brynX+pR-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+pR+dX*brynLængde, brynY+eyeY-dY*brynLængde);
     if (tungeIBrug) {
       stroke(209, 144, 142);
-      strokeWeight(20);
+      strokeWeight(10);
       strokeCap(ROUND);
-      line(mundPosX, mundPosY, tungeX, tungeY);
+      line(mundPosX+cos(mundVinkel+PI/2)*sX/25, mundPosY+sin(mundVinkel+PI/2)*sX/25, tungeX, tungeY);
       stroke(0);
       strokeWeight(3);
       strokeCap(SQUARE);
     }
   }
-  
-  void blink(float time){
+
+  void blink(float time) {
     blink = true;
     blinkTimer = millis()+time;
   }
-  void blivGlad(){
+  void blivGlad() {
     humør = "glad";
   }
-  void blivTrist(){
+  void blivTrist() {
     humør = "trist";
   }
-  void blivSur(){
+  void blivSur() {
     humør = "sur";
   }
 }
@@ -190,21 +192,19 @@ void tunge() {
     if (flemming.tungeUd) {
       flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX-camX, flemming.hastTunge);
       flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY-camY, flemming.hastTunge);
-      if(flemming.tungeX<=MadPartikler.get(nuværendeMad).posX+1-camX&&flemming.tungeX>=MadPartikler.get(nuværendeMad).posX-1-camX){
-       flemming.tungeUd=false; 
-       println("yes");
+      if (flemming.tungeX<=MadPartikler.get(nuværendeMad).posX+1-camX&&flemming.tungeX>=MadPartikler.get(nuværendeMad).posX-1-camX) {
+        flemming.tungeUd=false;
       }
-    }
-    else {
-      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX, flemming.hastTunge);
-      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY, flemming.hastTunge);
-      MadPartikler.get(nuværendeMad).posX=flemming.tungeX;
-      MadPartikler.get(nuværendeMad).posY=flemming.tungeY;
-      if(flemming.tungeX<=flemming.mundPosX+1&&flemming.tungeX>=flemming.mundPosX-1){
-      flemming.tungeUd=true;
-      flemming.tungeIBrug=false;
-      MadPartikler.remove(nuværendeMad);
-      flemming.dybde+=1;
+    } else {
+      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25, flemming.hastTunge);
+      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sX/25, flemming.hastTunge);
+      MadPartikler.get(nuværendeMad).posX=flemming.tungeX+camX;
+      MadPartikler.get(nuværendeMad).posY=flemming.tungeY+camY;
+      if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25+1 && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25-1) {
+        flemming.tungeUd=true;
+        flemming.tungeIBrug=false;
+        MadPartikler.remove(nuværendeMad);
+        flemming.dybde+=1;
       }
     }
   }

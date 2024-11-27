@@ -36,7 +36,6 @@ void draw() {
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   prevX=mouseX;
   prevY=mouseY;
-  camX = lerp(camX, width, 0.001);
 }
 
 void mousePressed(){
@@ -47,8 +46,8 @@ void mousePressed(){
         MadIHånden = false; // No longer in hand
         MadPartikler.get(MadPartikler.size()-1).GivSlip(); // Release the food particle
     } else {
-        double ellipseDecider = ((Math.pow(mouseX - width / 13 * 11, 2) / Math.pow(width / 9, 2)) + 
-                                   (Math.pow(mouseY - height / 20 * 16, 2) / Math.pow(height / 8, 2)));
+        double ellipseDecider = ((Math.pow(mouseX - (width / 13 * 11-camX), 2) / Math.pow(width / 14, 2)) + 
+                                   (Math.pow(mouseY - (height / 20 * 16-camY), 2) / Math.pow(height / 13, 2)));
         if (ellipseDecider <= 1) {
             MadPartikler.add(new MadPartikel());
             MadIHånden = true; // Pick up the particle
