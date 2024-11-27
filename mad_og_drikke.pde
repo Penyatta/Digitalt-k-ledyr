@@ -67,8 +67,17 @@ class MadPartikel {
 
 
 void tegnMadDrikke() {
-  image(Madskål, width/7*5-camX, height/5*3-camY, width/4, height/2);
+  ArrayList<MadPartikel> dum = new ArrayList<MadPartikel>();
   for(MadPartikel i : MadPartikler){
+    if(i.ground < height*0.97){
+      i.TegnMad();
+    }
+    else{
+      dum.add(i);
+    }
+  }
+  image(Madskål, width/7*5-camX, height/5*3-camY, width/4, height/2);
+  for(MadPartikel i : dum){
     i.TegnMad();
   }
 }

@@ -1,6 +1,5 @@
 class Dyr {
   String navn;
-  String mood;
 
   float x = width*0.4;
   float y = height*0.6;
