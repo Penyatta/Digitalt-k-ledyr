@@ -5,9 +5,10 @@ float prevX;
 float prevY;
 ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 int nuværendeMad;
+float timeScale = 1;
 
 class MadPartikel {
-  float Størrelse=height/random(30,50);
+  float Størrelse=height/random(30, 50);
   float posX=mouseX;
   float posY=mouseY;
   float distanceX;
@@ -20,12 +21,12 @@ class MadPartikel {
   float vindmodstand=0.9999;
   float gravity=0.8;
   float friktion=0.9;
-  float ground=random(height*0.9,height);
+  float ground=random(height*0.9, height);
   void TegnMad() {
     if (IHånden) {
       posX=mouseX+camX;
       posY=mouseY+camY;
-    } else if(!Stille){
+    } else if (!Stille) {
       if (posX<=Størrelse/2 || posX>=(width-Størrelse/2)) {
         hastX=hastX*(-bouncyness);
         hastY=hastY*(friktion);
@@ -40,27 +41,27 @@ class MadPartikel {
         hastX=hastX*(friktion);
         posY=ground-Størrelse/2;
       }
-      if(abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>ground-Størrelse){
-       Stille=true; 
+      if (abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>ground-Størrelse) {
+        Stille=true;
       }
       hastX=hastX*vindmodstand;
       hastY=hastY*vindmodstand;
       hastY=hastY+gravity;
-      posX=posX+hastX;
-      posY=posY+hastY;
+      posX=posX+hastX*timeScale;
+      posY=posY+hastY*timeScale;
     }
     strokeWeight(0);
-    fill(154,102,63);
+    fill(154, 102, 63);
     circle(posX-camX, posY-camY, Størrelse);
     strokeWeight(3);
     distanceX=mouseX-prevX;
     distanceY=mouseY-prevY;
   }
   void GivSlip() {
-    if(IHånden){
-    IHånden=false;
-    hastX=distanceX;
-    hastY=distanceY;
+    if (IHånden) {
+      IHånden=false;
+      hastX=distanceX*(1/timeScale);
+      hastY=distanceY*(1/timeScale);
     }
   }
 }
@@ -68,16 +69,15 @@ class MadPartikel {
 
 void tegnMadDrikke() {
   ArrayList<MadPartikel> dum = new ArrayList<MadPartikel>();
-  for(MadPartikel i : MadPartikler){
-    if(i.ground < height*0.97){
+  for (MadPartikel i : MadPartikler) {
+    if (i.ground < height*0.97) {
       i.TegnMad();
-    }
-    else{
+    } else {
       dum.add(i);
     }
   }
   image(Madskål, width/7*5-camX, height/5*3-camY, width/4, height/2);
-  for(MadPartikel i : dum){
+  for (MadPartikel i : dum) {
     i.TegnMad();
   }
 }
