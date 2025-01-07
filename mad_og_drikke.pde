@@ -1,4 +1,5 @@
 PImage Madskål;
+PImage WaterBottle;
 boolean MadIHånden=false;
 boolean MadILuften=false;
 float prevX;
@@ -78,6 +79,8 @@ class MadPartikel {
 
 
 void tegnMadDrikke() {
+  //tegner vand ting ting
+  image(WaterBottle,width/50-camX, height/7*2-camY,width/9,height/2);
   //laver en arraylist til de madpartikler der skal tegnes foran madskålen
   ArrayList<MadPartikel> dum = new ArrayList<MadPartikel>();
   for(MadPartikel i : MadPartikler){

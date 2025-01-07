@@ -13,6 +13,7 @@ boolean isNan(float val) {
 void setup() {
   fullScreen();
   Madskål=loadImage("Madskål.png");
+  WaterBottle=loadImage("HamsterWater4.0.png");
   strokeWeight(3);
   flemming = new Dyr();
   //flemming.x = width/8;
@@ -36,6 +37,8 @@ void draw() {
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   prevX=mouseX;
   prevY=mouseY;
+  flemming.x=lerp(flemming.x,width/15,0.05);
+  flemming.y=lerp(flemming.y,height/5*3-height/50,0.05);
 }
 
 void mousePressed(){
