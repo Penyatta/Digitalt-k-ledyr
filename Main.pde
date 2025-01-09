@@ -10,6 +10,8 @@ boolean isNan(float val) {
   return val != val;
 }
 
+ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
+
 void setup() {
   fullScreen();
   Madskål=loadImage("Madskål.png");
@@ -17,13 +19,29 @@ void setup() {
   flemming = new Dyr();
   frameRate(60);
   //flemming.x = width/8;
+  for (float x=width/4; x<width/4*3; x+=5) {
+    strokeWeight(3);
+    PVector bølgePunkt = new PVector(x, sin(x/20)*20);
+    bølgePunkter.add(bølgePunkt);
+  }
 }
 void draw() {
   stroke(0);
   background(100, 50, 50);
+  for(int i=0;i<50;i++){
+    for(int punkt=0;punkt<bølgePunkter.size();punkt++){
+      noStroke();
+      fill(0, 0, 255);
+      square(bølgePunkter.get(punkt).x, width/10+i+bølgePunkter.get(punkt).y, 5);
+    }
+  }
+  rect(width/4, width/9, width/2, height/10);
   fill(100);
+  stroke(0);
+  strokeWeight(3);
   rect(-10-camX, height*0.8-camY, width+21, height*0.2);
   flemming.tegnDyr();
+  //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
     flemming.blink(500);
     blinkTimer = millis();
@@ -41,6 +59,7 @@ void draw() {
 }
 
 void mousePressed() {
+  //når man trykker på flemming så blinker han
   if (mouseX > flemming.x+flemming.sY*tan(flemming.angle)*0.5 && mouseX < flemming.x+flemming.sX+flemming.sY*tan(flemming.angle)-flemming.sY*tan(flemming.angle)*0.5 && mouseY > flemming.y && mouseY < flemming.y+flemming.sY) {
     flemming.blink(500);
   }
@@ -56,7 +75,7 @@ void mousePressed() {
     }
   }
 }
-
+//når man trykker på forskellige knapper så skifter flemming humør (dette er for nemt at tjekke hvordan han ser ud i forskellige humør)
 void keyPressed() {
   if (key == 's') {
     flemming.humør = "sur";

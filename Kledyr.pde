@@ -1,40 +1,46 @@
 class Dyr {
   String navn;
 
+  //form og placering
   float x = width*0.4;
   float y = height*0.6;
   float sX = width/4;
   float sY = height/4;
   float smooth = width/40;
   float angle = -PI/6;
-
+  //pupiller
   float pupilXL = 0;
   float pupilYL = 0;
   float pupilXR = 0;
   float pupilYR = 0;
-
+  //blink
   boolean blink = false;
   float blinkTimer = 0;
   float blinkModifier = 1;
-
+  //timer
   float timer;
-
+  //humør
   String humør = "glad";
   float mundVinkel = 0;
+  //bryn
   float brynVinkel = 0;
   float brynLængde = sX/30;
   float brynDistance = sX/60;
-
+  //mund
   float mundPosX;
   float mundPosY;
+  //tunge
   float hastTunge=0.3;
   float tungeX=x+sX/6;
   float tungeY=y+sY*0.7;
   boolean tungeIBrug=false;
   boolean tungeUd=true;
+  
+  //VIGTIGT!!! Dybde
   float dybde=1;
 
   void tegnDyr() {
+    //øjne variabler
     float eyeX = x+sX*0.45-camX;
     float eyeY = y+sY*0.2-camY;
     float eyeSX = sX/8;
@@ -75,7 +81,9 @@ class Dyr {
     if (tungeIBrug) {
       fill(0);
     }
+    //mund
     arc(x+sX/6-camX, y+sY*0.7-camY, sX/8, sX/8, mundVinkel, PI+mundVinkel);
+    //øjne start
     if (eyeSY > pupilSize) {
       mY = eyeSY/2-pupilSize/2;
     }
@@ -150,6 +158,7 @@ class Dyr {
     float brynY = -(eyeSY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSX+brynDistance*blinkModifier)*2, 2));
     line(brynX+pL-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+pL+dX*brynLængde, brynY+eyeY+dY*brynLængde);
     line(-brynX+pR-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+pR+dX*brynLængde, brynY+eyeY-dY*brynLængde);
+    //øjne slut
     if (tungeIBrug) {
       stroke(209, 144, 142);
       strokeWeight(10);
