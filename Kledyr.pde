@@ -3,15 +3,13 @@ class Dyr {
 
   float x = width*0.4;
   float y = height*0.6;
-  float sX = width/4;
-  float sY = height/4;
+  float sizeX = width/4;
+  float sizeY = height/4;
   float smooth = width/40;
   float angle = -PI/6;
-
-  float pupilXL = 0;
-  float pupilYL = 0;
-  float pupilXR = 0;
-  float pupilYR = 0;
+  //den aktuelle position af pupillerne
+  float pupilX []= new float[2];
+  float pupilY []= new float[2];
 
   boolean blink = false;
   float blinkTimer = 0;
@@ -22,38 +20,25 @@ class Dyr {
   String humør = "glad";
   float mundVinkel = 0;
   float brynVinkel = 0;
-  float brynLængde = sX/30;
-  float brynDistance = sX/60;
+  float brynLængde = sizeX/30;
+  float brynDistance = sizeX/60;
 
   float mundPosX;
   float mundPosY;
   float hastTunge=0.3;
-  float tungeX=x+sX/6;
-  float tungeY=y+sY*0.7;
+  float tungeX=x+sizeX/6;
+  float tungeY=y+sizeY*0.7;
   boolean tungeIBrug=false;
   boolean tungeUd=true;
   float dybde=1;
 
   void tegnDyr() {
-    float eyeX = x+sX*0.45-camX;
-    float eyeY = y+sY*0.2-camY;
-    float eyeSX = sX/8;
-    float eyeSY = sY/3*blinkModifier;
-    float pupilSize = eyeSX/2;
-    float pL = eyeX-sX*0.15;
-    float pR = eyeX+sX*0.15;
-    float dL = atan((mouseY-eyeY)/(mouseX-pL));
-    float dR = atan((mouseY-eyeY)/(mouseX-pR));
-    float mX = eyeSX/2-pupilSize/2;
-    float mY = 0;
-    float h = ((2*brynVinkel*(eyeSX/2)*eyeSY)/(pow(eyeSX, 2)*sqrt(1-4*pow(brynVinkel*(eyeSX/2), 2)/pow(eyeSX, 2))));
-    float hyp = sqrt(pow(h, 2)+1);
-    mundPosX=x+sX/6-camX;
-    mundPosY=y+sY*0.7-camY;
+    mundPosX=x+sizeX/6-camX;
+    mundPosY=y+sizeY*0.7-camY;
     pushMatrix();
     shearX(angle);
     fill(0, 200, 255);
-    rect(x-tan(angle)*(y-camY)-camX, y-camY, sX, sY, smooth);
+    rect(x-tan(angle)*(y-camY)-camX, y-camY, sizeX, sizeY, smooth);
     popMatrix();
     timer = millis();
     if (timer >= blinkTimer) {
@@ -72,89 +57,18 @@ class Dyr {
       mundVinkel = lerp(mundVinkel, PI, 0.2);
       brynVinkel = lerp(brynVinkel, 0.5, 0.2);
     }
+    øjekonstruktor(0);
+    øjekonstruktor(1);
+    fill(0,200,255);
     if(tungeIBrug){
       fill(0);
     }
-    arc(x+sX/6-camX, y+sY*0.7-camY, sX/8, sX/8, mundVinkel, PI+mundVinkel);
-    if (eyeSY > pupilSize) {
-      mY = eyeSY/2-pupilSize/2;
-    }
-    if (mouseX-pL < 0) {
-      dL+=PI;
-    }
-    if (mouseX-pL >= 0 && mouseY-eyeY < 0) {
-      dL+=2*PI;
-    }
-    if (mouseX-pR < 0) {
-      dR+=PI;
-    }
-    if (mouseX-pR >= 0 && mouseY-eyeY < 0) {
-      dR+=2*PI;
-    }
-    float pXL = (mX*mY)/sqrt(pow(mY, 2)+pow(mX, 2)*pow(tan(dL), 2));
-    if (mouseX-pL < 0) {
-      pXL = -pXL;
-    }
-    float pXR = (mX*mY)/sqrt(pow(mY, 2)+pow(mX, 2)*pow(tan(dR), 2));
-    if (mouseX-pR < 0) {
-      pXR = -pXR;
-    }
-    float pYR = tan(dR)*pXR;
-    float pYL = tan(dL)*pXL;
-    if (degrees(dL) < 90.1 && degrees(dL) > 89.9) {
-      pYL = mY;
-    }
-    if (degrees(dR) < 90.1 && degrees(dR) > 89.9) {
-      pYR = mY;
-    }
-    float rL = sqrt(pow(pXL, 2)+pow(pYL, 2));
-    float rR = sqrt(pow(pXR, 2)+pow(pYR, 2));
-    if (sqrt(pow(mouseX-pL, 2)+pow(mouseY-eyeY, 2)) < rL) {
-      pXL = mouseX-pL;
-      pYL = mouseY-eyeY;
-    }
-    if (sqrt(pow(mouseX-pR, 2)+pow(mouseY-eyeY, 2)) < rR) {
-      pXR = mouseX-pR;
-      pYR = mouseY-eyeY;
-    }
-    pupilXL = lerp(pupilXL, pXL, 0.2);
-    pupilYL = lerp(pupilYL, pYL, 0.2);
-    pupilXR = lerp(pupilXR, pXR, 0.2);
-    pupilYR = lerp(pupilYR, pYR, 0.2);
-    if (isNan(pupilXL)) {
-      pupilXL = mouseX-pL;
-    }
-    if (isNan(pupilYL)) {
-      pupilYL = mouseY-eyeY;
-    }
-    if (isNan(pupilXR)) {
-      pupilXR = mouseX-pR;
-    }
-    if (isNan(pupilYR)) {
-      pupilYR = mouseY-eyeY;
-    }
-    fill(255);
-    ellipse(pL, eyeY, eyeSX, eyeSY);
-    ellipse(pR, eyeY, eyeSX, eyeSY);
-    fill(0);
-    noStroke();
-    if (blink == true) {
-      blinkModifier = lerp(blinkModifier, 0, 0.6);
-    }
-    ellipse(pupilXL*blinkModifier+pL, pupilYL*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
-    ellipse(pupilXR+pR, pupilYR+eyeY, pupilSize, pupilSize*blinkModifier);
-    stroke(0);
-    float dY = h/(hyp);
-    float dX = sqrt(1-pow(dY, 2));
-    float brynX = brynVinkel*((eyeSX+brynDistance*blinkModifier)/2);
-    float brynY = -(eyeSY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSX+brynDistance*blinkModifier)*2, 2));
-    line(brynX+pL-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+pL+dX*brynLængde, brynY+eyeY+dY*brynLængde);
-    line(-brynX+pR-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+pR+dX*brynLængde, brynY+eyeY-dY*brynLængde);
+    arc(x+sizeX/6-camX, y+sizeY*0.7-camY, sizeX/8, sizeX/8, mundVinkel, PI+mundVinkel);
     if (tungeIBrug) {
       stroke(209, 144, 142);
       strokeWeight(10);
       strokeCap(ROUND);
-      line(mundPosX+cos(mundVinkel+PI/2)*sX/25, mundPosY+sin(mundVinkel+PI/2)*sX/25, tungeX, tungeY);
+      line(mundPosX+cos(mundVinkel+PI/2)*sizeX/25, mundPosY+sin(mundVinkel+PI/2)*sizeX/25, tungeX, tungeY);
       stroke(0);
       strokeWeight(3);
       strokeCap(SQUARE);
@@ -174,6 +88,87 @@ class Dyr {
   void blivSur() {
     humør = "sur";
   }
+
+
+void øjekonstruktor(int RorL){
+  //positionen midt mellem øjnene
+    float eyeX = x+sizeX*0.45-camX;
+    float eyeY = y+sizeY*0.2-camY;
+    //størrelsen af øjnene
+    float eyeSizeX = sizeX/8;
+    float eyeSizeY = sizeY/3*blinkModifier;
+    //Størrelsen af pupilen
+    float pupilSize = eyeSizeX/2;
+    //hvor meget et øje er skubbet væk fra eyeX og denne er forskellig for de to øjne
+    float eyeOffset;
+    if(RorL==0){
+     eyeOffset=eyeX-sizeX*0.15;
+    }
+    else{
+      eyeOffset=eyeX+sizeX*0.15;
+    }
+    //vinklen på øjenbrynene
+    float degrees = atan((mouseY-eyeY)/(mouseX-eyeOffset));
+    float mX = eyeSizeX/2-pupilSize/2;
+    float mY = 0;
+    float h = ((2*brynVinkel*(eyeSizeX/2)*eyeSizeY)/(pow(eyeSizeX, 2)*sqrt(1-4*pow(brynVinkel*(eyeSizeX/2), 2)/pow(eyeSizeX, 2))));
+    float hyp = sqrt(pow(h, 2)+1);
+    if (eyeSizeY > pupilSize) {
+      mY = eyeSizeY/2-pupilSize/2;
+    }
+    if (mouseX-eyeOffset < 0) {
+      degrees+=PI;
+    }
+    if (mouseX-eyeOffset >= 0 && mouseY-eyeY < 0) {
+      degrees+=2*PI;
+    }
+    //positionen i X som en pupil bevæger sig mod
+    float pupilMålX = (mX*mY)/sqrt(pow(mY, 2)+pow(mX, 2)*pow(tan(degrees), 2));
+    if (mouseX-eyeOffset < 0) {
+      pupilMålX = -pupilMålX;
+    }
+    //positionen i Y som en pupil bevæger sig mod
+    float pupilMålY = tan(degrees)*pupilMålX;
+    if (degrees(degrees) < 90.1 && degrees(degrees) > 89.9) {
+      pupilMålY = mY;
+    }
+    float r = sqrt(pow(pupilMålX, 2)+pow(pupilMålY, 2));
+    if (sqrt(pow(mouseX-eyeOffset, 2)+pow(mouseY-eyeY, 2)) < r) {
+      pupilMålX = mouseX-eyeOffset;
+      pupilMålY = mouseY-eyeY;
+    }
+    //bevæger den aktuelle posiition af pupillerne mod mål positionen
+    pupilX[RorL] = lerp(pupilX[RorL], pupilMålX, 0.2);
+    pupilY[RorL] = lerp(pupilY[RorL], pupilMålY, 0.2);
+    // hvis positionen er 
+    if (isNan(pupilX[RorL])) {
+      pupilX[RorL] = mouseX-eyeOffset;
+    }
+    if (isNan(pupilY[RorL])) {
+      pupilY[RorL] = mouseY-eyeY;
+    }
+    fill(255);
+    ellipse(eyeOffset, eyeY, eyeSizeX, eyeSizeY);
+    fill(0);
+    noStroke();
+    //hvis den skal blinke lerp
+    if (blink == true) {
+      blinkModifier = lerp(blinkModifier, 0, 0.6);
+    }
+    ellipse(pupilX[RorL]*blinkModifier+eyeOffset, pupilY[RorL]*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
+    stroke(0);
+    float dY = h/(hyp);
+    float dX = sqrt(1-pow(dY, 2));
+    //øjenbrynets position
+    float brynX = brynVinkel*((eyeSizeX+brynDistance*blinkModifier)/2);
+    float brynY = -(eyeSizeY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSizeX+brynDistance*blinkModifier)*2, 2));
+    if(RorL==0){
+    line(brynX+eyeOffset-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+eyeOffset+dX*brynLængde, brynY+eyeY+dY*brynLængde);
+    }
+    else{
+    line(-brynX+eyeOffset-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+eyeOffset+dX*brynLængde, brynY+eyeY-dY*brynLængde);
+    }
+}
 }
 
 void tunge() {
@@ -195,11 +190,12 @@ void tunge() {
         flemming.tungeUd=false;
       }
     } else {
-      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25, flemming.hastTunge);
-      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sX/25, flemming.hastTunge);
+      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25, flemming.hastTunge);
+      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25, flemming.hastTunge);
       MadPartikler.get(nuværendeMad).posX=flemming.tungeX+camX;
       MadPartikler.get(nuværendeMad).posY=flemming.tungeY+camY;
-      if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25+1 && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25-1) {
+      if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25+1 
+      && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25-1) {
         flemming.tungeUd=true;
         flemming.tungeIBrug=false;
         MadPartikler.remove(nuværendeMad);

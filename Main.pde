@@ -39,7 +39,9 @@ void draw() {
 }
 
 void mousePressed(){
-  if(mouseX > flemming.x+flemming.sY*tan(flemming.angle)*0.5 && mouseX < flemming.x+flemming.sX+flemming.sY*tan(flemming.angle)-flemming.sY*tan(flemming.angle)*0.5 && mouseY > flemming.y && mouseY < flemming.y+flemming.sY){
+  if(mouseX > flemming.x+flemming.sizeY*tan(flemming.angle)*0.5 
+  && mouseX < flemming.x+flemming.sizeX+flemming.sizeY*tan(flemming.angle)-flemming.sizeY*tan(flemming.angle)*0.5 
+  && mouseY > flemming.y && mouseY < flemming.y+flemming.sizeY){
     flemming.blink(500);
   }
   if (MadIHånden) {
