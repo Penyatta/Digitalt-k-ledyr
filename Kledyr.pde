@@ -121,10 +121,14 @@ void øjekonstruktor(int RorL){
     }
     //vinklen på øjenbrynene
     float degrees = atan((mouseY-eyeY)/(mouseX-eyeOffset));
+    //bruges i pupil følge mus når mus er over øjet
     float mX = eyeSizeX/2-pupilSize/2;
     float mY = 0;
+    //højde
     float h = ((2*brynVinkel*(eyeSizeX/2)*eyeSizeY)/(pow(eyeSizeX, 2)*sqrt(1-4*pow(brynVinkel*(eyeSizeX/2), 2)/pow(eyeSizeX, 2))));
+    //hypotenusen
     float hyp = sqrt(pow(h, 2)+1);
+    
     if (eyeSizeY > pupilSize) {
       mY = eyeSizeY/2-pupilSize/2;
     }
@@ -186,8 +190,8 @@ void øjekonstruktor(int RorL){
 void tunge() {
   if (!flemming.tungeIBrug) {
     int i=0;
-    flemming.tungeX=flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sX/25;
-    flemming.tungeY=flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sX/25;
+    flemming.tungeX=flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25;
+    flemming.tungeY=flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25;
     while (i<MadPartikler.size()) {
       if (MadPartikler.get(i).Stille) {
         nuværendeMad=i;

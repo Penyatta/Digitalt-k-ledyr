@@ -10,7 +10,6 @@ boolean isNan(float val) {
   return val != val;
 }
 
-ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
 
 void setup() {
   fullScreen();
@@ -19,23 +18,11 @@ void setup() {
   flemming = new Dyr();
   frameRate(60);
   //flemming.x = width/8;
-  for (float x=width/4; x<width/4*3; x+=5) {
-    strokeWeight(3);
-    PVector bølgePunkt = new PVector(x, sin(x/20)*20);
-    bølgePunkter.add(bølgePunkt);
-  }
 }
 void draw() {
   stroke(0);
   background(100, 50, 50);
-  for(int i=0;i<50;i++){
-    for(int punkt=0;punkt<bølgePunkter.size();punkt++){
-      noStroke();
-      fill(0, 0, 255);
-      square(bølgePunkter.get(punkt).x, width/10+i+bølgePunkter.get(punkt).y, 5);
-    }
-  }
-  rect(width/4, width/9, width/2, height/10);
+  
   fill(100);
   stroke(0);
   strokeWeight(3);
