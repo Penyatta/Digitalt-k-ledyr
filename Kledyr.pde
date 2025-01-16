@@ -77,7 +77,13 @@ class Dyr {
     if(tungeIBrug){
       fill(0);
     }
-    arc(x+sizeX/6-camX, y+sizeY*0.7-camY, sizeX/8, sizeX/8, mundVinkel, PI+mundVinkel);
+    if(drikker == false){
+      arc(x+sizeX/6-camX, y+sizeY*0.7-camY, sizeX/8, sizeX/8, mundVinkel, PI+mundVinkel);
+    }
+    else{
+      fill(0);
+      circle(x+sizeX/6-camX, y+sizeY*0.73-camY, sizeX/16);
+    }
     if (tungeIBrug) {
       stroke(209, 144, 142);
       strokeWeight(10);
