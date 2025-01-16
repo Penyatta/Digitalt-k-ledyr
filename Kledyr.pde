@@ -1,4 +1,3 @@
-
 class Dyr {
   String navn;
 
@@ -38,7 +37,8 @@ class Dyr {
   boolean harDrukket = false;
   boolean flytterTilVand = false;
   
-  float dybde=1;
+  int dybde=0;
+  int dimensionalitet = 2;
 
   void tegnDyr() {
     float eyeX = x+sX*0.45-camX;
@@ -232,6 +232,9 @@ void tunge() {
         flemming.tungeIBrug=false;
         MadPartikler.remove(nuværendeMad);
         flemming.dybde+=1;
+        if(flemming.dimensionalitet == 2){
+          flemming.dimensionalitet += 1;
+        }
       }
     }
   }
