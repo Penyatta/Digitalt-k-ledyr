@@ -8,9 +8,10 @@ ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 int nuværendeMad;
 float vand = 1;
 float vandBølge = -100;
+float timeScale = 1;
 
 class MadPartikel {
-  float Størrelse=height/random(30,50);
+  float Størrelse=height/random(30, 50);
   float posX=mouseX;
   float posY=mouseY;
   float distanceX;
@@ -23,7 +24,7 @@ class MadPartikel {
   float vindmodstand=0.9999;
   float gravity=0.8;
   float friktion=0.9;
-  float ground=random(height*0.9,height);
+  float ground=random(height*0.9, height);
   void TegnMad() {
     
     if (IHånden) {
@@ -62,7 +63,7 @@ class MadPartikel {
     }
     //tegner maden
     strokeWeight(0);
-    fill(154,102,63);
+    fill(154, 102, 63);
     circle(posX-camX, posY-camY, Størrelse);
     strokeWeight(3);
     //opdatere distance til brug i hastighed når maden gives slip på
