@@ -6,6 +6,11 @@ float blinkTimer = 0;
 float camX = 0;
 float camY = 0;
 
+int sted = 0;
+
+int hjem = 0;
+int spil = 1;
+
 boolean isNan(float val) {
   return val != val;
 }
@@ -18,28 +23,33 @@ void setup() {
   WaterBottle=loadImage("HamsterWater5.0.png");
   strokeWeight(3);
   flemming = new Dyr();
-  for(int i=0;i<height/250*2;i++){
-    for(float x=width/40;x<width*0.105;x+=4){
+  for (int i=0; i<height/250*2; i++) {
+    for (float x=width/40; x<width*0.105; x+=4) {
       bølgePunkter.add(new PVector(x, i+sin(x/10)*height/250));
     }
   }
   vandBølge = -height*0.004;
 }
 void draw() {
-  stroke(0);
-  background(100, 50, 50);
-  
-  fill(100);
-  stroke(0);
-  strokeWeight(3);
-  rect(-10-camX, height*0.8-camY, width+21, height*0.2);
-  flemming.tegnDyr();
+  if (sted == hjem) {
+    Hjem();
+  }
   //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
     flemming.blink(500);
     blinkTimer = millis();
     blinkTime = random(1, 60);
   }
+}
+
+void Hjem() {
+  stroke(0);
+  background(100, 50, 50);
+  fill(100);
+  stroke(0);
+  strokeWeight(3);
+  rect(-10-camX, height*0.8-camY, width+21, height*0.2);
+  flemming.tegnDyr();
   tegnMadDrikke();
   tunge();
   fill(0);
@@ -52,23 +62,25 @@ void draw() {
 }
 
 
-void mousePressed(){
+void mousePressed() {
   //når man trykker på flemming så blinker han
-  if(mouseX > flemming.x+flemming.sizeY*tan(flemming.angle)*0.5 
-  && mouseX < flemming.x+flemming.sizeX+flemming.sizeY*tan(flemming.angle)-flemming.sizeY*tan(flemming.angle)*0.5 
-  && mouseY > flemming.y && mouseY < flemming.y+flemming.sizeY){
+  if (mouseX > flemming.x+flemming.sizeY*tan(flemming.angle)*0.5
+    && mouseX < flemming.x+flemming.sizeX+flemming.sizeY*tan(flemming.angle)-flemming.sizeY*tan(flemming.angle)*0.5
+    && mouseY > flemming.y && mouseY < flemming.y+flemming.sizeY) {
 
     flemming.blink(500);
   }
-  if (MadIHånden) {
-    MadIHånden = false; // No longer in hand
-    MadPartikler.get(MadPartikler.size()-1).GivSlip(); // Release the food particle
-  } else {
-    double ellipseDecider = ((Math.pow(mouseX - (width / 13 * 11-camX), 2) / Math.pow(width / 14, 2)) +
-      (Math.pow(mouseY - (height / 20 * 16-camY), 2) / Math.pow(height / 13, 2)));
-    if (ellipseDecider <= 1) {
-      MadPartikler.add(new MadPartikel());
-      MadIHånden = true; // Pick up the particle
+  if (sted == hjem) {
+    if (MadIHånden) {
+      MadIHånden = false; // No longer in hand
+      MadPartikler.get(MadPartikler.size()-1).GivSlip(); // Release the food particle
+    } else {
+      double ellipseDecider = ((Math.pow(mouseX - (width / 13 * 11-camX), 2) / Math.pow(width / 14, 2)) +
+        (Math.pow(mouseY - (height / 20 * 16-camY), 2) / Math.pow(height / 13, 2)));
+      if (ellipseDecider <= 1) {
+        MadPartikler.add(new MadPartikel());
+        MadIHånden = true; // Pick up the particle
+      }
     }
   }
 }
@@ -83,8 +95,12 @@ void keyPressed() {
   if (key == 't') {
     flemming.humør = "trist";
   }
-  if(key == 'd' && flemming.harDrukket == false){
+  if (key == 'd' && flemming.harDrukket == false && sted == hjem) {
     flemming.flytterTilVand = true;
     flemming.dimensionalitet += 1;
+  }
+  if(key == 'p'){
+    flemming.sizeY *= 0.5;
+    flemming.sizeX *= 0.5;
   }
 }

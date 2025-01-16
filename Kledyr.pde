@@ -6,7 +6,7 @@ class Dyr {
   float y = height*0.6;
   float sizeX = width/4;
   float sizeY = height/4;
-  float smooth = width/40;
+  float smooth = 0.1;
   float angle = -PI/6;
 
   //den aktuelle position af pupillerne
@@ -24,8 +24,6 @@ class Dyr {
   float mundVinkel = 0;
   //bryn
   float brynVinkel = 0;
-  float brynLængde = sizeX/30;
-  float brynDistance = sizeX/60;
 
   float mundPosX;
   float mundPosY;
@@ -51,7 +49,7 @@ class Dyr {
     pushMatrix();
     shearX(angle);
     fill(0, 200, 255);
-    rect(x-tan(angle)*(y-camY)-camX, y-camY, sizeX, sizeY, smooth);
+    rect(x-tan(angle)*(y-camY)-camX, y-camY, sizeX, sizeY, smooth*sizeX);
     popMatrix();
     timer = millis();
     if (timer >= blinkTimer) {
@@ -139,6 +137,8 @@ void øjekonstruktor(int RorL){
     float pupilSize = eyeSizeX/2;
     //hvor meget et øje er skubbet væk fra eyeX og denne er forskellig for de to øjne
     float eyeOffset;
+    float brynLængde = sizeX/30;
+    float brynDistance = sizeX/60;
     if(RorL==0){
      eyeOffset=eyeX-sizeX*0.15;
     }
