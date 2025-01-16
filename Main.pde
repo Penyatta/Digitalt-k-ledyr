@@ -6,11 +6,18 @@ float blinkTimer = 0;
 float camX = 0;
 float camY = 0;
 
+//statemachine med hvilken skærm der skal vises
 int sted = 0;
 
 int hjem = 0;
 int spil = 1;
 
+//statemachine der holder styr på hvilket rum Flemming er i, i huset
+int rum=0;
+
+int leverum=0;
+int legerum=1;
+int skinrum=2;
 boolean isNan(float val) {
   return val != val;
 }
@@ -48,7 +55,7 @@ void Hjem() {
   fill(100);
   stroke(0);
   strokeWeight(3);
-  rect(-10-camX, height*0.8-camY, width+21, height*0.2);
+  rect(-10-camX, height*0.8-camY, width+width+21, height*0.2);
   flemming.tegnDyr();
   tegnMadDrikke();
   tunge();
@@ -56,9 +63,39 @@ void Hjem() {
   text(flemming.dybde, 100, 100);
   text(flemming.dimensionalitet, 100, 200);
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
+  //bruges til at bestemme hvor langt musen har flyttet sig i den sidste frame til brug i hastigheden til masstykkerne
   prevX=mouseX;
   prevY=mouseY;
   //camX = lerp(camX, width, 0.001);
+  //pilen til kælderen
+  strokeCap(ROUND);
+  strokeWeight(10);
+
+  if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
+    stroke(200);
+  } else {
+    stroke(150);
+  }
+  line(width/2-camX, height/15*14-camY, width/2+width/20-camX, height/30*27-camY);
+  line(width/2-camX, height/15*14-camY, width/2-width/20-camX, height/30*27-camY);
+
+  if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
+    stroke(200);
+  } else {
+    stroke(150);
+  }
+  line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2+width/20-camY);
+  line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2-width/20-camY);
+
+  strokeWeight(3);
+  if (rum==legerum) {
+    flemming.y=lerp(flemming.y, height*1.6, 0.1);
+    camY=lerp(camY, height, 0.05);
+  }
+  if(rum==skinrum){
+    flemming.x=lerp(flemming.x, width*1.4, 0.1);
+    camX=lerp(camX, width, 0.05);
+  }
 }
 
 
@@ -82,6 +119,12 @@ void mousePressed() {
         MadIHånden = true; // Pick up the particle
       }
     }
+    if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
+      rum=legerum;
+    }
+    if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
+      rum=skinrum;
+    }
   }
 }
 //når man trykker på forskellige knapper så skifter flemming humør (dette er for nemt at tjekke hvordan han ser ud i forskellige humør)
@@ -99,7 +142,7 @@ void keyPressed() {
     flemming.flytterTilVand = true;
     flemming.dimensionalitet += 1;
   }
-  if(key == 'p'){
+  if (key == 'p') {
     flemming.sizeY *= 0.5;
     flemming.sizeX *= 0.5;
   }

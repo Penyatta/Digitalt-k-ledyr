@@ -89,7 +89,7 @@ void tegnMadDrikke() {
       square(bølgePunkter.get(i).x-camX, bølgePunkter.get(i).y+(height*0.6-height*0.34)*(1-vand)+height*0.34, 4);
     }
   }
-  rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
+  rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge-camY, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
   if(flemming.drikker == true){
     vand = lerp(vand, 0, 0.02);
     vandBølge = lerp(vandBølge, height*0.004, 0.1);
