@@ -8,7 +8,6 @@ ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 int nuværendeMad;
 float vand = 1;
 float vandBølge = -100;
-float timeScale = 1;
 
 class MadPartikel {
   float Størrelse=height/random(30, 50);
