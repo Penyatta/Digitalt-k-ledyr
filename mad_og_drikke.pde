@@ -84,8 +84,10 @@ void tegnMadDrikke() {
   //tegner vand ting ting
   fill(63, 73, 204);
   noStroke();
-  for(int i=0;i<bølgePunkter.size();i++){
-    square(bølgePunkter.get(i).x-camX, bølgePunkter.get(i).y+(height*0.6-height*0.34)*(1-vand)+height*0.34, 3);
+  if(flemming.drikker || flemming.harDrukket){
+    for(int i=0;i<bølgePunkter.size();i++){
+      square(bølgePunkter.get(i).x-camX, bølgePunkter.get(i).y+(height*0.6-height*0.34)*(1-vand)+height*0.34, 4);
+    }
   }
   rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
   if(flemming.drikker == true){

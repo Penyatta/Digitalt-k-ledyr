@@ -19,7 +19,7 @@ void setup() {
   strokeWeight(3);
   flemming = new Dyr();
   for(int i=0;i<height/250*2;i++){
-    for(float x=width/40;x<width*0.105;x+=3){
+    for(float x=width/40;x<width*0.105;x+=4){
       bølgePunkter.add(new PVector(x, i+sin(x/10)*height/250));
     }
   }
