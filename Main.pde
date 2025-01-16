@@ -10,13 +10,20 @@ boolean isNan(float val) {
   return val != val;
 }
 
+ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
+
 void setup() {
   fullScreen();
   Madskål=loadImage("Madskål.png");
-  WaterBottle=loadImage("HamsterWater4.0.png");
+  WaterBottle=loadImage("HamsterWater5.0.png");
   strokeWeight(3);
   flemming = new Dyr();
-  //flemming.x = width/8;
+  for(int i=0;i<height/250*2;i++){
+    for(float x=width/40;x<width*0.105;x+=3){
+      bølgePunkter.add(new PVector(x, i+sin(x/10)*height/250));
+    }
+  }
+  vandBølge = -height*0.004;
 }
 void draw() {
   stroke(0);
@@ -37,8 +44,6 @@ void draw() {
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   prevX=mouseX;
   prevY=mouseY;
-  flemming.x=lerp(flemming.x,width/15,0.05);
-  flemming.y=lerp(flemming.y,height/5*3-height/50,0.05);
 }
 
 void mousePressed(){
@@ -67,5 +72,8 @@ void keyPressed(){
   }
   if(key == 't'){
     flemming.humør = "trist";
+  }
+  if(key == 'd' && flemming.harDrukket == false){
+    flemming.flytterTilVand = true;
   }
 }

@@ -33,6 +33,11 @@ class Dyr {
   float tungeY=y+sY*0.7;
   boolean tungeIBrug=false;
   boolean tungeUd=true;
+  
+  boolean drikker = false;
+  boolean harDrukket = false;
+  boolean flytterTilVand = false;
+  
   float dybde=1;
 
   void tegnDyr() {
@@ -76,7 +81,13 @@ class Dyr {
     if(tungeIBrug){
       fill(0);
     }
-    arc(x+sX/6-camX, y+sY*0.7-camY, sX/8, sX/8, mundVinkel, PI+mundVinkel);
+    if(drikker == false){
+      arc(x+sX/6-camX, y+sY*0.7-camY, sX/8, sX/8, mundVinkel, PI+mundVinkel);
+    }
+    else{
+      fill(0);
+      circle(x+sX/6-camX, y+sY*0.73-camY, sX/16);
+    }
     if (eyeSY > pupilSize) {
       mY = eyeSY/2-pupilSize/2;
     }
@@ -159,6 +170,22 @@ class Dyr {
       stroke(0);
       strokeWeight(3);
       strokeCap(SQUARE);
+    }
+    if(flytterTilVand == true){
+      x=lerp(x,width/12,0.05);
+      y=lerp(y,height/10*6-height/90,0.05);
+    }
+    if(x < width/12+1 && x > width/12-1 && harDrukket == false){
+      drikker = true;
+      flytterTilVand = false;
+      harDrukket = true;
+    }
+    if(drikker == false && harDrukket == true){
+      x=lerp(x,width*0.4,0.05);
+      y=lerp(y,height*0.6,0.05);
+      if(x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1){
+        harDrukket = false;
+      }
     }
   }
 

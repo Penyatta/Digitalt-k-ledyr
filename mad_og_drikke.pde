@@ -6,6 +6,8 @@ float prevX;
 float prevY;
 ArrayList<MadPartikel> MadPartikler = new ArrayList<MadPartikel>();
 int nuværendeMad;
+float vand = 1;
+float vandBølge = -100;
 
 class MadPartikel {
   float Størrelse=height/random(30,50);
@@ -80,7 +82,25 @@ class MadPartikel {
 
 void tegnMadDrikke() {
   //tegner vand ting ting
+  fill(63, 73, 204);
+  noStroke();
+  for(int i=0;i<bølgePunkter.size();i++){
+    square(bølgePunkter.get(i).x-camX, bølgePunkter.get(i).y+(height*0.6-height*0.34)*(1-vand)+height*0.34, 3);
+  }
+  rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
+  if(flemming.drikker == true){
+    vand = lerp(vand, 0, 0.02);
+    vandBølge = lerp(vandBølge, height*0.004, 0.1);
+    if(vand < 0.01){
+      flemming.drikker = false;
+    }
+  }
+  else{
+    vand = lerp(vand, 1, 0.001);
+    vandBølge = lerp(vandBølge, -height*0.004, 0.01);
+  }
   image(WaterBottle,width/50-camX, height/7*2-camY,width/9,height/2);
+  stroke(0);
   //laver en arraylist til de madpartikler der skal tegnes foran madskålen
   ArrayList<MadPartikel> dum = new ArrayList<MadPartikel>();
   for(MadPartikel i : MadPartikler){
