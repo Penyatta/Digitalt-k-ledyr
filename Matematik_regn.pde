@@ -69,6 +69,16 @@ void MatematikRegn() {
   } else if (liv <= 0) {
     matRegnGenstartKnap.isActive = true;
     tilbageKnap.isActive = true;
+    textAlign(CENTER, CENTER);
+    textSize(width*0.1);
+    fill(255);
+    text("DU TABTE", width*0.5, height*0.1);
+    textSize(width*0.05);
+    text("Point: "+str(point), width*0.5, height*0.3);
+    flemming.x = width*0.42;
+    flemming.y = height*0.37;
+    flemming.sizeX = width/4;
+    flemming.sizeY = height/4;
   } else {
     flemming.x = width*0.8;
     flemming.y = height*0.8;
@@ -90,7 +100,7 @@ void MatematikRegn() {
     rect(0, height*0.78, width, height*0.22);
     textAlign(LEFT, CENTER);
     fill(255);
-    textSize(120);
+    textSize(width*0.05);
     text(tal1+" "+operator+" "+tal2+" = ???", width*0.1, height*0.89);
     textAlign(RIGHT, CENTER);
     text("Point: "+point, width*0.95, height*0.1);

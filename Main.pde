@@ -37,8 +37,8 @@ void setup() {
     }
   }
   vandBølge = -height*0.004;
-  matRegnGenstartKnap = new MatRegnGenstartKnap(width/2-width/8, height/4-height/8, width/4, height/4, color(0), color(100), color(0), "Genstart", 100, color(255));
-  tilbageKnap = new TilbageKnap(width/2-width/8, height/4*3-height/8, width/4, height/4, color(0), color(100), color(0), "Tilbage", 100, color(255));
+  matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
+  tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
 }
 void draw() {
   delta = (millis()-deltaTime)/1000;

@@ -56,16 +56,10 @@ class MatRegnGenstartKnap extends Knap {
   }
   @Override
     void klik() {
-    liv = 3;
-    point = 0;
-    talHast = height*0.05;
-    maxTal = 2;
-    talTimer = millis();
+    skiftTilMatRegn();
+    tutorial = false;
     matRegnGenstartKnap.isActive = false;
     tilbageKnap.isActive = false;
-    regnTal = new ArrayList<RegnTal>();
-    tal1 = round(random(1, maxTal));
-    tal2 = round(random(1, maxTal));
   }
 }
 
