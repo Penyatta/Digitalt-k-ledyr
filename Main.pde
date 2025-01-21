@@ -6,7 +6,7 @@ float blinkTimer = 0;
 float camX = 0;
 float camY = 0;
 
-int sted = 1;
+int sted = 0;
 
 int hjem = 0;
 int matRegn = 1;
@@ -15,6 +15,9 @@ boolean isNan(float val) {
   return val != val;
 }
 
+float delta = 0;
+float deltaTime = 0;
+
 ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
 
 boolean tutorial = true;
@@ -22,10 +25,12 @@ int side = 0;
 
 void setup() {
   fullScreen();
+  frameRate(200);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
   strokeWeight(3);
   flemming = new Dyr();
+  talHast = height*0.05;
   for (int i=0; i<height/250*2; i++) {
     for (float x=width/40; x<width*0.105; x+=4) {
       bølgePunkter.add(new PVector(x, i+sin(x/10)*height/250));
@@ -34,6 +39,8 @@ void setup() {
   vandBølge = -height*0.004;
 }
 void draw() {
+  delta = (millis()-deltaTime)/1000;
+  deltaTime = millis();
   if (sted == hjem) {
     Hjem();
   }

@@ -12,7 +12,7 @@ int point = 0;
 
 float talTime = 4;
 float talTimer = millis();
-float talHast = 1;
+float talHast;
 
 int liv = 3;
 
@@ -42,7 +42,7 @@ class RegnTal {
     }
   }
   void fald() {
-    y+=v;
+    y+=v*delta;
     fill(farve);
     rect(x, y, width*0.1, width*0.1, width*0.01);
     textAlign(CENTER, CENTER);
