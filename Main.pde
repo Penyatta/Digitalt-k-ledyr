@@ -78,6 +78,9 @@ void mousePressed() {
     && mouseY > flemming.y && mouseY < flemming.y+flemming.sizeY) {
 
     flemming.blink(500);
+    for (int i = 0; i < 3; i++) {
+        partikler.add(new Hjerte(mouseX, mouseY));
+    }
   }
   if (sted == hjem) {
     if (MadIHånden) {
@@ -92,12 +95,14 @@ void mousePressed() {
       }
     }
   }
+  if (sted==1){
   for (int i = 0; i < 10; i++) {
         partikler.add(new Gnister(mouseX, mouseY));
     }
     for (int i = 0; i < 5; i++) {
         partikler.add(new Røg(mouseX, mouseY));
     }
+  }
 }
 //når man trykker på forskellige knapper så skifter flemming humør (dette er for nemt at tjekke hvordan han ser ud i forskellige humør)
 void keyPressed() {
