@@ -29,6 +29,7 @@ void setup() {
     }
   }
   vandBølge = -height*0.004;
+  partikler = new ArrayList<>();
 }
 void draw() {
   if (sted == hjem) {
@@ -40,6 +41,14 @@ void draw() {
     blinkTimer = millis();
     blinkTime = random(1, 60);
   }
+  for (int i = partikler.size() - 1; i >= 0; i--) {
+        Partikel p = partikler.get(i);
+        p.bevæg();
+        p.tegn();
+        if (p.erDød()) {
+            partikler.remove(i);
+        }
+    }
 }
 
 void Hjem() {
@@ -83,6 +92,12 @@ void mousePressed() {
       }
     }
   }
+  for (int i = 0; i < 10; i++) {
+        partikler.add(new Gnister(mouseX, mouseY));
+    }
+    for (int i = 0; i < 5; i++) {
+        partikler.add(new Røg(mouseX, mouseY));
+    }
 }
 //når man trykker på forskellige knapper så skifter flemming humør (dette er for nemt at tjekke hvordan han ser ud i forskellige humør)
 void keyPressed() {
