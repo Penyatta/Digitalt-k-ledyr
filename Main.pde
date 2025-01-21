@@ -6,7 +6,7 @@ float blinkTimer = 0;
 float camX = 0;
 float camY = 0;
 
-int sted = 0;
+int sted = 1;
 
 int hjem = 0;
 int matRegn = 1;
@@ -25,7 +25,7 @@ int side = 0;
 
 void setup() {
   fullScreen();
-  frameRate(200);
+  frameRate(100);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
   strokeWeight(3);
@@ -37,6 +37,8 @@ void setup() {
     }
   }
   vandBølge = -height*0.004;
+  matRegnGenstartKnap = new MatRegnGenstartKnap(width/2-width/8, height/4-height/8, width/4, height/4, color(0), color(100), color(0), "Genstart", 100, color(255));
+  tilbageKnap = new TilbageKnap(width/2-width/8, height/4*3-height/8, width/4, height/4, color(0), color(100), color(0), "Tilbage", 100, color(255));
 }
 void draw() {
   delta = (millis()-deltaTime)/1000;
@@ -52,6 +54,12 @@ void draw() {
     flemming.blink(500);
     blinkTimer = millis();
     blinkTime = random(1, 60);
+  }
+  for (int i=0; i<knapper.size(); i++) {
+    Knap knap = knapper.get(i);
+    if (knap.isActive == true) {
+      knap.tegnKnap();
+    }
   }
 }
 
@@ -92,14 +100,14 @@ void mousePressed() {
           if (regnTal.get(i).værdi == tal1+tal2) {
             regnTal.remove(regnTal.get(i));
             for (int z=0; z<regnTal.size(); z++) {
-              if(regnTal.get(z).erLøsning){
+              if (regnTal.get(z).erLøsning) {
                 regnTal.get(z).erLøsning = false;
               }
             }
             talTime *= 0.95;
             talHast *= 1.05;
             point += 1;
-            if(point % 3 == 0){
+            if (point % 3 == 0) {
               maxTal += 1;
             }
             tal1 = round(random(1, maxTal));
@@ -111,6 +119,12 @@ void mousePressed() {
           }
         }
       }
+    }
+  }
+  for (int i=0; i<knapper.size(); i++) {
+    Knap knap = knapper.get(i);
+    if (knap.isActive == true && knap.musOver()) {
+      knap.klik();
     }
   }
 }

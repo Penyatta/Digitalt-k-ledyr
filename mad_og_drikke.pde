@@ -67,7 +67,6 @@ class MadPartikel {
       if(groundAntal < 2){
         groundAntal = 2;
       }
-      println(groundCount);
       //hvis den har rørt jorden et hvis antal gange så står den stille
       if (groundCount >= groundAntal) {
         Stille=true;
@@ -104,14 +103,14 @@ void tegnMadDrikke() {
   }
   rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
   if (flemming.drikker == true) {
-    vand = lerp(vand, 0, 0.02);
-    vandBølge = lerp(vandBølge, height*0.004, 0.1);
+    vand = lerp(vand, 0, constrain(0.5*delta, 0, 1));
+    vandBølge = lerp(vandBølge, height*0.004, constrain(5*delta, 0, 1));
     if (vand < 0.01) {
       flemming.drikker = false;
     }
   } else {
-    vand = lerp(vand, 1, 0.001);
-    vandBølge = lerp(vandBølge, -height*0.004, 0.01);
+    vand = lerp(vand, 1, constrain(0.5*delta, 0, 1));
+    vandBølge = lerp(vandBølge, -height*0.004, constrain(5*delta, 0, 1));
   }
   image(WaterBottle, width/50-camX, height/7*2-camY, width/9, height/2);
   stroke(0);

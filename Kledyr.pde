@@ -28,7 +28,7 @@ class Dyr {
   float mundPosX;
   float mundPosY;
   //tunge
-  float hastTunge=0.3;
+  float hastTunge=10;
   float tungeX=x+sizeX/6;
   float tungeY=y+sizeY*0.7;
   boolean tungeIBrug=false;
@@ -54,19 +54,19 @@ class Dyr {
     timer = millis();
     if (timer >= blinkTimer) {
       blink = false;
-      blinkModifier = lerp(blinkModifier, 1, 0.6);
+      blinkModifier = lerp(blinkModifier, 1, constrain(20*delta, 0, 1));
     }
     if (humør == "glad") {
-      mundVinkel = lerp(mundVinkel, PI/8, 0.2);
-      brynVinkel = lerp(brynVinkel, 0, 0.2);
+      mundVinkel = lerp(mundVinkel, PI/8, constrain(5*delta, 0, 1));
+      brynVinkel = lerp(brynVinkel, 0, constrain(5*delta, 0, 1));
     }
     if (humør == "trist") {
-      mundVinkel = lerp(mundVinkel, PI+PI/8, 0.2);
-      brynVinkel = lerp(brynVinkel, -0.5, 0.2);
+      mundVinkel = lerp(mundVinkel, PI+PI/8, constrain(5*delta, 0, 1));
+      brynVinkel = lerp(brynVinkel, -0.5, constrain(5*delta, 0, 1));
     }
     if (humør == "sur") {
-      mundVinkel = lerp(mundVinkel, PI, 0.2);
-      brynVinkel = lerp(brynVinkel, 0.5, 0.2);
+      mundVinkel = lerp(mundVinkel, PI, constrain(5*delta, 0, 1));
+      brynVinkel = lerp(brynVinkel, 0.5, constrain(5*delta, 0, 1));
     }
 
     øjekonstruktor(0);
@@ -94,8 +94,8 @@ class Dyr {
       strokeCap(SQUARE);
     }
     if(flytterTilVand == true){
-      x=lerp(x,width/12,0.05);
-      y=lerp(y,height/10*6-height/90,0.05);
+      x=lerp(x,width/12,constrain(3*delta, 0, 1));
+      y=lerp(y,height/10*6-height/90,constrain(3*delta, 0, 1));
     }
     if(x < width/12+1 && x > width/12-1 && harDrukket == false){
       drikker = true;
@@ -103,8 +103,8 @@ class Dyr {
       harDrukket = true;
     }
     if(drikker == false && harDrukket == true){
-      x=lerp(x,width*0.4,0.05);
-      y=lerp(y,height*0.6,0.05);
+      x=lerp(x,width*0.4,constrain(3*delta, 0, 1));
+      y=lerp(y,height*0.6,constrain(3*delta, 0, 1));
       if(x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1){
         harDrukket = false;
       }
@@ -180,8 +180,8 @@ void øjekonstruktor(int RorL){
       pupilMålY = mouseY-eyeY;
     }
     //bevæger den aktuelle posiition af pupillerne mod mål positionen
-    pupilX[RorL] = lerp(pupilX[RorL], pupilMålX, 0.2);
-    pupilY[RorL] = lerp(pupilY[RorL], pupilMålY, 0.2);
+    pupilX[RorL] = lerp(pupilX[RorL], pupilMålX, constrain(10*delta, 0, 1));
+    pupilY[RorL] = lerp(pupilY[RorL], pupilMålY, constrain(10*delta, 0, 1));
     // hvis positionen er 
     if (isNan(pupilX[RorL])) {
       pupilX[RorL] = mouseX-eyeOffset;
@@ -195,7 +195,7 @@ void øjekonstruktor(int RorL){
     noStroke();
     //hvis den skal blinke lerp
     if (blink == true) {
-      blinkModifier = lerp(blinkModifier, 0, 0.6);
+      blinkModifier = lerp(blinkModifier, 0, constrain(20*delta, 0, 1));
     }
     ellipse(pupilX[RorL]*blinkModifier+eyeOffset, pupilY[RorL]*blinkModifier+eyeY, pupilSize, pupilSize*blinkModifier);
     stroke(0);
@@ -228,15 +228,15 @@ void tunge() {
     }
   } else {
     if (flemming.tungeUd) {
-      flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX, flemming.hastTunge);
-      flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY, flemming.hastTunge);
+      flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX, constrain(flemming.hastTunge*delta, 0, 1));
+      flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY, constrain(flemming.hastTunge*delta, 0, 1));
       if (flemming.tungeX<=MadPartikler.get(nuværendeMad).posX+1&&flemming.tungeX>=MadPartikler.get(nuværendeMad).posX-1) {
         flemming.tungeUd=false;
       }
     } else {
 
-      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25, flemming.hastTunge);
-      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25, flemming.hastTunge);
+      flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25, constrain(flemming.hastTunge*delta, 0, 1));
+      flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25, constrain(flemming.hastTunge*delta, 0, 1));
       MadPartikler.get(nuværendeMad).posX=flemming.tungeX+camX;
       MadPartikler.get(nuværendeMad).posY=flemming.tungeY+camY;
       if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25+1 

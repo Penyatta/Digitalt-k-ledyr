@@ -17,6 +17,8 @@ void Hjem() {
 
 void skiftTilHjem() {
   sted = hjem;
+  camX = 0;
+  camY = 0;
   flemming.x = width*0.4;
   flemming.y = height*0.6;
   flemming.sizeX = width/4;

@@ -29,8 +29,7 @@ class RegnTal {
   RegnTal() {
     if (random(0, 1) > 0.1) {
       værdi = round(random(2, maxTal*2));
-    }
-    else{
+    } else {
       værdi = tal1+tal2;
     }
     size = width*0.1;
@@ -67,6 +66,9 @@ void MatematikRegn() {
     flemming.sizeX = width/4;
     flemming.sizeY = height/4;
     textBox(matRegnSider);
+  } else if (liv <= 0) {
+    matRegnGenstartKnap.isActive = true;
+    tilbageKnap.isActive = true;
   } else {
     flemming.x = width*0.8;
     flemming.y = height*0.8;
@@ -97,9 +99,19 @@ void MatematikRegn() {
       talTimer = millis();
       RegnTal r = new RegnTal();
     }
-    if (liv <= 0) {
-      skiftTilHjem();
-    }
   }
   flemming.tegnDyr();
+}
+
+void skiftTilMatRegn() {
+  sted = matRegn;
+  tutorial = true;
+  liv = 3;
+  point = 0;
+  talHast = height*0.05;
+  maxTal = 2;
+  talTimer = millis();
+  regnTal = new ArrayList<RegnTal>();
+  tal1 = round(random(1, maxTal));
+  tal2 = round(random(1, maxTal));
 }
