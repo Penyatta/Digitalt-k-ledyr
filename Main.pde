@@ -70,15 +70,16 @@ void Hjem() {
   //pilen til kælderen
   strokeCap(ROUND);
   strokeWeight(10);
-
+//bestemmer farven af pilen til at bevæge skærm alt efter om musen er ovenoverden
   if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
     stroke(200);
   } else {
     stroke(150);
   }
+  //tegner pilen som man kan trykke på for at skifte skærm
   line(width/2-camX, height/15*14-camY, width/2+width/20-camX, height/30*27-camY);
   line(width/2-camX, height/15*14-camY, width/2-width/20-camX, height/30*27-camY);
-
+//samme som den ovenover bare for en andeb
   if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
     stroke(200);
   } else {
