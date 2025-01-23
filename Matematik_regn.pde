@@ -67,6 +67,7 @@ void MatematikRegn() {
     flemming.sizeY = height/4;
     textBox(matRegnSider);
   } else if (liv <= 0) {
+    regnTal = new ArrayList<RegnTal>();
     matRegnGenstartKnap.isActive = true;
     tilbageKnap.isActive = true;
     textAlign(CENTER, CENTER);
@@ -79,6 +80,7 @@ void MatematikRegn() {
     flemming.y = height*0.37;
     flemming.sizeX = width/4;
     flemming.sizeY = height/4;
+    flemming.humør = "trist";
   } else {
     flemming.x = width*0.8;
     flemming.y = height*0.8;
@@ -124,4 +126,5 @@ void skiftTilMatRegn() {
   regnTal = new ArrayList<RegnTal>();
   tal1 = round(random(1, maxTal));
   tal2 = round(random(1, maxTal));
+  flemming.humør = "glad";
 }

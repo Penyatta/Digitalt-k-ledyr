@@ -108,12 +108,14 @@ void mousePressed() {
             talTime *= 0.95;
             talHast *= 1.05;
             point += 1;
+            flemming.humør = "glad";
             if (point % 3 == 0) {
               maxTal += 1;
             }
             tal1 = round(random(1, maxTal));
             tal2 = round(random(1, maxTal));
           } else {
+            flemming.humør = "sur";
             regnTal.get(i).farve = color(255, 0, 0);
             background(255, 0, 0);
             liv -= 1;
