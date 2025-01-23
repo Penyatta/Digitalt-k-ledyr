@@ -6,8 +6,8 @@ class Partikel {
   Partikel(float x, float y) {
     this.x = x;
     this.y = y;
-    this.vx = random(-1, 1);
-    this.vy = random(-1, 1);
+    this.vx = random(-2, 2);
+    this.vy = random(-2, 2);
     this.levetid = 255; // Starter med fuld levetid
   }
 
@@ -28,18 +28,21 @@ class Partikel {
 }
 
 class Gnister extends Partikel {
-  Gnister(float x, float y) {
+  color farve;
+  Gnister(float x, float y, color farve) {
     super(x, y);
+    this.farve = farve;
   }
 
   @Override
-    void bevæg() {
+  void bevæg() {
     super.bevæg();
     vy += 0.1; // Tyngdekraft
   }
   void tegn() {
     noStroke();
-    super.tegn();
+    fill(farve, levetid); // Brug alpha til at fade ud
+    ellipse(x, y, 10, 10);
   }
 }
 
@@ -61,8 +64,8 @@ class Røg extends Partikel {
 class Hjerte extends Partikel {
   Hjerte(float x, float y) {
     super(x, y);
-    this.vx *= 0.5; 
-    this.vy = random(-1,0);
+    this.vx *= 0.5;
+    this.vy = random(-1, 0);
   }
 
   @Override
@@ -73,8 +76,8 @@ class Hjerte extends Partikel {
     noStroke();
     fill(255, 0, 0, levetid);
     rect(0, 0, 10, 10);
-    arc(5, 0, 10, 10,PI,2*PI);
-    arc(0, 5, 10, 10,PI/2,PI+PI/2);
+    arc(5, 0, 10, 10, PI, 2*PI);
+    arc(0, 5, 10, 10, PI/2, PI+PI/2);
     popMatrix();
   }
 }

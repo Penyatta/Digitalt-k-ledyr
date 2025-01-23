@@ -33,11 +33,11 @@ class Dyr {
   float tungeY=y+sizeY*0.7;
   boolean tungeIBrug=false;
   boolean tungeUd=true;
-  
+
   boolean drikker = false;
   boolean harDrukket = false;
   boolean flytterTilVand = false;
-  
+
   //VIGTIGT!!! Dybde
   int dybde=0;
   int dimensionalitet = 2;
@@ -71,14 +71,13 @@ class Dyr {
 
     øjekonstruktor(0);
     øjekonstruktor(1);
-    fill(0,200,255);
-    if(tungeIBrug){
+    fill(0, 200, 255);
+    if (tungeIBrug) {
       fill(0);
     }
-    if(drikker == false){
+    if (drikker == false) {
       arc(x+sizeX/6-camX, y+sizeY*0.7-camY, sizeX/8, sizeX/8, mundVinkel, PI+mundVinkel);
-    }
-    else{
+    } else {
       fill(0);
       circle(x+sizeX/6-camX, y+sizeY*0.73-camY, sizeX/16);
     }
@@ -93,19 +92,19 @@ class Dyr {
       strokeWeight(3);
       strokeCap(SQUARE);
     }
-    if(flytterTilVand == true){
-      x=lerp(x,width/12,0.05);
-      y=lerp(y,height/10*6-height/90,0.05);
+    if (flytterTilVand == true) {
+      x=lerp(x, width/12, 0.05);
+      y=lerp(y, height/10*6-height/90, 0.05);
     }
-    if(x < width/12+1 && x > width/12-1 && harDrukket == false){
+    if (x < width/12+1 && x > width/12-1 && harDrukket == false) {
       drikker = true;
       flytterTilVand = false;
       harDrukket = true;
     }
-    if(drikker == false && harDrukket == true){
-      x=lerp(x,width*0.4,0.05);
-      y=lerp(y,height*0.6,0.05);
-      if(x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1){
+    if (drikker == false && harDrukket == true) {
+      x=lerp(x, width*0.4, 0.05);
+      y=lerp(y, height*0.6, 0.05);
+      if (x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1) {
         harDrukket = false;
       }
     }
@@ -126,8 +125,8 @@ class Dyr {
   }
 
 
-void øjekonstruktor(int RorL){
-  //positionen midt mellem øjnene
+  void øjekonstruktor(int RorL) {
+    //positionen midt mellem øjnene
     float eyeX = x+sizeX*0.45-camX;
     float eyeY = y+sizeY*0.2-camY;
     //størrelsen af øjnene
@@ -139,10 +138,9 @@ void øjekonstruktor(int RorL){
     float eyeOffset;
     float brynLængde = sizeX/30;
     float brynDistance = sizeX/60;
-    if(RorL==0){
-     eyeOffset=eyeX-sizeX*0.15;
-    }
-    else{
+    if (RorL==0) {
+      eyeOffset=eyeX-sizeX*0.15;
+    } else {
       eyeOffset=eyeX+sizeX*0.15;
     }
     //vinklen på øjenbrynene
@@ -154,7 +152,7 @@ void øjekonstruktor(int RorL){
     float h = ((2*brynVinkel*(eyeSizeX/2)*eyeSizeY)/(pow(eyeSizeX, 2)*sqrt(1-4*pow(brynVinkel*(eyeSizeX/2), 2)/pow(eyeSizeX, 2))));
     //hypotenusen
     float hyp = sqrt(pow(h, 2)+1);
-    
+
     if (eyeSizeY > pupilSize) {
       mY = eyeSizeY/2-pupilSize/2;
     }
@@ -182,7 +180,7 @@ void øjekonstruktor(int RorL){
     //bevæger den aktuelle posiition af pupillerne mod mål positionen
     pupilX[RorL] = lerp(pupilX[RorL], pupilMålX, 0.2);
     pupilY[RorL] = lerp(pupilY[RorL], pupilMålY, 0.2);
-    // hvis positionen er 
+    // hvis positionen er
     if (isNan(pupilX[RorL])) {
       pupilX[RorL] = mouseX-eyeOffset;
     }
@@ -204,13 +202,12 @@ void øjekonstruktor(int RorL){
     //øjenbrynets position
     float brynX = brynVinkel*((eyeSizeX+brynDistance*blinkModifier)/2);
     float brynY = -(eyeSizeY+brynDistance*blinkModifier)/2*sqrt(1-pow(brynX/(eyeSizeX+brynDistance*blinkModifier)*2, 2));
-    if(RorL==0){
-    line(brynX+eyeOffset-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+eyeOffset+dX*brynLængde, brynY+eyeY+dY*brynLængde);
+    if (RorL==0) {
+      line(brynX+eyeOffset-dX*brynLængde, brynY+eyeY-dY*brynLængde, brynX+eyeOffset+dX*brynLængde, brynY+eyeY+dY*brynLængde);
+    } else {
+      line(-brynX+eyeOffset-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+eyeOffset+dX*brynLængde, brynY+eyeY-dY*brynLængde);
     }
-    else{
-    line(-brynX+eyeOffset-dX*brynLængde, brynY+eyeY+dY*brynLængde, -brynX+eyeOffset+dX*brynLængde, brynY+eyeY-dY*brynLængde);
-    }
-}
+  }
 }
 
 void tunge() {
@@ -239,14 +236,16 @@ void tunge() {
       flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25, flemming.hastTunge);
       MadPartikler.get(nuværendeMad).posX=flemming.tungeX+camX;
       MadPartikler.get(nuværendeMad).posY=flemming.tungeY+camY;
-      if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25+1 
-      && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25-1) {
-
+      if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25+1
+        && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25-1) {
         flemming.tungeUd=true;
         flemming.tungeIBrug=false;
         MadPartikler.remove(nuværendeMad);
         flemming.dybde+=1;
-        if(flemming.dimensionalitet == 2){
+        for(int i=0;i<10;i++){
+          partikler.add(new Gnister(flemming.tungeX, flemming.tungeY, color(154, 102, 63)));
+        }
+        if (flemming.dimensionalitet == 2) {
           flemming.dimensionalitet += 1;
         }
       }
