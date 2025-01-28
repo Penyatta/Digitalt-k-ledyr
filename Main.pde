@@ -11,15 +11,12 @@ int sted = 1;
 int hjem = 0;
 int matRegn = 1;
 
-float delta;
+float delta = 0;
 float deltaTime = millis();
 
 boolean isNan(float val) {
   return val != val;
 }
-
-float delta = 0;
-float deltaTime = 0;
 
 ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
 
@@ -66,6 +63,8 @@ void draw() {
     p.tegn();
     if (p.erDød()) {
       partikler.remove(i);
+    }
+  }
   for (int i=0; i<knapper.size(); i++) {
     Knap knap = knapper.get(i);
     if (knap.isActive == true) {
@@ -73,7 +72,6 @@ void draw() {
     }
   }
 }
-
 
 
 

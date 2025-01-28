@@ -79,5 +79,6 @@ class Hjerte extends Partikel {
     arc(5, 0, 10, 10, PI, 2*PI);
     arc(0, 5, 10, 10, PI/2, PI+PI/2);
     popMatrix();
+    stroke(0);
   }
 }
