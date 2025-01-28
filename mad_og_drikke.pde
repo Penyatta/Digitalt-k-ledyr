@@ -22,9 +22,10 @@ class MadPartikel {
   boolean Stille=false;
   float bouncyness=0.7;
   float vindmodstand=0.9999;
-  float gravity=0.8;
+  float gravity=9.8;
   float friktion=0.9;
   float ground=random(height*0.9, height);
+  int groundCount = 0;
   void TegnMad() {
 
     if (IHånden) {
@@ -32,34 +33,45 @@ class MadPartikel {
       posX=mouseX+camX;
       posY=mouseY+camY;
     } else if (!Stille) {
+      //vindmostand og tyngdekræft
+      hastX=hastX*vindmodstand;
+      hastY=hastY*vindmodstand;
+      hastY=hastY+gravity*delta*10;
+      //ændrer positionen så den flytter sig med hastighed
+      posX=posX+hastX;
+      posY=posY+hastY;
+      //gulv bounce
+      if (posY>ground-Størrelse/2) {
+        posY=ground-Størrelse/2;
+        hastY=hastY*(-bouncyness);
+        hastX=hastX*(friktion);
+      }
       //Væg bounce
       if (posX<=Størrelse/2 || posX>=(width-Størrelse/2)) {
         hastX=hastX*(-bouncyness);
         hastY=hastY*(friktion);
         //Sørger for at maden ikke kan være i væggen
         if (posX<width/2) {
-          posX= 1+Størrelse/2;
+          posX= Størrelse/2;
         } else {
-          posX=width-1-Størrelse/2;
+          posX=width-Størrelse/2;
         }
       }
-      //gulv bounce
-      if (posY>ground-Størrelse/2) {
-        hastY=hastY*(-bouncyness);
-        hastX=hastX*(friktion);
-        posY=ground-Størrelse/2;
+      //tæl hvor mange frames den har rørt jorden i træk
+      if(posY == ground-Størrelse/2){
+        groundCount += 1;
       }
-      //hvis den står stille på gulvet sættes denne til true for at spare på processing power
-      if (abs(hastX)<=0.005 && abs(hastY)<=0.4 && posY>ground-Størrelse) {
+      else{
+        groundCount = 0;
+      }
+      float groundAntal = 1/delta;
+      if(groundAntal < 2){
+        groundAntal = 2;
+      }
+      //hvis den har rørt jorden et hvis antal gange så står den stille
+      if (groundCount >= groundAntal) {
         Stille=true;
       }
-      //vindmostand og tyngdekræft
-      hastX=hastX*vindmodstand;
-      hastY=hastY*vindmodstand;
-      hastY=hastY+gravity;
-      //ændrer positionen så den flytter sig med hastighed
-      posX=posX+hastX;
-      posY=posY+hastY;
     }
     //tegner maden
     strokeWeight(0);
@@ -99,14 +111,14 @@ void tegnMadDrikke() {
       }
       vandPartikelTimer = 0;
     }
-    vand = lerp(vand, 0, 0.02);
-    vandBølge = lerp(vandBølge, height*0.004, 0.1);
+    vand = lerp(vand, 0, constrain(0.5*delta, 0, 1));
+    vandBølge = lerp(vandBølge, height*0.004, constrain(5*delta, 0, 1));
     if (vand < 0.01) {
       flemming.drikker = false;
     }
   } else {
-    vand = lerp(vand, 1, 0.001);
-    vandBølge = lerp(vandBølge, -height*0.004, 0.01);
+    vand = lerp(vand, 1, constrain(0.5*delta, 0, 1));
+    vandBølge = lerp(vandBølge, -height*0.004, constrain(5*delta, 0, 1));
   }
   image(WaterBottle, width/50-camX, height/7*2-camY, width/9, height/2);
   stroke(0);
