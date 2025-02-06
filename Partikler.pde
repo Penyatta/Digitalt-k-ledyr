@@ -70,6 +70,9 @@ class Hjerte extends Partikel {
 
   @Override
     void tegn() {
+    float l = sqrt(pow(vx, 2)+pow(vy, 2))*random(100, 500)*delta;
+    vx /= l;
+    vy /= l;
     pushMatrix();
     translate(x, y);
     rotate(PI/4);

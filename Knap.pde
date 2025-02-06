@@ -1,11 +1,9 @@
 ArrayList<Knap> knapper = new ArrayList<Knap>();
 
 class Knap {
-  float x, y, sizeX, sizeY;
-  color farve, hoverFarve, klikFarve;
+  float x, y, sizeX, sizeY, tekstSize;
+  color farve, hoverFarve, klikFarve, tekstFarve;
   String tekst;
-  float tekstSize;
-  color tekstFarve;
   boolean isActive = false;
   Knap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
     x = X;
