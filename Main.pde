@@ -18,6 +18,9 @@ int rum=0;
 int leverum=0;
 int legerum=1;
 int skinrum=2;
+
+boolean flytterRum=false;
+
 boolean isNan(float val) {
   return val != val;
 }
@@ -60,50 +63,77 @@ void Hjem() {
   tegnMadDrikke();
   tunge();
   fill(0);
-  text(flemming.dybde, 100, 100);
-  text(flemming.dimensionalitet, 100, 200);
   //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   //bruges til at bestemme hvor langt musen har flyttet sig i den sidste frame til brug i hastigheden til masstykkerne
   prevX=mouseX;
   prevY=mouseY;
   //camX = lerp(camX, width, 0.001);
-  //pilen til kælderen
-  strokeCap(ROUND);
-  strokeWeight(10);
-//bestemmer farven af pilen til at bevæge skærm alt efter om musen er ovenoverden
-  if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
-    stroke(200);
-  } else {
-    stroke(150);
+
+  if (!flemming.harDrukket && !flemming.flytterTilVand) {
+    //pilen til kælderen
+    strokeCap(ROUND);
+    strokeWeight(10);
+    //bestemmer farven af pilen til at bevæge skærm alt efter om musen er ovenoverden
+    if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
+      stroke(200);
+    } else {
+      stroke(150);
+    }
+    //tegner pilen som man kan trykke på for at skifte skærm
+    line(width/2-camX, height/15*14-camY, width/2+width/20-camX, height/30*27-camY);
+    line(width/2-camX, height/15*14-camY, width/2-width/20-camX, height/30*27-camY);
+    //samme som den ovenover bare for en anden
+    if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
+      stroke(200);
+    } else {
+      stroke(150);
+    }
+    line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2+width/20-camY);
+    line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2-width/20-camY);
+    //samme som den ovenover bare for en tredje
+    if (mouseX>width/2-width/20-camX && mouseY>2*height-height/15*14-camY && mouseX<width/2+width/20-camX && mouseY<2*height-height/30*27-camY) {
+      stroke(200);
+    } else {
+      stroke(150);
+    }
+    line(width/2-camX, 2*height-height/15*14-camY, width/2+width/20-camX, 2*height-height/30*27-camY);
+    line(width/2-camX, 2*height-height/15*14-camY, width/2-width/20-camX, 2*height-height/30*27-camY);
+    //samme som den ovenover bare for en fjerde
+    if (mouseX>width/20*21-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*21-camX && mouseY<height/2+width/20-camY) {
+      stroke(200);
+    } else {
+      stroke(150);
+    }
+    line(width/20*21-camX, height/2+width/20-camY, width/20*21-height/30-camX, height/2-camY);
+    line(width/20*21-camX, height/2-width/20-camY, width/20*21-height/30-camX, height/2-camY);
   }
-  //tegner pilen som man kan trykke på for at skifte skærm
-  line(width/2-camX, height/15*14-camY, width/2+width/20-camX, height/30*27-camY);
-  line(width/2-camX, height/15*14-camY, width/2-width/20-camX, height/30*27-camY);
-//samme som den ovenover bare for en anden
-  if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
-    stroke(200);
-  } else {
-    stroke(150);
-  }
-  line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2+width/20-camY);
-  line(width/20*19-camX, height/2-camY, width/20*19-height/30-camX, height/2-width/20-camY);
-//samme som den ovenover bare for en tredje
- if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
-    stroke(200);
-  } else {
-    stroke(150);
-  }
-  line(width/2-camX, 2*height-height/15*14-camY, width/2+width/20-camX, 2*height-height/30*27-camY);
-  line(width/2-camX, 2*height-height/15*14-camY, width/2-width/20-camX, 2*height-height/30*27-camY);
-//samme som den ovenover bare for en fjerde
   strokeWeight(3);
-  if (rum==legerum) {
+  if (rum==legerum && flytterRum) {
     flemming.y=lerp(flemming.y, height*1.6, 0.1);
+    flemming.x=lerp(flemming.x, width*0.4, 0.1);
     camY=lerp(camY, height, 0.05);
+    camX=lerp(camX, 0, 0.05);
+    if(camY>=height-0.1 && camX<=0.1){
+      flytterRum=false;
+    }
   }
-  if(rum==skinrum){
+  if (rum==skinrum && flytterRum) {
     flemming.x=lerp(flemming.x, width*1.4, 0.1);
+    flemming.y=lerp(flemming.y, height*0.6, 0.1);
+    camY=lerp(camY, 0, 0.05);
     camX=lerp(camX, width, 0.05);
+    if(camY<=0.1 && camX>=width-0.1){
+      flytterRum=false;
+    }
+  }
+  if (rum==leverum && flytterRum) {
+    flemming.x=lerp(flemming.x, width*0.4, 0.1);
+    flemming.y=lerp(flemming.y, height*0.6, 0.1);
+    camY=lerp(camY, 0, 0.05);
+    camX=lerp(camX, 0, 0.05);
+    if(camY<=0.1 && camX<=0.1){
+      flytterRum=false;
+    }
   }
 }
 
@@ -128,11 +158,23 @@ void mousePressed() {
         MadIHånden = true; // Pick up the particle
       }
     }
-    if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
-      rum=legerum;
-    }
-    if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
-      rum=skinrum;
+    if (!flemming.harDrukket && !flemming.flytterTilVand) {
+      if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
+        rum=legerum;
+        flytterRum=true;
+      }
+      if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
+        rum=skinrum;
+        flytterRum=true;
+      }
+      if (mouseX>width/2-width/20-camX && mouseY>2*height-height/15*14-camY && mouseX<width/2+width/20-camX && mouseY<2*height-height/30*27-camY) {
+        rum=leverum;
+        flytterRum=true;
+      }
+      if (mouseX>width/20*21-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*21-camX && mouseY<height/2+width/20-camY) {
+        rum=leverum;
+        flytterRum=true;
+      }
     }
   }
 }
@@ -147,7 +189,7 @@ void keyPressed() {
   if (key == 't') {
     flemming.humør = "trist";
   }
-  if (key == 'd' && flemming.harDrukket == false && sted == hjem) {
+  if (key == 'd' && flemming.harDrukket == false && sted == hjem && !flytterRum) {
     flemming.flytterTilVand = true;
     flemming.dimensionalitet += 1;
   }
