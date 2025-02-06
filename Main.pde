@@ -6,7 +6,9 @@ float blinkTimer = 0;
 float camX = 0;
 float camY = 0;
 
-int sted = 1;
+//statemachine med hvilken skærm der skal vises
+int sted = 0;
+
 
 int hjem = 0;
 int matRegn = 1;
@@ -14,6 +16,15 @@ int minusVenus = 2;
 
 float delta = 0;
 float deltaTime = millis();
+
+//statemachine der holder styr på hvilket rum Flemming er i, i huset
+int rum=0;
+
+int leverum=0;
+int legerum=1;
+int skinrum=2;
+
+boolean flytterRum=false;
 
 boolean isNan(float val) {
   return val != val;
@@ -79,8 +90,6 @@ void draw() {
   }
 }
 
-
-
 void mousePressed() {
   //når man trykker på flemming så blinker han
   if (mouseX > flemming.x+flemming.sizeY*tan(flemming.angle)*0.5-camX
@@ -109,6 +118,24 @@ void mousePressed() {
         }
         MadPartikler.add(new MadPartikel());
         MadIHånden = true; // Pick up the particle
+      }
+    }
+    if (!flemming.harDrukket && !flemming.flytterTilVand) {
+      if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
+        rum=legerum;
+        flytterRum=true;
+      }
+      if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
+        rum=skinrum;
+        flytterRum=true;
+      }
+      if (mouseX>width/2-width/20-camX && mouseY>2*height-height/15*14-camY && mouseX<width/2+width/20-camX && mouseY<2*height-height/30*27-camY) {
+        rum=leverum;
+        flytterRum=true;
+      }
+      if (mouseX>width/20*21-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*21-camX && mouseY<height/2+width/20-camY) {
+        rum=leverum;
+        flytterRum=true;
       }
     }
   }
@@ -176,6 +203,11 @@ void keyPressed() {
   if (key == 't') {
     flemming.humør = "trist";
   }
+  if (key == 'd' && flemming.harDrukket == false && sted == hjem && !flytterRum) {
+    flemming.flytterTilVand = true;
+    flemming.dimensionalitet += 1;
+  }
+
   if (key == 'p') {
     flemming.sizeY *= 0.5;
     flemming.sizeX *= 0.5;
