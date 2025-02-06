@@ -43,6 +43,7 @@ class Dyr {
   int dimensionalitet = 2;
 
   void tegnDyr() {
+    stroke(0);
     mundPosX=x+sizeX/6-camX;
     mundPosY=y+sizeY*0.7-camY;
 

@@ -73,7 +73,7 @@ void MatematikRegn() {
     textAlign(CENTER, CENTER);
     textSize(width*0.1);
     fill(255);
-    text("DU TABTE", width*0.5, height*0.1);
+    text("Godt gået", width*0.5, height*0.1);
     textSize(width*0.05);
     text("Point: "+str(point), width*0.5, height*0.3);
     flemming.x = width*0.42;

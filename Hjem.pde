@@ -5,6 +5,7 @@ void Hjem() {
   stroke(0);
   strokeWeight(3);
   rect(-10-camX, height*0.8-camY, width+width+21, height*0.2);
+  tavlen();
   flemming.tegnDyr();
   tegnMadDrikke();
   tunge();
@@ -55,7 +56,7 @@ void Hjem() {
   }
   strokeWeight(3);
   if (rum==legerum && flytterRum) {
-    flemming.y=lerp(flemming.y, height*1.6, 0.1);
+    flemming.y=lerp(flemming.y, height*1.72, 0.1);
     flemming.x=lerp(flemming.x, width*0.4, 0.1);
     camY=lerp(camY, height, 0.05);
     camX=lerp(camX, 0, 0.05);
@@ -83,8 +84,17 @@ void Hjem() {
   }
 }
 
+void tavlen(){
+  noStroke();
+  fill(168, 116, 42);
+  rect(width/10-camX,height/6*7-camY,width/3*2,height/2*1);
+  fill(0);
+  rect(width/10+width/80-camX,height/6*7+width/80-camY,width/3*2-width/40,height/2*1-width/40);
+}
+
 void skiftTilHjem() {
   sted = hjem;
+  rum = leverum;
   camX = 0;
   camY = 0;
   flemming.x = width*0.4;

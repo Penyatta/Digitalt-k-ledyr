@@ -60,7 +60,6 @@ void draw() {
   }
   if (sted == matRegn) {
     MatematikRegn();
-    println(point);
   }
   //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
