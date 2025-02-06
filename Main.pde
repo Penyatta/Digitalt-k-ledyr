@@ -10,6 +10,7 @@ int sted = 1;
 
 int hjem = 0;
 int matRegn = 1;
+int minusVenus = 2;
 
 float delta = 0;
 float deltaTime = millis();
@@ -22,6 +23,8 @@ ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
 
 boolean tutorial = true;
 int side = 0;
+int point = 0;
+int liv = 3;
 
 void setup() {
   fullScreen();
@@ -40,6 +43,7 @@ void setup() {
   partikler = new ArrayList<>();
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
+  skiftTilMinusVenus();
 }
 void draw() {
   delta = (millis()-deltaTime)/1000;
@@ -49,7 +53,9 @@ void draw() {
   }
   if (sted == matRegn) {
     MatematikRegn();
-    println(point);
+  }
+  if (sted == minusVenus){
+    MinusVenus();
   }
   //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
@@ -139,6 +145,16 @@ void mousePressed() {
             liv -= 1;
           }
         }
+      }
+    }
+  }
+  if(sted == minusVenus){
+    if (tutorial) {
+      if (side+1 < minusVenusSider.length) {
+        side += 1;
+      } else {
+        tutorial = false;
+        flemming.x = -width;
       }
     }
   }

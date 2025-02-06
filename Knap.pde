@@ -61,6 +61,21 @@ class MatRegnGenstartKnap extends Knap {
   }
 }
 
+MinusVenusGenstartKnap minusVenusGenstartKnap;
+
+class MinusVenusGenstartKnap extends Knap {
+  MinusVenusGenstartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+    void klik() {
+    skiftTilMinusVenus();
+    tutorial = false;
+    minusVenusGenstartKnap.isActive = false;
+    tilbageKnap.isActive = false;
+  }
+}
+
 TilbageKnap tilbageKnap;
 
 class TilbageKnap extends Knap {
@@ -70,8 +85,9 @@ class TilbageKnap extends Knap {
   @Override
     void klik() {
     skiftTilHjem();
-    matRegnGenstartKnap.isActive = false;
-    tilbageKnap.isActive = false;
+    for(Knap knap : knapper){
+      knap.isActive = false;
+    }
   }
 }
 
