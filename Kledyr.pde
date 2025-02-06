@@ -225,8 +225,8 @@ void tunge() {
     }
   } else {
     if (flemming.tungeUd) {
-      flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX, constrain(flemming.hastTunge*delta, 0, 1));
-      flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY, constrain(flemming.hastTunge*delta, 0, 1));
+      flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX-camX, constrain(flemming.hastTunge*delta, 0, 1));
+      flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY-camY, constrain(flemming.hastTunge*delta, 0, 1));
       if (flemming.tungeX<=MadPartikler.get(nuværendeMad).posX+1&&flemming.tungeX>=MadPartikler.get(nuværendeMad).posX-1) {
         flemming.tungeUd=false;
       }
