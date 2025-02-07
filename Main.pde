@@ -51,6 +51,11 @@ void setup() {
   partikler = new ArrayList<>();
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
+  matRegnStartKnap = new MatRegnStartKnap(width/10+width/80,height/6*7+width/80,width/3*2-width/40,height/10-width/200,color(0),color(20),color(40),"Matematik regn",20,color(255));
+  minusPåVenusStartKnap = new MinusPåVenusStartKnap(width/10+width/80,height/6*7+width/80+height/10-width/200,width/3*2-width/40,height/10-width/200,color(0),color(20),color(40),"Minus På Venus",20,color(255));
+  gangeMedLangeKnap = new GangeMedLangeKnap(width/10+width/80,height/6*7+width/80+(height/10-width/200)*2,width/3*2-width/40,height/10-width/200,color(0),color(20),color(40),"Gange Med Lange comming never",20,color(255));
+  påMissionMedDivisionKnap = new PåMissionMedDivisionKnap(width/10+width/80,height/6*7+width/80+(height/10-width/200)*3,width/3*2-width/40,height/10-width/200,color(0),color(20),color(40),"På mission med division comming never",20,color(255));
+  doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80,height/6*7+width/80+(height/10-width/200)*4,width/3*2-width/40,height/10-width/200,color(0),color(20),color(40),"Hop med Bob",20,color(255));
 }
 void draw() {
   delta = (millis()-deltaTime)/1000;
@@ -117,6 +122,11 @@ void mousePressed() {
       if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
         rum=legerum;
         flytterRum=true;
+        matRegnStartKnap.isActive=true;
+        minusPåVenusStartKnap.isActive=true;
+        gangeMedLangeKnap.isActive=true;
+        påMissionMedDivisionKnap.isActive=true;
+        doodlejumpStartKnap.isActive=true;
       }
       if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
         rum=skinrum;

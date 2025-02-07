@@ -85,7 +85,7 @@ void Hjem() {
 }
 
 void tavlen(){
-  noStroke();
+  noStroke(); 
   fill(168, 116, 42);
   rect(width/10-camX,height/6*7-camY,width/3*2,height/2*1);
   fill(0);

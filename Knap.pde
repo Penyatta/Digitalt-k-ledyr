@@ -77,6 +77,72 @@ class TilbageKnap extends Knap {
   }
 }
 
+MatRegnStartKnap matRegnStartKnap;
+
+class MatRegnStartKnap extends Knap {
+  MatRegnStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+    void klik() {
+    matRegnStartKnap.isActive=false;
+    minusPåVenusStartKnap.isActive=false;
+    gangeMedLangeKnap.isActive=false;
+    påMissionMedDivisionKnap.isActive=false;
+    doodlejumpStartKnap.isActive=false;
+    sted=matRegn;
+  }
+}
+
+MinusPåVenusStartKnap minusPåVenusStartKnap;
+
+class MinusPåVenusStartKnap extends Knap {
+  MinusPåVenusStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+    void klik() {
+    matRegnStartKnap.isActive=false;
+    minusPåVenusStartKnap.isActive=false;
+    gangeMedLangeKnap.isActive=false;
+    påMissionMedDivisionKnap.isActive=false;
+    doodlejumpStartKnap.isActive=false;
+  }
+}
+
+GangeMedLangeKnap gangeMedLangeKnap;
+
+class GangeMedLangeKnap extends Knap {
+  GangeMedLangeKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+    void klik() {
+  }
+}
+
+PåMissionMedDivisionKnap påMissionMedDivisionKnap;
+
+class PåMissionMedDivisionKnap extends Knap{
+  PåMissionMedDivisionKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE){
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+  void klik(){
+  }
+}
+
+DoodlejumpStartKnap doodlejumpStartKnap;
+
+class DoodlejumpStartKnap extends Knap{
+  DoodlejumpStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE){
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+  void klik(){
+  }
+}
+
 //class knapTemplate extends Knap{
 //  knapTemplate(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE){
 //    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
