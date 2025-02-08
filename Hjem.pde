@@ -60,7 +60,7 @@ void Hjem() {
     flemming.x=lerp(flemming.x, width*0.4, 0.1);
     camY=lerp(camY, height, 0.05);
     camX=lerp(camX, 0, 0.05);
-    if(camY>=height-0.1 && camX<=0.1){
+    if (camY>=height-0.1 && camX<=0.1) {
       flytterRum=false;
     }
   }
@@ -69,7 +69,7 @@ void Hjem() {
     flemming.y=lerp(flemming.y, height*0.6, 0.1);
     camY=lerp(camY, 0, 0.05);
     camX=lerp(camX, width, 0.05);
-    if(camY<=0.1 && camX>=width-0.1){
+    if (camY<=0.1 && camX>=width-0.1) {
       flytterRum=false;
     }
   }
@@ -78,18 +78,18 @@ void Hjem() {
     flemming.y=lerp(flemming.y, height*0.6, 0.1);
     camY=lerp(camY, 0, 0.05);
     camX=lerp(camX, 0, 0.05);
-    if(camY<=0.1 && camX<=0.1){
+    if (camY<=0.1 && camX<=0.1) {
       flytterRum=false;
     }
   }
 }
 
-void tavlen(){
-  noStroke(); 
+void tavlen() {
+  noStroke();
   fill(168, 116, 42);
-  rect(width/10-camX,height/6*7-camY,width/3*2,height/2*1);
+  rect(width/10-camX, height/6*7-camY, width/3*2, height/2*1);
   fill(0);
-  rect(width/10+width/80-camX,height/6*7+width/80-camY,width/3*2-width/40,height/2*1-width/40);
+  rect(width/10+width/80-camX, height/6*7+width/80-camY, width/3*2-width/40, height/2*1-width/40);
 }
 
 void skiftTilHjem() {

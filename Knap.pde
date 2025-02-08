@@ -34,7 +34,7 @@ class Knap {
     textAlign(CENTER, CENTER);
     textSize(tekstSize);
     fill(tekstFarve);
-    text(tekst, x+sizeX/2, y+sizeY/2);
+    text(tekst, x+sizeX/2-camX, y+sizeY/2-camY);
   }
   boolean musOver() {
     if (mouseX>x-camX && mouseX<x+sizeX-camX && mouseY>y-camY && mouseY<y+sizeY-camY) {
