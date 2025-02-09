@@ -73,9 +73,15 @@ void MatematikRegn() {
     textAlign(CENTER, CENTER);
     textSize(width*0.1);
     fill(255);
+    if(point>matRegnAchivements.maxScore){
     text("Godt gået", width*0.5, height*0.1);
+    matRegnAchivements.maxScore=point;
+    }
+    else{
+      text("Kom igen", width*0.5, height*0.1);
+    }
     textSize(width*0.05);
-    text("Point: "+str(point), width*0.5, height*0.3);
+    text("Point: "+str(point)+"        Højeste point: "+matRegnAchivements.maxScore, width*0.5, height*0.3);
     flemming.x = width*0.42;
     flemming.y = height*0.37;
     flemming.sizeX = width/4;
