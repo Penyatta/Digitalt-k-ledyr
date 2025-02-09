@@ -1,5 +1,6 @@
 ArrayList<Knap> knapper = new ArrayList<Knap>();
 
+//Den overordnede knap class
 class Knap {
   float x, y, sizeX, sizeY;
   color farve, hoverFarve, klikFarve;
@@ -20,6 +21,7 @@ class Knap {
     tekstFarve = TEKSTFARVE;
     knapper.add(this);
   }
+  //tegner knappen og ændrer hvordan den ser ud alt efter om musen er over den eller om den er blevet trykket
   void tegnKnap() {
     if (musOver()) {
       if (mousePressed) {
@@ -36,6 +38,7 @@ class Knap {
     fill(tekstFarve);
     text(tekst, x+sizeX/2-camX, y+sizeY/2-camY);
   }
+  //tjekker om musen er over knappen
   boolean musOver() {
     if (mouseX>x-camX && mouseX<x+sizeX-camX && mouseY>y-camY && mouseY<y+sizeY-camY) {
       return true;
@@ -43,11 +46,13 @@ class Knap {
       return false;
     }
   }
+  //tom click funktion 
   void klik() {
     println("Klik!");
   }
 }
 
+//Knappen til at kunne genstarte matematik
 MatRegnGenstartKnap matRegnGenstartKnap;
 
 class MatRegnGenstartKnap extends Knap {
@@ -56,6 +61,7 @@ class MatRegnGenstartKnap extends Knap {
   }
   @Override
     void klik() {
+      // sætter mat regn igang uden at aktivere tutorial og fjerner knapperne
     skiftTilMatRegn();
     tutorial = false;
     matRegnGenstartKnap.isActive = false;
@@ -71,6 +77,7 @@ class TilbageKnap extends Knap {
   }
   @Override
     void klik() {
+      // går tilbage til hjem og fjerner knapperne
     skiftTilHjem();
     matRegnGenstartKnap.isActive = false;
     tilbageKnap.isActive = false;
@@ -85,17 +92,17 @@ class MatRegnStartKnap extends Knap {
   }
   @Override
     void klik() {
+      //sætter spille knapperne til inaktive og skifter til mat regn
     matRegnStartKnap.isActive=false;
     minusPåVenusStartKnap.isActive=false;
     gangeMedLangeKnap.isActive=false;
     påMissionMedDivisionKnap.isActive=false;
     doodlejumpStartKnap.isActive=false;
-    camX=0;
-    camY=0;
-    sted=matRegn;
+    skiftTilMatRegn();
   }
   @Override
     void tegnKnap() {
+      //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
     if (musOver()) {
       if (mousePressed) {
         fill(klikFarve);
@@ -139,6 +146,7 @@ class MinusPåVenusStartKnap extends Knap {
   }
   @Override
     void klik() {
+      //sætter knapperne til inaktiv og skifter til minus på venus
     matRegnStartKnap.isActive=false;
     minusPåVenusStartKnap.isActive=false;
     gangeMedLangeKnap.isActive=false;
@@ -149,6 +157,7 @@ class MinusPåVenusStartKnap extends Knap {
   }
   @Override
     void tegnKnap() {
+      //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
     if (musOver()) {
       if (mousePressed) {
         fill(klikFarve);
@@ -186,6 +195,7 @@ class MinusPåVenusStartKnap extends Knap {
 
 GangeMedLangeKnap gangeMedLangeKnap;
 
+//knap til spil der ikke kommer til at eksistere
 class GangeMedLangeKnap extends Knap {
   GangeMedLangeKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
     super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
@@ -197,6 +207,7 @@ class GangeMedLangeKnap extends Knap {
 
 PåMissionMedDivisionKnap påMissionMedDivisionKnap;
 
+//knap til spil der ikke kommer til at eksistere
 class PåMissionMedDivisionKnap extends Knap {
   PåMissionMedDivisionKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
     super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
@@ -207,6 +218,7 @@ class PåMissionMedDivisionKnap extends Knap {
 }
 
 DoodlejumpStartKnap doodlejumpStartKnap;
+
 
 class DoodlejumpStartKnap extends Knap {
   DoodlejumpStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {

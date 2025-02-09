@@ -70,23 +70,24 @@ void MatematikRegn() {
     regnTal = new ArrayList<RegnTal>();
     matRegnGenstartKnap.isActive = true;
     tilbageKnap.isActive = true;
+    flemming.x = width*0.42;
+    flemming.y = height*0.37;
+    flemming.sizeX = width/4;
+    flemming.sizeY = height/4;
     textAlign(CENTER, CENTER);
     textSize(width*0.1);
     fill(255);
     if(point>matRegnAchivements.maxScore){
     text("Godt gået", width*0.5, height*0.1);
     matRegnAchivements.maxScore=point;
+    flemming.humør = "glad";
     }
     else{
       text("Kom igen", width*0.5, height*0.1);
+      flemming.humør = "trist";
     }
     textSize(width*0.05);
-    text("Point: "+str(point)+"        Højeste point: "+matRegnAchivements.maxScore, width*0.5, height*0.3);
-    flemming.x = width*0.42;
-    flemming.y = height*0.37;
-    flemming.sizeX = width/4;
-    flemming.sizeY = height/4;
-    flemming.humør = "trist";
+    text("Point: "+str(point)+" Højeste point: "+matRegnAchivements.maxScore, width*0.5, height*0.3);
   } else {
     flemming.x = width*0.8;
     flemming.y = height*0.8;
@@ -122,6 +123,8 @@ void MatematikRegn() {
 }
 
 void skiftTilMatRegn() {
+  camX=0;
+  camY=0;
   sted = matRegn;
   tutorial = true;
   liv = 3;

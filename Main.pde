@@ -49,6 +49,8 @@ void setup() {
   }
   vandBølge = -height*0.004;
   partikler = new ArrayList<>();
+  
+  //sætter parametrene til alle knapperne
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
   matRegnStartKnap = new MatRegnStartKnap(width/10+width/80, height/6*7+width/80, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Matematik regn", 50, color(255));
@@ -56,13 +58,16 @@ void setup() {
   gangeMedLangeKnap = new GangeMedLangeKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
   påMissionMedDivisionKnap = new PåMissionMedDivisionKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
   doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
+  //sætter hvor mange point man skal have for at få de forskellige stjerner
   matRegnAchivements = new Achivements(10,20,30,53);
   minusPåVenusAchivements = new Achivements(10,20,30,53);
   doodlejumpAchivements = new Achivements(10,20,30,53);
 }
 void draw() {
+  //sætter delta som bruges til at sørge for at programmet kører på samme måde uanset framerate
   delta = (millis()-deltaTime)/1000;
   deltaTime = millis();
+  //tjekker hvor man er henne og kører den relevante funktion
   if (sted == hjem) {
     Hjem();
   }
@@ -75,6 +80,7 @@ void draw() {
     blinkTimer = millis();
     blinkTime = random(1, 60);
   }
+  //kører alle partiklernes funktioner igennem
   for (int i = 0; i < partikler.size(); i++) {
     Partikel p = partikler.get(i);
     p.bevæg();
@@ -83,6 +89,7 @@ void draw() {
       partikler.remove(i);
     }
   }
+  //tegner de af knapperne som er aktive
   for (int i=0; i<knapper.size(); i++) {
     Knap knap = knapper.get(i);
     if (knap.isActive == true) {
@@ -92,7 +99,7 @@ void draw() {
 }
 
 void mousePressed() {
-  //når man trykker på flemming så blinker han
+  //når man trykker på flemming så blinker han og der kommer hjerter
   if (mouseX > flemming.x+flemming.sizeY*tan(flemming.angle)*0.5-camX
     && mouseX < flemming.x+flemming.sizeX+flemming.sizeY*tan(flemming.angle)-flemming.sizeY*tan(flemming.angle)*0.5-camX
     && mouseY > flemming.y-camY && mouseY < flemming.y+flemming.sizeY-camY) {
@@ -102,6 +109,7 @@ void mousePressed() {
       partikler.add(new Hjerte(mouseX, mouseY));
     }
   }
+  //når man trykker på vandunken drikker flemming
   if (sted == hjem) {
     if (mouseX > width/50-camX && mouseX < width/50+width/11-camX && mouseY > height/7*2-camY && mouseY < height/7*2+height/3+height/25-camY && flemming.harDrukket == false && sted == hjem) {
       flemming.flytterTilVand = true;
@@ -121,6 +129,7 @@ void mousePressed() {
         MadIHånden = true; // Pick up the particle
       }
     }
+    //flytter flemming til legerummet hvis pilen trykkes på og aktivere knapperne 
     if (!flemming.harDrukket && !flemming.flytterTilVand) {
       if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
         rum=legerum;
@@ -131,20 +140,24 @@ void mousePressed() {
         påMissionMedDivisionKnap.isActive=true;
         doodlejumpStartKnap.isActive=true;
       }
+      //flytter flemming til skinrummet hvis pilen trykkes på og aktivere knapperne 
       if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
         rum=skinrum;
         flytterRum=true;
       }
+      //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne 
       if (mouseX>width/2-width/20-camX && mouseY>2*height-height/15*14-camY && mouseX<width/2+width/20-camX && mouseY<2*height-height/30*27-camY) {
         rum=leverum;
         flytterRum=true;
       }
+       //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne 
       if (mouseX>width/20*21-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*21-camX && mouseY<height/2+width/20-camY) {
         rum=leverum;
         flytterRum=true;
       }
     }
   }
+  //gør man kan trykke igennem tutorial siderne
   if (sted == matRegn) {
     if (tutorial) {
       if (side+1 < matRegnSider.length) {
@@ -153,6 +166,7 @@ void mousePressed() {
         tutorial = false;
       }
     } else {
+      //tjekker om man trykker på tallene i mat regn
       for (int i=0; i<regnTal.size(); i++) {
         if (regnTal.get(i).klik()) {
           if (regnTal.get(i).værdi == tal1+tal2) {
@@ -162,10 +176,12 @@ void mousePressed() {
                 regnTal.get(z).erLøsning = false;
               }
             }
+            //gør spillet svære ved at forøge hastigheden
             talTime *= 0.95;
             talHast *= 1.05;
             point += 1;
             flemming.humør = "glad";
+            //sætter max tallet for tallene der kan indgå i plus stykket en højere hver tredje point
             if (point % 3 == 0) {
               maxTal += 1;
             }
@@ -181,6 +197,7 @@ void mousePressed() {
       }
     }
   }
+  //tjekker om man trykker på en knap
   for (int i=0; i<knapper.size(); i++) {
     Knap knap = knapper.get(i);
     if (knap.isActive == true && knap.musOver()) {

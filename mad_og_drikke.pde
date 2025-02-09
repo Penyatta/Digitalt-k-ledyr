@@ -97,31 +97,37 @@ void tegnMadDrikke() {
   //tegner vand ting ting
   fill(63, 73, 204);
   noStroke();
-
+//laver alle bølge punkterne til når der drikkes
   if (flemming.drikker || flemming.harDrukket) {
     for (int i=0; i<bølgePunkter.size(); i++) {
       square(bølgePunkter.get(i).x-camX, bølgePunkter.get(i).y+(height*0.6-height*0.34)*(1-vand)+height*0.34-camY, 4);
     }
   }
+  //tegner en firkant til vandet
   rect(width/40-camX, (height*0.6-height*0.34)*(1-vand)+height*0.34+vandBølge-camY, width*0.08, (height*0.6-height*0.34)*vand+height*0.03-vandBølge);
   if (flemming.drikker == true) {
     vandPartikelTimer += delta;
     if (vandPartikelTimer >= 0.5) {
+      //laver partikler når flemming drikker
       for (int i=0; i<5; i++) {
         partikler.add(new Gnister(flemming.x+flemming.sizeX/6-camX, flemming.y+flemming.sizeY*0.73-camY, color(63, 73, 204)));
       }
       vandPartikelTimer = 0;
     }
+    //sætter vandhøjden lavere når flemming drikker
     vand = lerp(vand, 0, constrain(0.5*delta, 0, 1));
     vandBølge = lerp(vandBølge, height*0.004, constrain(5*delta, 0, 1));
+    //stopper flemming for at drikke når vandet når en bestemt højde
     if (vand < 0.01) {
 
       flemming.drikker = false;
     }
   } else {
+    //får vandet til at stige når flemming ikke drikker
     vand = lerp(vand, 1, constrain(0.5*delta, 0, 1));
     vandBølge = lerp(vandBølge, -height*0.004, constrain(5*delta, 0, 1));
   }
+  //tegner vandflasken
   image(WaterBottle, width/50-camX, height/7*2-camY, width/9, height/2);
   stroke(0);
   //laver en arraylist til de madpartikler der skal tegnes foran madskålen

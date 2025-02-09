@@ -46,13 +46,14 @@ class Dyr {
     stroke(0);
     mundPosX=x+sizeX/6-camX;
     mundPosY=y+sizeY*0.7-camY;
-
+    //tegner parralellogrammet
     pushMatrix();
     shearX(angle);
     fill(0, 200, 255);
     rect(x-tan(angle)*(y-camY)-camX, y-camY, sizeX, sizeY, smooth*sizeX);
     popMatrix();
     timer = millis();
+    //sætter mund og brynvinkel alt efter humør
     if (timer >= blinkTimer) {
       blink = false;
       blinkModifier = lerp(blinkModifier, 1, constrain(20*delta, 0, 1));
@@ -73,6 +74,8 @@ class Dyr {
     øjekonstruktor(0);
     øjekonstruktor(1);
     fill(0, 200, 255);
+
+    //tegner munden alt efter om der drikkes spises eller ingen af delene
     if (tungeIBrug) {
       fill(0);
     }
@@ -82,6 +85,7 @@ class Dyr {
       fill(0);
       circle(x+sizeX/6-camX, y+sizeY*0.73-camY, sizeX/16);
     }
+    //tegner tungen
     if (tungeIBrug) {
       stroke(209, 144, 142);
       strokeWeight(10);
@@ -93,24 +97,28 @@ class Dyr {
       strokeWeight(3);
       strokeCap(SQUARE);
     }
-    if(flytterTilVand == true){
-      x=lerp(x,width/12,constrain(3*delta, 0, 1));
-      y=lerp(y,height/10*6-height/90,constrain(3*delta, 0, 1));
+    //flytter flemming hvis han er på vej mod vand
+    if (flytterTilVand == true) {
+      x=lerp(x, width/12, constrain(3*delta, 0, 1));
+      y=lerp(y, height/10*6-height/90, constrain(3*delta, 0, 1));
     }
+    //hvis flemming er ved vandet sætter ham til at drikke
     if (x < width/12+1 && x > width/12-1 && harDrukket == false) {
       drikker = true;
       flytterTilVand = false;
       harDrukket = true;
     }
-    if(drikker == false && harDrukket == true){
-      x=lerp(x,width*0.4,constrain(3*delta, 0, 1));
-      y=lerp(y,height*0.6,constrain(3*delta, 0, 1));
-      if(x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1){
+    // flytter flemming tilbage når den er  færdig med at drikke
+    if (drikker == false && harDrukket == true) {
+      x=lerp(x, width*0.4, constrain(3*delta, 0, 1));
+      y=lerp(y, height*0.6, constrain(3*delta, 0, 1));
+      if (x<width*0.4+0.1 && x>width*0.4-0.1 && y<height*0.6+0.1 && y>height*0.6-0.1) {
         harDrukket = false;
       }
     }
   }
 
+  //styrer blink
   void blink(float time) {
     blink = true;
     blinkTimer = millis()+time;
@@ -181,7 +189,7 @@ class Dyr {
     //bevæger den aktuelle posiition af pupillerne mod mål positionen
     pupilX[RorL] = lerp(pupilX[RorL], pupilMålX, constrain(10*delta, 0, 1));
     pupilY[RorL] = lerp(pupilY[RorL], pupilMålY, constrain(10*delta, 0, 1));
-    // hvis positionen er 
+    // hvis positionen er
     if (isNan(pupilX[RorL])) {
       pupilX[RorL] = mouseX-eyeOffset;
     }
@@ -212,11 +220,14 @@ class Dyr {
 }
 
 void tunge() {
+  // hvis flemming ikke er aktivt ved at spise sætter tunge positionen til at være det rigtige sted
   if (!flemming.tungeIBrug) {
     int i=0;
     flemming.tungeX=flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25;
     flemming.tungeY=flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25;
+    //hjemmelavet for loop fordi normalt gad ikke virke der tjekker om der er mad som ligger stille
     while (i<MadPartikler.size()) {
+      //hvis der er mad som er stille sættes tungen til at være i brug
       if (MadPartikler.get(i).Stille) {
         nuværendeMad=i;
         flemming.tungeIBrug=true;
@@ -225,6 +236,7 @@ void tunge() {
       i++;
     }
   } else {
+    //når tungen er på vej ud bruger lerp til at få tunge x og y til at nærme sig madens x og y
     if (flemming.tungeUd) {
       flemming.tungeX=lerp(flemming.tungeX, MadPartikler.get(nuværendeMad).posX-camX, constrain(flemming.hastTunge*delta, 0, 1));
       flemming.tungeY=lerp(flemming.tungeY, MadPartikler.get(nuværendeMad).posY-camY, constrain(flemming.hastTunge*delta, 0, 1));
@@ -232,18 +244,19 @@ void tunge() {
         flemming.tungeUd=false;
       }
     } else {
-
+      //når tungen er på vej tilbage sætter tungen til at lerp mod sin resting pos
       flemming.tungeX=lerp(flemming.tungeX, flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25, constrain(flemming.hastTunge*delta, 0, 1));
       flemming.tungeY=lerp(flemming.tungeY, flemming.mundPosY+sin(flemming.mundVinkel+PI/2)*flemming.sizeX/25, constrain(flemming.hastTunge*delta, 0, 1));
       MadPartikler.get(nuværendeMad).posX=flemming.tungeX+camX;
       MadPartikler.get(nuværendeMad).posY=flemming.tungeY+camY;
+      //når maden har noget munden resettes booleansne for at der kan spises mere madpartiklen fjernes og der kommer små krummer
       if (flemming.tungeX <= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25+1
         && flemming.tungeX >= flemming.mundPosX+cos(flemming.mundVinkel+PI/2)*flemming.sizeX/25-1) {
         flemming.tungeUd=true;
         flemming.tungeIBrug=false;
         MadPartikler.remove(nuværendeMad);
         flemming.dybde+=1;
-        for(int i=0;i<10;i++){
+        for (int i=0; i<10; i++) {
           partikler.add(new Gnister(flemming.tungeX, flemming.tungeY, color(154, 102, 63)));
         }
         if (flemming.dimensionalitet == 2) {

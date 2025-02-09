@@ -63,6 +63,7 @@ class Røg extends Partikel {
 
 class Hjerte extends Partikel {
   Hjerte(float x, float y) {
+    // gør at hjerter kun kan have negativ y hastighed så de stiger
     super(x, y);
     this.vx *= 0.5;
     this.vy = random(-1, 0);
@@ -75,6 +76,7 @@ class Hjerte extends Partikel {
     rotate(PI/4);
     noStroke();
     fill(255, 0, 0, levetid);
+    //tegner hjertet i den placering translate siger
     rect(0, 0, 10, 10);
     arc(5, 0, 10, 10, PI, 2*PI);
     arc(0, 5, 10, 10, PI/2, PI+PI/2);

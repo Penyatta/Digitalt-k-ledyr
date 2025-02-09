@@ -55,6 +55,7 @@ void Hjem() {
     line(width/20*21-camX, height/2-width/20-camY, width/20*21-height/30-camX, height/2-camY);
   }
   strokeWeight(3);
+  //styrer flemming og kameraet når det flytter mod legerummet
   if (rum==legerum && flytterRum) {
     flemming.y=lerp(flemming.y, height*1.72, 0.1);
     flemming.x=lerp(flemming.x, width*0.4, 0.1);
@@ -64,6 +65,7 @@ void Hjem() {
       flytterRum=false;
     }
   }
+  //styrer flemming og kameraet når det flytter mod skinrummet
   if (rum==skinrum && flytterRum) {
     flemming.x=lerp(flemming.x, width*1.4, 0.1);
     flemming.y=lerp(flemming.y, height*0.6, 0.1);
@@ -73,6 +75,7 @@ void Hjem() {
       flytterRum=false;
     }
   }
+  //styrer flemming og kameraet når det flytter mod leverummet
   if (rum==leverum && flytterRum) {
     flemming.x=lerp(flemming.x, width*0.4, 0.1);
     flemming.y=lerp(flemming.y, height*0.6, 0.1);
@@ -84,6 +87,7 @@ void Hjem() {
   }
 }
 
+//tegner tavlen
 void tavlen() {
   noStroke();
   fill(168, 116, 42);
@@ -92,6 +96,7 @@ void tavlen() {
   rect(width/10+width/80-camX, height/6*7+width/80-camY, width/3*2-width/40, height/2*1-width/40);
 }
 
+//når man skal tilbage til hjem
 void skiftTilHjem() {
   sted = hjem;
   rum = leverum;
