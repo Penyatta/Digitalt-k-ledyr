@@ -1,5 +1,5 @@
 class Achivements {
-  int maxScore=20;
+  int maxScore=0;
   int bronzeThreshhold, sølvThreshhold, guldThreshhold, authorThreshhold;
   Achivements(int BT,int ST,int GT, int AT){
    bronzeThreshhold=BT;
