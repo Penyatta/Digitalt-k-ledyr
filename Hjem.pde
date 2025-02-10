@@ -10,11 +10,9 @@ void Hjem() {
   tegnMadDrikke();
   tunge();
   fill(0);
-  //rect(width/2-width/8,height/3*2-height/16,width/4,height/4);
   //bruges til at bestemme hvor langt musen har flyttet sig i den sidste frame til brug i hastigheden til masstykkerne
   prevX=mouseX;
   prevY=mouseY;
-  //camX = lerp(camX, width, 0.001);
 
   if (!flemming.harDrukket && !flemming.flytterTilVand) {
     //pilen til kælderen
@@ -63,11 +61,15 @@ void Hjem() {
     camX=lerp(camX, 0, 0.05);
     if (camY>=height-0.1 && camX<=0.1) {
       flytterRum=false;
+      for (int i=0; i<SkinKnapper.size(); i++) {
+          Knap knap = SkinKnapper.get(i);
+            knap.isActive=true;
+        }
     }
   }
   //styrer flemming og kameraet når det flytter mod skinrummet
   if (rum==skinrum && flytterRum) {
-    flemming.x=lerp(flemming.x, width*1.4, 0.1);
+    flemming.x=lerp(flemming.x, width*1.2, 0.1);
     flemming.y=lerp(flemming.y, height*0.6, 0.1);
     camY=lerp(camY, 0, 0.05);
     camX=lerp(camX, width, 0.05);
@@ -83,6 +85,10 @@ void Hjem() {
     camX=lerp(camX, 0, 0.05);
     if (camY<=0.1 && camX<=0.1) {
       flytterRum=false;
+      for (int i=0; i<SkinKnapper.size(); i++) {
+          Knap knap = SkinKnapper.get(i);
+            knap.isActive=true;
+        }
     }
   }
 }

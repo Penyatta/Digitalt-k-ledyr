@@ -9,7 +9,6 @@ float camY = 0;
 //statemachine med hvilken skærm der skal vises
 int sted = 0;
 
-
 int hjem = 0;
 int matRegn = 1;
 
@@ -22,6 +21,9 @@ int rum=0;
 int leverum=0;
 int legerum=1;
 int skinrum=2;
+
+//Holder styr på hvilket skin som flemming bruger
+int skin=0;
 
 boolean flytterRum=false;
 
@@ -39,6 +41,7 @@ void setup() {
   frameRate(100);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
+  loadSkins();
   strokeWeight(3);
   flemming = new Dyr();
   talHast = height*0.05;
@@ -49,7 +52,7 @@ void setup() {
   }
   vandBølge = -height*0.004;
   partikler = new ArrayList<>();
-  
+
   //sætter parametrene til alle knapperne
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
@@ -59,9 +62,9 @@ void setup() {
   påMissionMedDivisionKnap = new PåMissionMedDivisionKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
   doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
   //sætter hvor mange point man skal have for at få de forskellige stjerner
-  matRegnAchivements = new Achivements(10,20,30,53);
-  minusPåVenusAchivements = new Achivements(10,20,30,53);
-  doodlejumpAchivements = new Achivements(10,20,30,53);
+  matRegnAchivements = new Achivements(10, 20, 30, 53);
+  minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
+  doodlejumpAchivements = new Achivements(10, 20, 30, 53);
 }
 void draw() {
   //sætter delta som bruges til at sørge for at programmet kører på samme måde uanset framerate
@@ -129,7 +132,7 @@ void mousePressed() {
         MadIHånden = true; // Pick up the particle
       }
     }
-    //flytter flemming til legerummet hvis pilen trykkes på og aktivere knapperne 
+    //flytter flemming til legerummet hvis pilen trykkes på og aktivere knapperne
     if (!flemming.harDrukket && !flemming.flytterTilVand) {
       if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
         rum=legerum;
@@ -140,17 +143,22 @@ void mousePressed() {
         påMissionMedDivisionKnap.isActive=true;
         doodlejumpStartKnap.isActive=true;
       }
-      //flytter flemming til skinrummet hvis pilen trykkes på og aktivere knapperne 
+      //flytter flemming til skinrummet hvis pilen trykkes på og aktivere knapperne
       if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
         rum=skinrum;
         flytterRum=true;
+        for (int i=0; i<SkinKnapper.size(); i++) {
+          Knap knap = SkinKnapper.get(i);
+            knap.isActive=true;
+        }
+        tjekSkins();
       }
-      //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne 
+      //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne
       if (mouseX>width/2-width/20-camX && mouseY>2*height-height/15*14-camY && mouseX<width/2+width/20-camX && mouseY<2*height-height/30*27-camY) {
         rum=leverum;
         flytterRum=true;
       }
-       //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne 
+      //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne
       if (mouseX>width/20*21-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*21-camX && mouseY<height/2+width/20-camY) {
         rum=leverum;
         flytterRum=true;
@@ -220,9 +228,10 @@ void keyPressed() {
     flemming.flytterTilVand = true;
     flemming.dimensionalitet += 1;
   }
-
+  /*
   if (key == 'p') {
-    flemming.sizeY *= 0.5;
-    flemming.sizeX *= 0.5;
-  }
+   flemming.sizeY *= 0.5;
+   flemming.sizeX *= 0.5;
+   }
+   */
 }

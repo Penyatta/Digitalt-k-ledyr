@@ -49,7 +49,7 @@ class Dyr {
     //tegner parralellogrammet
     pushMatrix();
     shearX(angle);
-    fill(0, 200, 255);
+    fill(skinFarver[skin]);
     rect(x-tan(angle)*(y-camY)-camX, y-camY, sizeX, sizeY, smooth*sizeX);
     popMatrix();
     timer = millis();
@@ -73,7 +73,8 @@ class Dyr {
 
     øjekonstruktor(0);
     øjekonstruktor(1);
-    fill(0, 200, 255);
+
+    fill(0, 0, 0, 0);
 
     //tegner munden alt efter om der drikkes spises eller ingen af delene
     if (tungeIBrug) {
@@ -265,4 +266,45 @@ void tunge() {
       }
     }
   }
+}
+
+color[] skinFarver =new color[8];
+PImage hængelås;
+
+void loadSkins() {
+  //gemmer farverne til de forskellige skins
+  skinFarver[0]=color(0, 200, 255);
+  skinFarver[1]=color(255, 0, 0);
+  skinFarver[2]=color(0, 255, 0);
+  skinFarver[3]=color(242, 17, 223);
+  skinFarver[4]=color(53, 252, 123);
+  skinFarver[5]=color(205, 127, 50);
+  skinFarver[6]=color(165, 169, 180);
+  skinFarver[7]=color(229, 184, 11);
+  //
+  hængelås=loadImage("Hængelås.png");
+  // opretter knapperne til disse skins
+  blåSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Standard", 50, color(255), 0, 0);
+  blåSkinKnap.Reached=true;
+  rødSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i matematik regn", 50, color(255), 1, 10);
+  grønSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i minus på venus", 50, color(255), 2, 10);
+  pinkSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i matematik regn", 50, color(255), 3, 30);
+  limeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i minus på venus ", 50, color(255), 4, 30);
+  bronzeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i alt", 50, color(255), 5, 10);
+  sølvSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Sølv i alt", 50, color(255), 6, 20);
+  guldSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i alt ", 50, color(255), 7, 30);
+}
+
+void tjekSkins() {
+  rødSkinKnap.TjekThreshhold(matRegnAchivements.maxScore);
+  pinkSkinKnap.TjekThreshhold(matRegnAchivements.maxScore);
+  grønSkinKnap.TjekThreshhold(minusPåVenusAchivements.maxScore);
+  limeSkinKnap.TjekThreshhold(minusPåVenusAchivements.maxScore);
+  int lavesteMax=matRegnAchivements.maxScore;
+  if(minusPåVenusAchivements.maxScore<lavesteMax){
+    lavesteMax=minusPåVenusAchivements.maxScore;
+  }
+  bronzeSkinKnap.TjekThreshhold(lavesteMax);
+  sølvSkinKnap.TjekThreshhold(lavesteMax);
+  guldSkinKnap.TjekThreshhold(lavesteMax);
 }

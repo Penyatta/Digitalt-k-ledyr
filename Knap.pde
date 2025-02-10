@@ -46,7 +46,7 @@ class Knap {
       return false;
     }
   }
-  //tom click funktion 
+  //tom click funktion
   void klik() {
     println("Klik!");
   }
@@ -61,7 +61,7 @@ class MatRegnGenstartKnap extends Knap {
   }
   @Override
     void klik() {
-      // sætter mat regn igang uden at aktivere tutorial og fjerner knapperne
+    // sætter mat regn igang uden at aktivere tutorial og fjerner knapperne
     skiftTilMatRegn();
     tutorial = false;
     matRegnGenstartKnap.isActive = false;
@@ -77,7 +77,7 @@ class TilbageKnap extends Knap {
   }
   @Override
     void klik() {
-      // går tilbage til hjem og fjerner knapperne
+    // går tilbage til hjem og fjerner knapperne
     skiftTilHjem();
     matRegnGenstartKnap.isActive = false;
     tilbageKnap.isActive = false;
@@ -92,17 +92,21 @@ class MatRegnStartKnap extends Knap {
   }
   @Override
     void klik() {
-      //sætter spille knapperne til inaktive og skifter til mat regn
+    //sætter spille knapperne til inaktive og skifter til mat regn
     matRegnStartKnap.isActive=false;
     minusPåVenusStartKnap.isActive=false;
     gangeMedLangeKnap.isActive=false;
     påMissionMedDivisionKnap.isActive=false;
     doodlejumpStartKnap.isActive=false;
+    for (int i=0; i<SkinKnapper.size(); i++) {
+          Knap knap = SkinKnapper.get(i);
+            knap.isActive=true;
+        }
     skiftTilMatRegn();
   }
   @Override
     void tegnKnap() {
-      //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
+    //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
     if (musOver()) {
       if (mousePressed) {
         fill(klikFarve);
@@ -123,11 +127,11 @@ class MatRegnStartKnap extends Knap {
       if (matRegnAchivements.maxScore>=matRegnAchivements.bronzeThreshhold) {
         fill(205, 127, 50);
         if (matRegnAchivements.maxScore>=matRegnAchivements.authorThreshhold) {
-          fill(0,180,0);
+          fill(0, 180, 0);
         } else if (matRegnAchivements.maxScore>=matRegnAchivements.guldThreshhold) {
-          fill(229,184,11);
+          fill(229, 184, 11);
         } else if (matRegnAchivements.maxScore>=matRegnAchivements.sølvThreshhold) {
-          fill(165,169,180);
+          fill(165, 169, 180);
         }
         pushMatrix();
         translate(x+height/30-camX, y+(height/10-width/200)/2-camY);
@@ -146,18 +150,22 @@ class MinusPåVenusStartKnap extends Knap {
   }
   @Override
     void klik() {
-      //sætter knapperne til inaktiv og skifter til minus på venus
+    //sætter knapperne til inaktiv og skifter til minus på venus
     matRegnStartKnap.isActive=false;
     minusPåVenusStartKnap.isActive=false;
     gangeMedLangeKnap.isActive=false;
     påMissionMedDivisionKnap.isActive=false;
     doodlejumpStartKnap.isActive=false;
+    for (int i=0; i<SkinKnapper.size(); i++) {
+          Knap knap = SkinKnapper.get(i);
+            knap.isActive=true;
+        }
     camX=0;
     camY=0;
   }
   @Override
     void tegnKnap() {
-      //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
+    //tegner knappen som i den overordnede men ikke teksten fordi der tilføjes max point hvis man har spillet det og stjerner tilføjes også
     if (musOver()) {
       if (mousePressed) {
         fill(klikFarve);
@@ -178,11 +186,11 @@ class MinusPåVenusStartKnap extends Knap {
       if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.bronzeThreshhold) {
         fill(205, 127, 50);
         if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.authorThreshhold) {
-          fill(0,180,0);
+          fill(0, 180, 0);
         } else if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.guldThreshhold) {
-          fill(229,184,11);
+          fill(229, 184, 11);
         } else if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.sølvThreshhold) {
-          fill(165,169,180);
+          fill(165, 169, 180);
         }
         pushMatrix();
         translate(x+height/30-camX, y+(height/10-width/200)/2-camY);
@@ -226,6 +234,65 @@ class DoodlejumpStartKnap extends Knap {
   }
   @Override
     void klik() {
+  }
+}
+
+VælgSkinKnap blåSkinKnap;
+VælgSkinKnap rødSkinKnap;
+VælgSkinKnap grønSkinKnap;
+VælgSkinKnap pinkSkinKnap;
+VælgSkinKnap limeSkinKnap;
+VælgSkinKnap bronzeSkinKnap;
+VælgSkinKnap sølvSkinKnap;
+VælgSkinKnap guldSkinKnap;
+
+ArrayList<Knap> SkinKnapper = new ArrayList<Knap>();
+
+class VælgSkinKnap extends Knap {
+  int nummer;
+  int threshHold;
+  boolean Reached=false;
+  VælgSkinKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE, int NUMMER, int THRESHHOLD) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+    nummer=NUMMER;
+    threshHold=THRESHHOLD;
+    y=y+nummer*sizeY;
+    SkinKnapper.add(this);
+  }
+  @Override
+    void klik() {
+    if (Reached) {
+      skin=nummer;
+    }
+  }
+  @Override
+  void tegnKnap() {
+    fill(0);
+    rect(x-camX, y-camY, sizeX, sizeY);
+    if (musOver()) {
+      if (mousePressed) {
+        fill(skinFarver[nummer],150);
+      } else {
+        fill(skinFarver[nummer],220);
+      }
+    } else {
+      fill(skinFarver[nummer]);
+    }
+    rect(x-camX, y-camY, sizeX, sizeY);
+    textAlign(CENTER, CENTER);
+    textSize(tekstSize);
+    fill(tekstFarve);
+    text(tekst, x+sizeX/2-camX, y+sizeY/2-camY);
+    if(!Reached){
+      fill(0,100);
+      rect(x-camX, y-camY, sizeX, sizeY);
+      image(hængelås,x+width/500-camX,y+width/500-camY,sizeY-width/500,sizeY-width/500);
+    }
+  }
+  void TjekThreshhold(int værdi) {
+    if (værdi>=threshHold) {
+      Reached=true;
+    }
   }
 }
 
