@@ -44,7 +44,7 @@ void setup() {
   frameRate(100);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
-  matRegnAchivements = new Achivements(10, 20, 30, 53);
+  matRegnAchivements = new Achivements(10, 20, 30, 57);
   minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
   doodlejumpAchivements = new Achivements(10, 20, 30, 53);
   loadSkins();
