@@ -2,11 +2,9 @@ ArrayList<Knap> knapper = new ArrayList<Knap>();
 
 //Den overordnede knap class
 class Knap {
-  float x, y, sizeX, sizeY;
-  color farve, hoverFarve, klikFarve;
+  float x, y, sizeX, sizeY, tekstSize;
+  color farve, hoverFarve, klikFarve, tekstFarve;
   String tekst;
-  float tekstSize;
-  color tekstFarve;
   boolean isActive = false;
   Knap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
     x = X;
@@ -69,6 +67,21 @@ class MatRegnGenstartKnap extends Knap {
   }
 }
 
+MinusVenusGenstartKnap minusVenusGenstartKnap;
+
+class MinusVenusGenstartKnap extends Knap {
+  MinusVenusGenstartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
+  }
+  @Override
+    void klik() {
+    skiftTilMinusVenus();
+    tutorial = false;
+    minusVenusGenstartKnap.isActive = false;
+    tilbageKnap.isActive = false;
+  }
+}
+
 TilbageKnap tilbageKnap;
 
 class TilbageKnap extends Knap {
@@ -79,8 +92,9 @@ class TilbageKnap extends Knap {
     void klik() {
     // går tilbage til hjem og fjerner knapperne
     skiftTilHjem();
-    matRegnGenstartKnap.isActive = false;
-    tilbageKnap.isActive = false;
+    for(Knap knap : knapper){
+      knap.isActive = false;
+    }
   }
 }
 

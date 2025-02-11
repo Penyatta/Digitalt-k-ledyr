@@ -11,6 +11,7 @@ int sted = 0;
 
 int hjem = 0;
 int matRegn = 1;
+int minusVenus = 2;
 
 float delta = 0;
 float deltaTime = millis();
@@ -35,6 +36,8 @@ ArrayList<PVector> bølgePunkter = new ArrayList<PVector>();
 
 boolean tutorial = true;
 int side = 0;
+int point = 0;
+int liv = 3;
 
 void setup() {
   fullScreen();
@@ -56,6 +59,7 @@ void setup() {
   //sætter parametrene til alle knapperne
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
+
   matRegnStartKnap = new MatRegnStartKnap(width/10+width/80, height/6*7+width/80, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Matematik regn", 50, color(255));
   minusPåVenusStartKnap = new MinusPåVenusStartKnap(width/10+width/80, height/6*7+width/80+height/10-width/200, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Minus På Venus", 50, color(255));
   gangeMedLangeKnap = new GangeMedLangeKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
@@ -65,6 +69,9 @@ void setup() {
   matRegnAchivements = new Achivements(10, 20, 30, 53);
   minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
   doodlejumpAchivements = new Achivements(10, 20, 30, 53);
+
+  skiftTilMinusVenus();
+
 }
 void draw() {
   //sætter delta som bruges til at sørge for at programmet kører på samme måde uanset framerate
@@ -76,6 +83,10 @@ void draw() {
   }
   if (sted == matRegn) {
     MatematikRegn();
+  }
+  if (sted == minusVenus){
+    MinusVenus();
+
   }
   //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
@@ -204,6 +215,17 @@ void mousePressed() {
             liv -= 1;
           }
         }
+      }
+    }
+  }
+
+  if(sted == minusVenus){
+    if (tutorial) {
+      if (side+1 < minusVenusSider.length) {
+        side += 1;
+      } else {
+        tutorial = false;
+        flemming.x = -width;
       }
     }
   }

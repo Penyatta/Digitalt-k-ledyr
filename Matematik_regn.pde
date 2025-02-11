@@ -8,13 +8,10 @@ int maxTal = 2;
 int tal1 = round(random(1, maxTal));
 int tal2 = round(random(1, maxTal));
 String operator = "+";
-int point = 0;
 
 float talTime = 4;
 float talTimer = millis();
 float talHast;
-
-int liv = 3;
 
 ArrayList<RegnTal> regnTal = new ArrayList<RegnTal>();
 
@@ -129,6 +126,7 @@ void skiftTilMatRegn() {
   tutorial = true;
   liv = 3;
   point = 0;
+  side = 0;
   talHast = height*0.05;
   maxTal = 2;
   talTimer = millis();
