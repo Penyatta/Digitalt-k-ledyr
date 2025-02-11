@@ -108,6 +108,14 @@ class MatRegnStartKnap extends Knap {
     void klik() {
     //sætter spille knapperne til inaktive og skifter til mat regn
     slukTændSpilKnapper(false);
+    //fjerner madpartiklerne når man skal spille
+    for (int i=MadPartikler.size()-1;i>-1;i--){
+      if(i!=nuværendeMad){
+      MadPartikler.remove(i);
+      }
+    }
+    //gør så tungen ikke vises hvis den var i brug
+    flemming.tungeIBrug=false;
     for (int i=0; i<SkinKnapper.size(); i++) {
       Knap knap = SkinKnapper.get(i);
       knap.isActive=true;
@@ -162,6 +170,14 @@ class MinusPåVenusStartKnap extends Knap {
     void klik() {
     //sætter knapperne til inaktiv og skifter til minus på venus
     slukTændSpilKnapper(false);
+    //fjerner madpartiklerne når man skal spille
+    for (int i=MadPartikler.size()-1;i>-1;i--){
+      if(i!=nuværendeMad){
+      MadPartikler.remove(i);
+      }
+    }
+    //gør så tungen ikke vises hvis den var i brug
+    flemming.tungeIBrug=false;
     skiftTilMinusVenus();
     for (int i=0; i<SkinKnapper.size(); i++) {
       Knap knap = SkinKnapper.get(i);
