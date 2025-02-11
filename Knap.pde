@@ -223,8 +223,8 @@ class MinusPåVenusStartKnap extends Knap {
   }
 }
 
-IkAktivKnap gangeMedLangeKnap;
-IkAktivKnap påMissionMedDivisionKnap;
+Knap gangeMedLangeKnap;
+Knap påMissionMedDivisionKnap;
 
 //knap til spil der ikke kommer til at eksistere
 class IkAktivKnap extends Knap {
