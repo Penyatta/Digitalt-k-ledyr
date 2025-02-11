@@ -1,5 +1,5 @@
 class Achivements {
-  int maxScore=20;
+  int maxScore=0;
   //Hvor mange point man skal have for at opnå forskellige stjerner til de forskellige spil
   int bronzeThreshhold, sølvThreshhold, guldThreshhold, authorThreshhold;
   Achivements(int BT,int ST,int GT, int AT){

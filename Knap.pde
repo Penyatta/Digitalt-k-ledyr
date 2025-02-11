@@ -46,7 +46,6 @@ class Knap {
   }
   //tom click funktion
   void klik() {
-    println("Klik!");
   }
 }
 
@@ -224,32 +223,17 @@ class MinusPåVenusStartKnap extends Knap {
   }
 }
 
-GangeMedLangeKnap gangeMedLangeKnap;
+IkAktivKnap gangeMedLangeKnap;
+IkAktivKnap påMissionMedDivisionKnap;
 
 //knap til spil der ikke kommer til at eksistere
-class GangeMedLangeKnap extends Knap {
-  GangeMedLangeKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
+class IkAktivKnap extends Knap {
+  IkAktivKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
     super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
-  }
-  @Override
-    void klik() {
-  }
-}
-
-PåMissionMedDivisionKnap påMissionMedDivisionKnap;
-
-//knap til spil der ikke kommer til at eksistere
-class PåMissionMedDivisionKnap extends Knap {
-  PåMissionMedDivisionKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
-    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
-  }
-  @Override
-    void klik() {
   }
 }
 
 DoodlejumpStartKnap doodlejumpStartKnap;
-
 
 class DoodlejumpStartKnap extends Knap {
   DoodlejumpStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {

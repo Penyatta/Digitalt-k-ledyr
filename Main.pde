@@ -65,8 +65,8 @@ void setup() {
 
   matRegnStartKnap = new MatRegnStartKnap(width/10+width/80, height/6*7+width/80, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Matematik regn", 50, color(255));
   minusPåVenusStartKnap = new MinusPåVenusStartKnap(width/10+width/80, height/6*7+width/80+height/10-width/200, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Minus På Venus", 50, color(255));
-  gangeMedLangeKnap = new GangeMedLangeKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
-  påMissionMedDivisionKnap = new PåMissionMedDivisionKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
+  gangeMedLangeKnap = new IkAktivKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
+  påMissionMedDivisionKnap = new IkAktivKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
   doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
   //sætter hvor mange point man skal have for at få de forskellige stjerner
 
