@@ -79,10 +79,10 @@ void draw() {
   if (sted == hjem) {
     Hjem();
   }
-  if (sted == matRegn) {
+  else if (sted == matRegn) {
     MatematikRegn();
   }
-  if (sted == minusVenus){
+  else if (sted == minusVenus){
     MinusVenus();
 
   }
