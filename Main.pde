@@ -44,6 +44,9 @@ void setup() {
   frameRate(100);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
+  matRegnAchivements = new Achivements(10, 20, 30, 53);
+  minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
+  doodlejumpAchivements = new Achivements(10, 20, 30, 53);
   loadSkins();
   strokeWeight(3);
   flemming = new Dyr();
@@ -66,11 +69,6 @@ void setup() {
   påMissionMedDivisionKnap = new PåMissionMedDivisionKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
   doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
   //sætter hvor mange point man skal have for at få de forskellige stjerner
-  matRegnAchivements = new Achivements(10, 20, 30, 53);
-  minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
-  doodlejumpAchivements = new Achivements(10, 20, 30, 53);
-
-  skiftTilMinusVenus();
 
 }
 void draw() {

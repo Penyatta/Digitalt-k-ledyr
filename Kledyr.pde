@@ -286,13 +286,13 @@ void loadSkins() {
   // opretter knapperne til disse skins
   blåSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Standard", 50, color(255), 0, 0);
   blåSkinKnap.Reached=true;
-  rødSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i matematik regn", 50, color(255), 1, 10);
-  grønSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i minus på venus", 50, color(255), 2, 10);
-  pinkSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i matematik regn", 50, color(255), 3, 30);
-  limeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i minus på venus ", 50, color(255), 4, 30);
-  bronzeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i alt", 50, color(255), 5, 10);
-  sølvSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Sølv i alt", 50, color(255), 6, 20);
-  guldSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i alt ", 50, color(255), 7, 30);
+  rødSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i matematik regn", 50, color(255), 1, matRegnAchivements.bronzeThreshhold);
+  grønSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i minus på venus", 50, color(255), 2, minusPåVenusAchivements.bronzeThreshhold);
+  pinkSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i matematik regn", 50, color(255), 3, matRegnAchivements.guldThreshhold);
+  limeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i minus på venus ", 50, color(255), 4, minusPåVenusAchivements.guldThreshhold);
+  bronzeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i alt", 50, color(255), 5, 1);
+  sølvSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Sølv i alt", 50, color(255), 6, 2);
+  guldSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i alt ", 50, color(255), 7, 3);
 }
 
 void tjekSkins() {
@@ -300,11 +300,17 @@ void tjekSkins() {
   pinkSkinKnap.TjekThreshhold(matRegnAchivements.maxScore);
   grønSkinKnap.TjekThreshhold(minusPåVenusAchivements.maxScore);
   limeSkinKnap.TjekThreshhold(minusPåVenusAchivements.maxScore);
-  int lavesteMax=matRegnAchivements.maxScore;
-  if(minusPåVenusAchivements.maxScore<lavesteMax){
-    lavesteMax=minusPåVenusAchivements.maxScore;
+  int lavesteMedalje=0;
+  if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.bronzeThreshhold && matRegnAchivements.maxScore>=matRegnAchivements.bronzeThreshhold) {
+    lavesteMedalje=1;
+    if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.sølvThreshhold && matRegnAchivements.maxScore>=matRegnAchivements.sølvThreshhold) {
+      lavesteMedalje=2;
+      if (minusPåVenusAchivements.maxScore>=minusPåVenusAchivements.guldThreshhold && matRegnAchivements.maxScore>=matRegnAchivements.guldThreshhold) {
+        lavesteMedalje=3;
+      }
+    }
   }
-  bronzeSkinKnap.TjekThreshhold(lavesteMax);
-  sølvSkinKnap.TjekThreshhold(lavesteMax);
-  guldSkinKnap.TjekThreshhold(lavesteMax);
+  bronzeSkinKnap.TjekThreshhold(lavesteMedalje);
+  sølvSkinKnap.TjekThreshhold(lavesteMedalje);
+  guldSkinKnap.TjekThreshhold(lavesteMedalje);
 }

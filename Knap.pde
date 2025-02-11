@@ -162,6 +162,7 @@ class MinusPåVenusStartKnap extends Knap {
     void klik() {
     //sætter knapperne til inaktiv og skifter til minus på venus
     slukSpilKnapper();
+    skiftTilMinusVenus();
     for (int i=0; i<SkinKnapper.size(); i++) {
       Knap knap = SkinKnapper.get(i);
       knap.isActive=true;
