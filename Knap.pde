@@ -226,13 +226,6 @@ class MinusPåVenusStartKnap extends Knap {
 Knap gangeMedLangeKnap;
 Knap påMissionMedDivisionKnap;
 
-//knap til spil der ikke kommer til at eksistere
-class IkAktivKnap extends Knap {
-  IkAktivKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
-    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
-  }
-}
-
 DoodlejumpStartKnap doodlejumpStartKnap;
 
 class DoodlejumpStartKnap extends Knap {
