@@ -107,7 +107,7 @@ class MatRegnStartKnap extends Knap {
   @Override
     void klik() {
     //sætter spille knapperne til inaktive og skifter til mat regn
-    slukSpilKnapper();
+    slukTændSpilKnapper(false);
     for (int i=0; i<SkinKnapper.size(); i++) {
       Knap knap = SkinKnapper.get(i);
       knap.isActive=true;
@@ -161,7 +161,7 @@ class MinusPåVenusStartKnap extends Knap {
   @Override
     void klik() {
     //sætter knapperne til inaktiv og skifter til minus på venus
-    slukSpilKnapper();
+    slukTændSpilKnapper(false);
     skiftTilMinusVenus();
     for (int i=0; i<SkinKnapper.size(); i++) {
       Knap knap = SkinKnapper.get(i);
@@ -244,12 +244,12 @@ class DoodlejumpStartKnap extends Knap {
   }
 }
 
-void slukSpilKnapper() {
-  matRegnStartKnap.isActive=false;
-  minusPåVenusStartKnap.isActive=false;
-  gangeMedLangeKnap.isActive=false;
-  påMissionMedDivisionKnap.isActive=false;
-  doodlejumpStartKnap.isActive=false;
+void slukTændSpilKnapper(boolean SlukEllerTænd) {
+  matRegnStartKnap.isActive=SlukEllerTænd;
+  minusPåVenusStartKnap.isActive=SlukEllerTænd;
+  gangeMedLangeKnap.isActive=SlukEllerTænd;
+  påMissionMedDivisionKnap.isActive=SlukEllerTænd;
+  doodlejumpStartKnap.isActive=SlukEllerTænd;
 }
 
 VælgSkinKnap blåSkinKnap;

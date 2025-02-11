@@ -148,11 +148,7 @@ void mousePressed() {
       if (mouseX>width/2-width/20-camX && mouseY>height/30*27-camY && mouseX<width/2+width/20-camX && mouseY<height/15*14-camY) {
         rum=legerum;
         flytterRum=true;
-        matRegnStartKnap.isActive=true;
-        minusPåVenusStartKnap.isActive=true;
-        gangeMedLangeKnap.isActive=true;
-        påMissionMedDivisionKnap.isActive=true;
-        doodlejumpStartKnap.isActive=true;
+        slukTændSpilKnapper(true);
       }
       //flytter flemming til skinrummet hvis pilen trykkes på og aktivere knapperne
       if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
