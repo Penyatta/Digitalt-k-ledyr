@@ -92,11 +92,13 @@ void draw() {
       partikler.remove(i);
     }
   }
-  //tegner de af knapperne som er aktive
-  for (int i=0; i<knapper.size(); i++) {
-    Knap knap = knapper.get(i);
-    if (knap.isActive == true) {
-      knap.tegnKnap();
+  if (!(sted==hjem)) {
+    //tegner de af knapperne som er aktive
+    for (int i=0; i<knapper.size(); i++) {
+      Knap knap = knapper.get(i);
+      if (knap.isActive == true) {
+        knap.tegnKnap();
+      }
     }
   }
 }
@@ -149,7 +151,7 @@ void mousePressed() {
         flytterRum=true;
         for (int i=0; i<SkinKnapper.size(); i++) {
           Knap knap = SkinKnapper.get(i);
-            knap.isActive=true;
+          knap.isActive=true;
         }
         tjekSkins();
       }

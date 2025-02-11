@@ -284,15 +284,15 @@ void loadSkins() {
   //
   hængelås=loadImage("Hængelås.png");
   // opretter knapperne til disse skins
-  blåSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Standard", 50, color(255), 0, 0);
+  blåSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Standard", 50, color(255), 0, 0);
   blåSkinKnap.Reached=true;
-  rødSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i matematik regn", 50, color(255), 1, 10);
-  grønSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i minus på venus", 50, color(255), 2, 10);
-  pinkSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i matematik regn", 50, color(255), 3, 30);
-  limeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i minus på venus ", 50, color(255), 4, 30);
-  bronzeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Bronze i alt", 50, color(255), 5, 10);
-  sølvSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Sølv i alt", 50, color(255), 6, 20);
-  guldSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(20), color(40), "Guld i alt ", 50, color(255), 7, 30);
+  rødSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i matematik regn", 50, color(255), 1, 10);
+  grønSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i minus på venus", 50, color(255), 2, 10);
+  pinkSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i matematik regn", 50, color(255), 3, 30);
+  limeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i minus på venus ", 50, color(255), 4, 30);
+  bronzeSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Bronze i alt", 50, color(255), 5, 10);
+  sølvSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Sølv i alt", 50, color(255), 6, 20);
+  guldSkinKnap = new VælgSkinKnap(width/2*3, height/12, width/5*2, height/13, color(0), color(0), color(0), "Guld i alt ", 50, color(255), 7, 30);
 }
 
 void tjekSkins() {

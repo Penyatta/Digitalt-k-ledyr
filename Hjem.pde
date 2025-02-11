@@ -4,8 +4,16 @@ void Hjem() {
   fill(100);
   stroke(0);
   strokeWeight(3);
-  rect(-10-camX, height*0.8-camY, width+width+21, height*0.2);
+  rect(-10-camX, height*0.8-camY, width+width+21, height*1.2);
+  fill(50);
+  rect(-10-camX, height*1.8-camY, width+width+21, height*0.2);
   tavlen();
+  for (int i=0; i<knapper.size(); i++) {
+      Knap knap = knapper.get(i);
+      if (knap.isActive == true) {
+        knap.tegnKnap();
+      }
+    }
   flemming.tegnDyr();
   tegnMadDrikke();
   tunge();

@@ -93,15 +93,11 @@ class MatRegnStartKnap extends Knap {
   @Override
     void klik() {
     //sætter spille knapperne til inaktive og skifter til mat regn
-    matRegnStartKnap.isActive=false;
-    minusPåVenusStartKnap.isActive=false;
-    gangeMedLangeKnap.isActive=false;
-    påMissionMedDivisionKnap.isActive=false;
-    doodlejumpStartKnap.isActive=false;
+    slukSpilKnapper();
     for (int i=0; i<SkinKnapper.size(); i++) {
-          Knap knap = SkinKnapper.get(i);
-            knap.isActive=true;
-        }
+      Knap knap = SkinKnapper.get(i);
+      knap.isActive=true;
+    }
     skiftTilMatRegn();
   }
   @Override
@@ -151,15 +147,11 @@ class MinusPåVenusStartKnap extends Knap {
   @Override
     void klik() {
     //sætter knapperne til inaktiv og skifter til minus på venus
-    matRegnStartKnap.isActive=false;
-    minusPåVenusStartKnap.isActive=false;
-    gangeMedLangeKnap.isActive=false;
-    påMissionMedDivisionKnap.isActive=false;
-    doodlejumpStartKnap.isActive=false;
+    slukSpilKnapper();
     for (int i=0; i<SkinKnapper.size(); i++) {
-          Knap knap = SkinKnapper.get(i);
-            knap.isActive=true;
-        }
+      Knap knap = SkinKnapper.get(i);
+      knap.isActive=true;
+    }
     camX=0;
     camY=0;
   }
@@ -237,6 +229,14 @@ class DoodlejumpStartKnap extends Knap {
   }
 }
 
+void slukSpilKnapper() {
+  matRegnStartKnap.isActive=false;
+  minusPåVenusStartKnap.isActive=false;
+  gangeMedLangeKnap.isActive=false;
+  påMissionMedDivisionKnap.isActive=false;
+  doodlejumpStartKnap.isActive=false;
+}
+
 VælgSkinKnap blåSkinKnap;
 VælgSkinKnap rødSkinKnap;
 VælgSkinKnap grønSkinKnap;
@@ -266,14 +266,14 @@ class VælgSkinKnap extends Knap {
     }
   }
   @Override
-  void tegnKnap() {
+    void tegnKnap() {
     fill(0);
     rect(x-camX, y-camY, sizeX, sizeY);
     if (musOver()) {
       if (mousePressed) {
-        fill(skinFarver[nummer],150);
+        fill(skinFarver[nummer], 150);
       } else {
-        fill(skinFarver[nummer],220);
+        fill(skinFarver[nummer], 220);
       }
     } else {
       fill(skinFarver[nummer]);
@@ -283,10 +283,10 @@ class VælgSkinKnap extends Knap {
     textSize(tekstSize);
     fill(tekstFarve);
     text(tekst, x+sizeX/2-camX, y+sizeY/2-camY);
-    if(!Reached){
-      fill(0,100);
+    if (!Reached) {
+      fill(0, 100);
       rect(x-camX, y-camY, sizeX, sizeY);
-      image(hængelås,x+width/500-camX,y+width/500-camY,sizeY-width/500,sizeY-width/500);
+      image(hængelås, x+width/500-camX, y+width/500-camY, sizeY-width/500, sizeY-width/500);
     }
   }
   void TjekThreshhold(int værdi) {
