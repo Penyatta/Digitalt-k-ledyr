@@ -24,7 +24,7 @@ class RegnTal {
   color farve = color(100);
   boolean erLøsning = false;
   RegnTal() {
-    if (random(0, 1) > 0.1) {
+    if (random(0, 1) > 0.3/(point/15+1)) {
       værdi = round(random(2, maxTal*2));
     } else {
       værdi = tal1+tal2;
