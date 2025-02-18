@@ -1,20 +1,25 @@
+//Tutorial teksten i en liste
 String[] matRegnSider = {
   "Velkommen til Matematik regn,\net spil der handler om at regne hurtigt."
   , "Spillet starter med at vise dig et regnestykke.\nDet du skal gøre er at finde en af de faldene tal,\n og klikke på det der er svaret til regnestykket\nDu kan kun gætte forkert 3 gange\nfor så er spillet ovre"
   , "\n\nHeld og lykke"
 };
 
+//tallene til regnestykket
 int maxTal = 2;
 int tal1 = round(random(1, maxTal));
 int tal2 = round(random(1, maxTal));
 String operator = "+";
 
+//RegnTal objekternes hastighed og tid det tager at lave en ny
 float talTime = 4;
 float talTimer = millis();
 float talHast;
 
+//listen af alle RegnTal objekterne
 ArrayList<RegnTal> regnTal = new ArrayList<RegnTal>();
 
+//RegnTal class
 class RegnTal {
   int værdi;
   float size;
@@ -24,6 +29,7 @@ class RegnTal {
   color farve = color(100);
   boolean erLøsning = false;
   RegnTal() {
+    //chance for at tallet er svaret til regnestykket
     if (random(0, 1) > 0.3/(point/15+1)) {
       værdi = round(random(2, maxTal*2));
     } else {
@@ -32,11 +38,14 @@ class RegnTal {
     size = width*0.1;
     x = random(0, width-size);
     y = -size;
-    regnTal.add(this);
+    //sætter tal til løsning hvis det er svaret til regnestykket
     if (værdi == tal1+tal2) {
       erLøsning = true;
     }
+    //tilføjer dette objekt til listen
+    regnTal.add(this);
   }
+  //fysik for tal
   void fald() {
     y+=v*delta;
     fill(farve);
@@ -46,6 +55,7 @@ class RegnTal {
     textSize(100);
     text(værdi, x+size/2, y+size/2);
   }
+  //tjek om man trykker på den
   boolean klik() {
     if (mouseX > x && mouseX < x+size && mouseY > y && mouseY < y+size) {
       return true;
@@ -57,6 +67,7 @@ class RegnTal {
 
 void MatematikRegn() {
   background(0);
+  //tjekker hvilke state spillet er i
   if (tutorial) {
     flemming.x = width*0.4;
     flemming.y = height*0.6;
@@ -111,6 +122,7 @@ void MatematikRegn() {
     textAlign(RIGHT, CENTER);
     text("Point: "+point, width*0.95, height*0.1);
     text("Liv: "+liv, width*0.95, height*0.2);
+    //laver et nyt RegnTal objekt hvis der er gået en mængde tid
     if (millis() > talTimer+talTime*1000) {
       talTimer = millis();
       RegnTal r = new RegnTal();
@@ -119,6 +131,7 @@ void MatematikRegn() {
   flemming.tegnDyr();
 }
 
+//funktion som gør programmet klar til at starte MatRegn spillet og starter MatRegn
 void skiftTilMatRegn() {
   camX=0;
   camY=0;
