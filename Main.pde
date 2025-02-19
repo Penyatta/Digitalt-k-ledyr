@@ -48,6 +48,7 @@ void setup() {
   minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
   doodlejumpAchivements = new Achivements(10, 20, 30, 53);
   loadSkins();
+  boulderSize = width*0.05;
   strokeWeight(3);
   flemming = new Dyr();
   talHast = height*0.05;
