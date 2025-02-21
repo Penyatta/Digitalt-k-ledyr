@@ -214,7 +214,7 @@ void mousePressed() {
         tutorial = false;
         flemming.x = -width;
       }
-    } else if (liv>0) {
+    } else if (liv>0 && hulSamlingen != null) {
       if (hulSamlingen.samling1.musOver() && !ruller) {
         ruller = true;
         for (Hul hul : hulSamlingen.samling1.huller) {

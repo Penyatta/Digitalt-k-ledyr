@@ -160,7 +160,7 @@ class Boulder {
         if (hul != null) {
           newX = hul.x+valgteHulSamling.x;
         } else {
-          newX = random(valgteHulSamling.x, valgteHulSamling.x+valgteHulSamling.sizeX);
+          newX = random(valgteHulSamling.x+boulderSize/2, valgteHulSamling.x+valgteHulSamling.sizeX-boulderSize/2);
         }
       }
       if (x != newX) {
@@ -325,6 +325,9 @@ void MinusVenus() {
     textSize(width*0.05);
     fill(255);
     text(str(antalBoulders)+" sten.", width*0.95, height*0.05);
+    textAlign(LEFT, CENTER);
+    text("Point: "+point, width*0.05, height*0.1);
+    text("Liv: "+liv, width*0.05, height*0.2);
     for (int i=0; i<boulders.size(); i++) {
       if (boulders.get(i).doneRolling == true) {
         færdig = true;
@@ -337,14 +340,17 @@ void MinusVenus() {
   flemming.tegnDyr();
   if (færdig) {
     færdigTimer+=delta;
-    fill(0, 0, 0, 100);
-    rect(0, 0, width, height);
     textAlign(CENTER, CENTER);
     textSize(width*0.2);
-    fill(255);
     if (antalBoulders == tal) {
+      fill(0, 255, 0, 50);
+      rect(0, 0, width, height);
+      fill(255);
       text("Korrekt!", width/2, height/2);
     } else {
+      fill(255, 0, 0, 50);
+      rect(0, 0, width, height);
+      fill(255);
       text("Forkert!", width/2, height/2);
     }
     if (færdigTimer >= færdigTime) {
@@ -362,7 +368,7 @@ void MinusVenus() {
       for (int i=0; i<antalBoulders; i++) {
         new Boulder(random(width*0.3+width*level, width*0.7+width*level), random(height*0.8, height*0.95), color(random(100, 150), random(80, 120), random(10, 30)));
       }
-      hulSamlingen = new HulSamlingSamling(0+width*level, -height, width, height/4, round(random(0, antalBoulders-1)), round(random(0, antalBoulders-1)), true);
+      hulSamlingen = new HulSamlingSamling(0+width*level, height/2, width, height/4, round(random(0, antalBoulders-1)), round(random(0, antalBoulders-1)), true);
       if (random(10000) > 5000) {
         tal = antalBoulders-hulSamlingen.samling1.antalHuller;
       } else {
