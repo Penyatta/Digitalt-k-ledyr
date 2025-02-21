@@ -85,12 +85,11 @@ void MatematikRegn() {
     textAlign(CENTER, CENTER);
     textSize(width*0.1);
     fill(255);
-    if(point>matRegnAchivements.maxScore){
-    text("Godt gået", width*0.5, height*0.1);
-    matRegnAchivements.maxScore=point;
-    flemming.humør = "glad";
-    }
-    else{
+    if (point>=matRegnAchivements.maxScore) {
+      text("Godt gået", width*0.5, height*0.1);
+      matRegnAchivements.maxScore=point;
+      flemming.humør = "glad";
+    } else {
       text("Kom igen", width*0.5, height*0.1);
       flemming.humør = "trist";
     }

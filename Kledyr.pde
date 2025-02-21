@@ -314,3 +314,25 @@ void tjekSkins() {
   sølvSkinKnap.TjekThreshhold(lavesteMedalje);
   guldSkinKnap.TjekThreshhold(lavesteMedalje);
 }
+
+void disableSkins(){
+  blåSkinKnap.isActive = false;
+  rødSkinKnap.isActive = false;
+  grønSkinKnap.isActive = false;
+  pinkSkinKnap.isActive = false;
+  limeSkinKnap.isActive = false;
+  bronzeSkinKnap.isActive = false;
+  sølvSkinKnap.isActive = false;
+  guldSkinKnap.isActive = false;
+}
+
+void enableSkins(){
+  blåSkinKnap.isActive = true;
+  rødSkinKnap.isActive = true;
+  grønSkinKnap.isActive = true;
+  pinkSkinKnap.isActive = true;
+  limeSkinKnap.isActive = true;
+  bronzeSkinKnap.isActive = true;
+  sølvSkinKnap.isActive = true;
+  guldSkinKnap.isActive = true;
+}

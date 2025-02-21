@@ -49,6 +49,7 @@ void setup() {
   doodlejumpAchivements = new Achivements(10, 20, 30, 53);
   loadSkins();
   boulderSize = width*0.05;
+  boulderOffset = width;
   strokeWeight(3);
   flemming = new Dyr();
   talHast = height*0.05;
@@ -62,15 +63,15 @@ void setup() {
 
   //sætter parametrene til alle knapperne
   matRegnGenstartKnap = new MatRegnGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
+  minusVenusGenstartKnap = new MinusVenusGenstartKnap(width*0.5-width*0.2, height*0.7-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Genstart", 100, color(255));
   tilbageKnap = new TilbageKnap(width*0.5-width*0.2, height*0.85-height*0.05, width*0.4, height*0.1, color(100), color(120), color(80), "Tilbage", 100, color(255));
-  
+
   matRegnStartKnap = new MatRegnStartKnap(width/10+width/80, height/6*7+width/80, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Matematik regn", 50, color(255));
   minusPåVenusStartKnap = new MinusPåVenusStartKnap(width/10+width/80, height/6*7+width/80+height/10-width/200, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Minus På Venus", 50, color(255));
   gangeMedLangeKnap = new Knap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
   påMissionMedDivisionKnap = new Knap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
   doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
   //sætter hvor mange point man skal have for at få de forskellige stjerner
-
 }
 void draw() {
   //sætter delta som bruges til at sørge for at programmet kører på samme måde uanset framerate
@@ -79,13 +80,10 @@ void draw() {
   //tjekker hvor man er henne og kører den relevante funktion
   if (sted == hjem) {
     Hjem();
-  }
-  else if (sted == matRegn) {
+  } else if (sted == matRegn) {
     MatematikRegn();
-  }
-  else if (sted == minusVenus){
+  } else if (sted == minusVenus) {
     MinusVenus();
-
   }
   //blink timer
   if (millis()-blinkTimer >= blinkTime*1000) {
@@ -102,13 +100,10 @@ void draw() {
       partikler.remove(i);
     }
   }
-  if (!(sted==hjem)) {
-    //tegner de af knapperne som er aktive
-    for (int i=0; i<knapper.size(); i++) {
-      Knap knap = knapper.get(i);
-      if (knap.isActive == true) {
-        knap.tegnKnap();
-      }
+  for (int i=0; i<knapper.size(); i++) {
+    Knap knap = knapper.get(i);
+    if (knap.isActive == true) {
+      knap.tegnKnap();
     }
   }
 }
@@ -155,10 +150,7 @@ void mousePressed() {
       if (mouseX>width/20*19-height/30-camX && mouseY>height/2-width/20-camY && mouseX<width/20*19-camX && mouseY<height/2+width/20-camY) {
         rum=skinrum;
         flytterRum=true;
-        for (int i=0; i<SkinKnapper.size(); i++) {
-          Knap knap = SkinKnapper.get(i);
-          knap.isActive=true;
-        }
+        enableSkins();
         tjekSkins();
       }
       //flytter flemming til leverummet hvis pilen trykkes på og aktivere knapperne
@@ -214,13 +206,37 @@ void mousePressed() {
     }
   }
 
-  if(sted == minusVenus){
+  if (sted == minusVenus) {
     if (tutorial) {
       if (side+1 < minusVenusSider.length) {
         side += 1;
       } else {
         tutorial = false;
         flemming.x = -width;
+      }
+    } else if (liv>0) {
+      if (hulSamlingen.samling1.musOver() && !ruller) {
+        ruller = true;
+        for (Hul hul : hulSamlingen.samling1.huller) {
+          int i = round(random(0, boulders.size()-1));
+          while (boulders.get(i).hul != null) {
+            i = round(random(0, boulders.size()-1));
+          }
+          hul.sten = boulders.get(i);
+          boulders.get(i).hul = hul;
+        }
+        valgteHulSamling = hulSamlingen.samling1;
+      } else if (hulSamlingen.samling2.musOver() && !ruller) {
+        ruller = true;
+        for (Hul hul : hulSamlingen.samling2.huller) {
+          int i = round(random(0, boulders.size()-1));
+          while (boulders.get(i).hul != null) {
+            i = round(random(0, boulders.size()-1));
+          }
+          hul.sten = boulders.get(i);
+          boulders.get(i).hul = hul;
+        }
+        valgteHulSamling = hulSamlingen.samling2;
       }
     }
   }

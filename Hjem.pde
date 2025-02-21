@@ -8,12 +8,6 @@ void Hjem() {
   fill(50);
   rect(-10-camX, height*1.8-camY, width+width+21, height*0.2);
   tavlen();
-  for (int i=0; i<knapper.size(); i++) {
-      Knap knap = knapper.get(i);
-      if (knap.isActive == true) {
-        knap.tegnKnap();
-      }
-    }
   flemming.tegnDyr();
   tegnMadDrikke();
   tunge();
@@ -69,10 +63,7 @@ void Hjem() {
     camX=lerp(camX, 0, 0.05);
     if (camY>=height-0.1 && camX<=0.1) {
       flytterRum=false;
-      for (int i=0; i<SkinKnapper.size(); i++) {
-          Knap knap = SkinKnapper.get(i);
-            knap.isActive=true;
-        }
+      enableSkins();
     }
   }
   //styrer flemming og kameraet når det flytter mod skinrummet
@@ -93,10 +84,7 @@ void Hjem() {
     camX=lerp(camX, 0, 0.05);
     if (camY<=0.1 && camX<=0.1) {
       flytterRum=false;
-      for (int i=0; i<SkinKnapper.size(); i++) {
-          Knap knap = SkinKnapper.get(i);
-            knap.isActive=true;
-        }
+      enableSkins();
     }
   }
 }
@@ -120,4 +108,5 @@ void skiftTilHjem() {
   flemming.y = height*0.6;
   flemming.sizeX = width/4;
   flemming.sizeY = height/4;
+  enableSkins();
 }

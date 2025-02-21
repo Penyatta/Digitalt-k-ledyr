@@ -78,6 +78,7 @@ class MinusVenusGenstartKnap extends Knap {
     tutorial = false;
     minusVenusGenstartKnap.isActive = false;
     tilbageKnap.isActive = false;
+    flemming.x = -width;
   }
 }
 
@@ -115,10 +116,7 @@ class MatRegnStartKnap extends Knap {
     }
     //gør så tungen ikke vises hvis den var i brug
     flemming.tungeIBrug=false;
-    for (int i=0; i<SkinKnapper.size(); i++) {
-      Knap knap = SkinKnapper.get(i);
-      knap.isActive=true;
-    }
+    disableSkins();
     skiftTilMatRegn();
   }
   @Override
@@ -178,10 +176,6 @@ class MinusPåVenusStartKnap extends Knap {
     //gør så tungen ikke vises hvis den var i brug
     flemming.tungeIBrug=false;
     skiftTilMinusVenus();
-    for (int i=0; i<SkinKnapper.size(); i++) {
-      Knap knap = SkinKnapper.get(i);
-      knap.isActive=true;
-    }
     camX=0;
     camY=0;
   }
@@ -254,8 +248,6 @@ VælgSkinKnap bronzeSkinKnap;
 VælgSkinKnap sølvSkinKnap;
 VælgSkinKnap guldSkinKnap;
 
-ArrayList<Knap> SkinKnapper = new ArrayList<Knap>();
-
 class VælgSkinKnap extends Knap {
   int nummer;
   int threshHold;
@@ -265,7 +257,7 @@ class VælgSkinKnap extends Knap {
     nummer=NUMMER;
     threshHold=THRESHHOLD;
     y=y+nummer*sizeY;
-    SkinKnapper.add(this);
+    knapper.add(this);
   }
   @Override
     void klik() {
