@@ -45,8 +45,7 @@ void setup() {
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
   matRegnAchivements = new Achivements(10, 20, 30, 57);
-  minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
-  doodlejumpAchivements = new Achivements(10, 20, 30, 53);
+  minusPåVenusAchivements = new Achivements(20, 40, 60, 172);
   loadSkins();
   boulderSize = width*0.05;
   boulderOffset = width;
@@ -70,7 +69,7 @@ void setup() {
   minusPåVenusStartKnap = new MinusPåVenusStartKnap(width/10+width/80, height/6*7+width/80+height/10-width/200, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Minus På Venus", 50, color(255));
   gangeMedLangeKnap = new Knap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*2, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Gange Med Lange - comming never", 50, color(255));
   påMissionMedDivisionKnap = new Knap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*3, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "På mission med division - comming never", 50, color(255));
-  doodlejumpStartKnap = new DoodlejumpStartKnap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob", 50, color(255));
+  doodlejumpStartKnap = new Knap(width/10+width/80, height/6*7+width/80+(height/10-width/200)*4, width/3*2-width/40, height/10-width/200, color(0), color(20), color(40), "Hop med Bob - comming never", 50, color(255));
   //sætter hvor mange point man skal have for at få de forskellige stjerner
 }
 void draw() {
