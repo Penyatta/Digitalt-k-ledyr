@@ -65,13 +65,13 @@ class Hjerte extends Partikel {
   Hjerte(float x, float y) {
     // gør at hjerter kun kan have negativ y hastighed så de stiger
     super(x, y);
-    this.vx *= 0.5;
-    this.vy = random(-1, 0);
+    this.vx *= 1;
+    this.vy = random(-2, 0);
   }
 
   @Override
     void tegn() {
-    float l = sqrt(pow(vx, 2)+pow(vy, 2))*random(100, 500)*delta;
+    float l = sqrt(pow(vx, 2)+pow(vy, 2))*random(50, 250)*delta;
     vx /= l;
     vy /= l;
     pushMatrix();

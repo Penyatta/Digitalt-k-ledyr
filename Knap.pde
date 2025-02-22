@@ -219,17 +219,7 @@ class MinusPåVenusStartKnap extends Knap {
 
 Knap gangeMedLangeKnap;
 Knap påMissionMedDivisionKnap;
-
-DoodlejumpStartKnap doodlejumpStartKnap;
-
-class DoodlejumpStartKnap extends Knap {
-  DoodlejumpStartKnap(float X, float Y, float SIZEX, float SIZEY, color FARVE, color HOVERFARVE, color KLIKFARVE, String TEKST, float TEKSTSIZE, color TEKSTFARVE) {
-    super(X, Y, SIZEX, SIZEY, FARVE, HOVERFARVE, KLIKFARVE, TEKST, TEKSTSIZE, TEKSTFARVE);
-  }
-  @Override
-    void klik() {
-  }
-}
+Knap doodlejumpStartKnap;
 
 void slukTændSpilKnapper(boolean SlukEllerTænd) {
   matRegnStartKnap.isActive=SlukEllerTænd;
