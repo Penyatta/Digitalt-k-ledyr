@@ -88,6 +88,7 @@ void MatematikRegn() {
     if (point>=matRegnAchivements.maxScore) {
       text("Godt gået", width*0.5, height*0.1);
       matRegnAchivements.maxScore=point;
+      highscores.setInt("Matematik Regn highscore", point);
       flemming.humør = "glad";
     } else {
       text("Kom igen", width*0.5, height*0.1);
@@ -124,7 +125,7 @@ void MatematikRegn() {
     //laver et nyt RegnTal objekt hvis der er gået en mængde tid
     if (millis() > talTimer+talTime*1000) {
       talTimer = millis();
-      RegnTal r = new RegnTal();
+      new RegnTal();
     }
   }
   flemming.tegnDyr();

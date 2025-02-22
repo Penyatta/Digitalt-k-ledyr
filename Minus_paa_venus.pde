@@ -234,6 +234,7 @@ void MinusVenus() {
     if (point>=minusPåVenusAchivements.maxScore) {
       text("Godt gået", width*0.5, height*0.1);
       minusPåVenusAchivements.maxScore=point;
+      highscores.setInt("Minus På Venus highscore", point);
       flemming.humør = "glad";
     } else {
       text("Kom igen", width*0.5, height*0.1);
@@ -354,13 +355,12 @@ void MinusVenus() {
       text("Forkert!", width/2, height/2);
     }
     if (færdigTimer >= færdigTime) {
-      println(":D");
       forrigeHulSamling = hulSamlingen;
       valgteHulSamling = null;
       if (antalBoulders == tal) {
         maxTal += 1;
         point += 1;
-      } else {
+      } else if(antalBoulders != tal) {
         liv-=1;
       }
       level += 1;

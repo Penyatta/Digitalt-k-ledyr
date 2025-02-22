@@ -28,6 +28,8 @@ int skin=0;
 
 boolean flytterRum=false;
 
+JSONObject highscores;
+
 boolean isNan(float val) {
   return val != val;
 }
@@ -40,13 +42,19 @@ int point = 0;
 int liv = 3;
 
 void setup() {
+  highscores = loadJSONObject("data/highscores.json");
+  if(highscores == null){
+    highscores = new JSONObject();
+    highscores.setInt("Matematik Regn highscore", 0);
+    highscores.setInt("Minus På Venus highscore", 0);
+    saveJSONObject(highscores, "data/highscores.json");
+  }
   fullScreen();
   frameRate(100);
   Madskål=loadImage("Madskål.png");
   WaterBottle=loadImage("HamsterWater5.0.png");
-  matRegnAchivements = new Achivements(10, 20, 30, 57);
-  minusPåVenusAchivements = new Achivements(10, 20, 30, 53);
-  doodlejumpAchivements = new Achivements(10, 20, 30, 53);
+  matRegnAchivements = new Achivements(10, 20, 30, 57, highscores.getInt("Matematik Regn highscore"));
+  minusPåVenusAchivements = new Achivements(10, 20, 30, 53, highscores.getInt("Minus På Venus highscore"));
   loadSkins();
   boulderSize = width*0.05;
   boulderOffset = width;
@@ -106,6 +114,10 @@ void draw() {
       knap.tegnKnap();
     }
   }
+}
+
+void exit(){
+  saveJSONObject(highscores, "data/highscores.json");
 }
 
 void mousePressed() {
